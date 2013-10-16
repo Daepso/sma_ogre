@@ -1,35 +1,5 @@
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
-[Bb]in/Debug/*
-![Bb]in/Debug/
-![Bb]in/Debug/cg.dll
-![Bb]in/Debug/media.cfg
-![Bb]in/Debug/Mogre.xml
-![Bb]in/Debug/Mogre_d.dll
-![Bb]in/Debug/OgreMian_d.dll
-![Bb]in/Debug/Plugin_BSPSceneManager_d.dll
-![Bb]in/Debug/Plugin_CgProgramManager_d.dll
-![Bb]in/Debug/Plugin_OctreeSceneManager_d.dll
-![Bb]in/Debug/Plugin_ParticleFX_d.dll
-![Bb]in/Debug/plugins.cfg
-![Bb]in/Debug/RenderSystem_Direct3D9_d.dll
-![Bb]in/Debug/RenderSystem_GL_d.dll
-![Bb]in/Debug/resources.cfg
-![Bb]in/Debug/sma-ogre.vshost.exe
-[Bb]in/Release/*
-![Bb]in/Release/cg.dll
-![Bb]in/Release/media.cfg
-![Bb]in/Release/Mogre.xml
-![Bb]in/Release/Mogre_d.dll
-![Bb]in/Release/OgreMian_d.dll
-![Bb]in/Release/Plugin_BSPSceneManager_d.dll
-![Bb]in/Release/Plugin_CgProgramManager_d.dll
-![Bb]in/Release/Plugin_OctreeSceneManager_d.dll
-![Bb]in/Release/Plugin_ParticleFX_d.dll
-![Bb]in/Release/plugins.cfg
-![Bb]in/Release/RenderSystem_Direct3D9_d.dll
-![Bb]in/Release/RenderSystem_GL_d.dll
-![Bb]in/Release/resources.cfg
-
+[Bb]in/
 [Oo]bj/
 
 # mstest test results
