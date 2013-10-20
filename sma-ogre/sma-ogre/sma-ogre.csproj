@@ -34,6 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="Media\materials\scripts\" />
+    <Folder Include="Media\materials\textures\" />
     <Folder Include="Media\models\" />
     <Folder Include="Media\packs\" />
   </ItemGroup>
@@ -41,6 +43,14 @@
     <Reference Include="Mogre">
       <HintPath>bin\Release\Mogre.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="OgreApp.cs" />
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
