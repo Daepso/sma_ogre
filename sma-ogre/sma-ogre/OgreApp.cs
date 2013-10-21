@@ -11,6 +11,9 @@ namespace sma_ogre
     {
         protected static Root mRoot;
         protected static RenderWindow mRenderWindow;
+        protected static MOIS.InputManager mInputMgr;
+        protected static MOIS.Keyboard mKeyboard;
+        protected static MOIS.Mouse mMouse;
         protected static float mTimer = 5;
 
         protected static void CreateRoot()
@@ -40,13 +43,30 @@ namespace sma_ogre
 
         protected static void CreateRenderWindow()
         {
-            mRenderWindow = mRoot.Initialise(true, "Main Ogre Window");
+            mRenderWindow = mRoot.Initialise(true, "Main_Ogre_Window");
         }
 
         protected static void InitializeResources()
         {
             TextureManager.Singleton.DefaultNumMipmaps = 5;
             ResourceGroupManager.Singleton.InitialiseAllResourceGroups();
+        }
+
+        protected static void InitializeInput()
+        {
+            int windowHandle;
+            mRenderWindow.GetCustomAttribute("WINDOW", out windowHandle);
+            try
+            {
+                mInputMgr = MOIS.InputManager.CreateInputSystem((uint)windowHandle);
+            }
+            catch (System.Runtime.InteropServices.SEHException e)
+            {
+                Console.Out.WriteLine(e.ToString());
+            }
+
+            mKeyboard = (MOIS.Keyboard)mInputMgr.CreateInputObject(MOIS.Type.OISKeyboard, false);
+            mMouse = (MOIS.Mouse)mInputMgr.CreateInputObject(MOIS.Type.OISMouse, false);
         }
 
         protected static void CreateScene()
@@ -74,8 +94,16 @@ namespace sma_ogre
 
         static bool OnFrameRenderingQueued(FrameEvent evt)
         {
-            mTimer -= evt.timeSinceLastFrame;
-            return (mTimer > 0);
+           mKeyboard.Capture();
+           mMouse.Capture();
+
+           if (mKeyboard.IsKeyDown(MOIS.KeyCode.KC_Q))
+           {
+               return false;
+           }
+            
+           
+           return true;
         }
 
         protected static void EnterRenderLoop()

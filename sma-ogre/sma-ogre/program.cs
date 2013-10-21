@@ -18,6 +18,7 @@ namespace sma_ogre
                 CreateRenderSystem();
                 CreateRenderWindow(); 
                 InitializeResources();
+                InitializeInput();
                 CreateScene();
                 CreateFrameListeners();
                 EnterRenderLoop();
