@@ -94,16 +94,15 @@ namespace sma_ogre
 
         static bool OnFrameRenderingQueued(FrameEvent evt)
         {
-           mKeyboard.Capture();
-           mMouse.Capture();
+            mKeyboard.Capture();
+            mMouse.Capture();
 
-           if (mKeyboard.IsKeyDown(MOIS.KeyCode.KC_Q))
-           {
-               return false;
-           }
-            
-           
-           return true;
+            if (mKeyboard.IsKeyDown(MOIS.KeyCode.KC_Q))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         protected static void EnterRenderLoop()
