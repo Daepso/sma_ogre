@@ -50,6 +50,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CameraRTS.cs" />
     <Compile Include="OgreApp.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>

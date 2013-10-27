@@ -14,7 +14,7 @@ namespace sma_ogre
         protected static MOIS.InputManager mInputMgr;
         protected static MOIS.Keyboard mKeyboard;
         protected static MOIS.Mouse mMouse;
-        protected static float mTimer = 5;
+        protected static CameraRTS mainCamera;
 
         protected static void CreateRoot()
         {
@@ -72,10 +72,8 @@ namespace sma_ogre
         protected static void CreateScene()
         {
             SceneManager sceneMgr = mRoot.CreateSceneManager(SceneType.ST_GENERIC);
-            Camera camera = sceneMgr.CreateCamera("Camera");
-            camera.Position = new Vector3(0, 0, 150);
-            camera.LookAt(Vector3.ZERO);
-            mRenderWindow.AddViewport(camera);
+            mainCamera = new CameraRTS(sceneMgr);
+            mainCamera.display(mRenderWindow);
 
             Entity ogreHead = sceneMgr.CreateEntity("Head", "ogrehead.mesh");
             SceneNode headNode = sceneMgr.RootSceneNode.CreateChildSceneNode();
@@ -101,6 +99,31 @@ namespace sma_ogre
             {
                 return false;
             }
+
+            // Move camera forward.
+            if (mKeyboard.IsKeyDown(MOIS.KeyCode.KC_UP))
+                mainCamera.translatePosition(0, -1, 0);
+ 
+            // Move camera backward.
+            if(mKeyboard.IsKeyDown(MOIS.KeyCode.KC_DOWN))
+                mainCamera.translatePosition(0, 1, 0);
+ 
+            // Move camera left.
+            if(mKeyboard.IsKeyDown(MOIS.KeyCode.KC_LEFT))
+                mainCamera.translatePosition(1, 0, 0);
+ 
+            // Move camera right.
+            if (mKeyboard.IsKeyDown(MOIS.KeyCode.KC_RIGHT))
+                mainCamera.translatePosition(-1, 0, 0);
+
+            mainCamera.updatePosition(evt.timeSinceLastFrame);
+
+            
+            if (mMouse.MouseState.ButtonDown(MOIS.MouseButtonID.MB_Right))
+            {
+                mainCamera.updateRotation(mMouse.MouseState.X.rel, mMouse.MouseState.Y.rel, evt.timeSinceLastFrame);
+            }    
+            
 
             return true;
         }
