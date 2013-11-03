@@ -8,15 +8,7 @@ namespace sma_ogre
         {
             try
             {
-                CreateRoot();
-                DefineResources();
-                CreateRenderSystem();
-                CreateRenderWindow(); 
-                InitializeResources();
-                InitializeInput();
-                CreateScene();
-                CreateFrameListeners();
-                EnterRenderLoop();
+                new Program().Launch();
             }
             catch (OperationCanceledException) 
             { 

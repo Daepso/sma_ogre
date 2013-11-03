@@ -5,19 +5,34 @@ namespace sma_ogre
 {
     class OgreApp
     {
-        protected static Root              mRoot;
-        protected static RenderWindow      mRenderWindow;
-        protected static MOIS.InputManager mInputMgr;
-        protected static MOIS.Keyboard     mKeyboard;
-        protected static MOIS.Mouse        mMouse;
-        protected static CameraRTS         mainCamera;
+        protected Root              mRoot;
+        protected RenderWindow      mRenderWindow;
+        protected MOIS.InputManager mInputMgr;
+        protected MOIS.Keyboard     mKeyboard;
+        protected MOIS.Mouse        mMouse;
+        protected CameraRTS         mainCamera;
 
-        protected static void CreateRoot()
+        public void Launch()
+        {
+            CreateRoot();
+            DefineResources();
+            CreateRenderSystem();
+            CreateRenderWindow();
+            InitializeResources();
+            InitializeInput();
+
+            CreateScene();
+
+            CreateFrameListeners();
+            EnterRenderLoop();
+        }
+
+        protected void CreateRoot()
         {
             mRoot = new Root();
         }
 
-        protected static void DefineResources()
+        protected void DefineResources()
         {
             ConfigFile cf = new ConfigFile();
             cf.Load("resources.cfg", "\t:=", true);
@@ -31,24 +46,24 @@ namespace sma_ogre
             }
         }
 
-        protected static void CreateRenderSystem()
+        protected void CreateRenderSystem()
         {
             if (!mRoot.ShowConfigDialog())
                 throw new OperationCanceledException();
         }
 
-        protected static void CreateRenderWindow()
+        protected void CreateRenderWindow()
         {
             mRenderWindow = mRoot.Initialise(true, "Main_Ogre_Window");
         }
 
-        protected static void InitializeResources()
+        protected void InitializeResources()
         {
             TextureManager.Singleton.DefaultNumMipmaps = 5;
             ResourceGroupManager.Singleton.InitialiseAllResourceGroups();
         }
 
-        protected static void InitializeInput()
+        protected void InitializeInput()
         {
             int windowHandle;
             mRenderWindow.GetCustomAttribute("WINDOW", out windowHandle);
@@ -65,7 +80,7 @@ namespace sma_ogre
             mMouse = (MOIS.Mouse)mInputMgr.CreateInputObject(MOIS.Type.OISMouse, false);
         }
 
-        protected static void CreateScene()
+        protected virtual void CreateScene()
         {
             SceneManager sceneMgr = mRoot.CreateSceneManager(SceneType.ST_GENERIC);
             mainCamera = new CameraRTS(sceneMgr);
@@ -81,12 +96,12 @@ namespace sma_ogre
             l.Position = new Vector3(20, 80, 50);
         }
 
-        protected static void CreateFrameListeners()
+        protected void CreateFrameListeners()
         {
             mRoot.FrameRenderingQueued += new FrameListener.FrameRenderingQueuedHandler(OnFrameRenderingQueued);
         }
 
-        static bool OnFrameRenderingQueued(FrameEvent evt)
+        protected bool OnFrameRenderingQueued(FrameEvent evt)
         {
             mKeyboard.Capture();
             mMouse.Capture();
@@ -127,7 +142,7 @@ namespace sma_ogre
             return true;
         }
 
-        protected static void EnterRenderLoop()
+        protected void EnterRenderLoop()
         {
             mRoot.StartRendering();
         }
