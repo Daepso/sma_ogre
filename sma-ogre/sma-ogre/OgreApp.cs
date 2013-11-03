@@ -91,26 +91,31 @@ namespace sma_ogre
             mKeyboard.Capture();
             mMouse.Capture();
 
-            if (mKeyboard.IsKeyDown(MOIS.KeyCode.KC_Q))
+            if (mRenderWindow.IsClosed)
+            {
+                return false;
+            }
+
+            if (mKeyboard.IsKeyDown(MOIS.KeyCode.KC_ESCAPE))
             {
                 return false;
             }
 
             // Move camera forward.
             if (mKeyboard.IsKeyDown(MOIS.KeyCode.KC_UP))
-                mainCamera.translatePosition(0, -1, 0);
+                mainCamera.translatePosition(0, 1, 0);
  
             // Move camera backward.
             if(mKeyboard.IsKeyDown(MOIS.KeyCode.KC_DOWN))
-                mainCamera.translatePosition(0, 1, 0);
+                mainCamera.translatePosition(0, -1, 0);
  
             // Move camera left.
             if(mKeyboard.IsKeyDown(MOIS.KeyCode.KC_LEFT))
-                mainCamera.translatePosition(1, 0, 0);
+                mainCamera.translatePosition(-1, 0, 0);
  
             // Move camera right.
             if (mKeyboard.IsKeyDown(MOIS.KeyCode.KC_RIGHT))
-                mainCamera.translatePosition(-1, 0, 0);
+                mainCamera.translatePosition(1, 0, 0);
 
             mainCamera.updatePosition(evt.timeSinceLastFrame);
 

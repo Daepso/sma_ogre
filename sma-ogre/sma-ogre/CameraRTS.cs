@@ -7,7 +7,7 @@ namespace sma_ogre
         private Camera  camera;
         private Vector3 nextTranslation;
         private float   translateSpeed = 100;
-        private float   rotateSpeed    = 100;
+        private float   rotateSpeed    = 0.15f;
 
         public CameraRTS(SceneManager sceneMgr)
         {
@@ -20,7 +20,11 @@ namespace sma_ogre
 
         public void display(RenderWindow mRenderWindow)
         {
-            mRenderWindow.AddViewport(camera);
+            // Create one viewport, entire window
+            var vp = mRenderWindow.AddViewport(camera);
+
+            // Alter the camera aspect ratio to match the viewport
+            camera.AspectRatio = (vp.ActualWidth / vp.ActualHeight);
         }
 
         public void translatePosition(int x, int y, int z)
@@ -41,8 +45,8 @@ namespace sma_ogre
 
         public void updateRotation(int x, int y, float elapsedTime)
         {
-            camera.Roll(new Degree(x * elapsedTime * rotateSpeed));
-            camera.Pitch(new Degree(y * elapsedTime * rotateSpeed));
+            camera.Yaw(new Degree(-x * rotateSpeed));
+            camera.Pitch(new Degree(-y * rotateSpeed));
         }
     }
 }
