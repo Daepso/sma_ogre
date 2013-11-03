@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Mogre;
+﻿using Mogre;
+using System;
 
 namespace sma_ogre
 {
     class OgreApp
     {
-        protected static Root mRoot;
-        protected static RenderWindow mRenderWindow;
+        protected static Root              mRoot;
+        protected static RenderWindow      mRenderWindow;
         protected static MOIS.InputManager mInputMgr;
-        protected static MOIS.Keyboard mKeyboard;
-        protected static MOIS.Mouse mMouse;
-        protected static CameraRTS mainCamera;
+        protected static MOIS.Keyboard     mKeyboard;
+        protected static MOIS.Mouse        mMouse;
+        protected static CameraRTS         mainCamera;
 
         protected static void CreateRoot()
         {
@@ -118,12 +114,10 @@ namespace sma_ogre
 
             mainCamera.updatePosition(evt.timeSinceLastFrame);
 
-            
             if (mMouse.MouseState.ButtonDown(MOIS.MouseButtonID.MB_Right))
             {
                 mainCamera.updateRotation(mMouse.MouseState.X.rel, mMouse.MouseState.Y.rel, evt.timeSinceLastFrame);
             }    
-            
 
             return true;
         }

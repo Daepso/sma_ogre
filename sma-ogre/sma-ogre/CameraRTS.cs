@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Mogre;
+﻿using Mogre;
 
 namespace sma_ogre
 {
     class CameraRTS
     {
-        private Camera camera;
+        private Camera  camera;
         private Vector3 nextTranslation;
-        private float translateSpeed = 100;
-        private float rotateSpeed = 100;
-
+        private float   translateSpeed = 100;
+        private float   rotateSpeed    = 100;
 
         public CameraRTS(SceneManager sceneMgr)
         {
@@ -22,7 +16,6 @@ namespace sma_ogre
             camera.SetDirection(0, 0, -1);
 
             nextTranslation = new Vector3(0, 0, 0);
-
         }
 
         public void display(RenderWindow mRenderWindow)
@@ -48,9 +41,8 @@ namespace sma_ogre
 
         public void updateRotation(int x, int y, float elapsedTime)
         {
-                camera.Roll(new Degree(x * elapsedTime * rotateSpeed));
-                camera.Pitch(new Degree(y * elapsedTime * rotateSpeed));
+            camera.Roll(new Degree(x * elapsedTime * rotateSpeed));
+            camera.Pitch(new Degree(y * elapsedTime * rotateSpeed));
         }
-
     }
 }
