@@ -25,7 +25,7 @@ namespace sma_ogre
 
         public Agent makeAgent(bool useRandPos)
         {
-			Vector3 pos = new Vector3(0, 0, 0);
+			Vector3 pos = new Vector3(0, 30, 0);
 
 			if (useRandPos) {
 				System.Random rnd = new System.Random();
