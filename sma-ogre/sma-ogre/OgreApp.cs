@@ -3,14 +3,11 @@ using System;
 
 namespace sma_ogre
 {
-    class OgreApp
+    partial class OgreApp
     {
         protected Root              mRoot;
         protected SceneManager      mSceneMgr;
         protected RenderWindow      mRenderWindow;
-        protected MOIS.InputManager mInputMgr;
-        protected MOIS.Keyboard     mKeyboard;
-        protected MOIS.Mouse        mMouse;
         protected Camera            mCamera;
         protected CameraRTS         mCameraRTS;
 
@@ -68,23 +65,6 @@ namespace sma_ogre
             ResourceGroupManager.Singleton.InitialiseAllResourceGroups();
         }
 
-        protected void InitializeInput()
-        {
-            int windowHandle;
-            mRenderWindow.GetCustomAttribute("WINDOW", out windowHandle);
-            try
-            {
-                mInputMgr = MOIS.InputManager.CreateInputSystem((uint)windowHandle);
-            }
-            catch (System.Runtime.InteropServices.SEHException e)
-            {
-                Console.Out.WriteLine(e.ToString());
-            }
-
-            mKeyboard = (MOIS.Keyboard)mInputMgr.CreateInputObject(MOIS.Type.OISKeyboard, false);
-            mMouse = (MOIS.Mouse)mInputMgr.CreateInputObject(MOIS.Type.OISMouse, false);
-        }
-
         protected virtual void ChooseSceneManager()
         {
             mSceneMgr = mRoot.CreateSceneManager(SceneType.ST_GENERIC);
@@ -129,9 +109,6 @@ namespace sma_ogre
 
         protected bool OnFrameRenderingQueued(FrameEvent evt)
         {
-            mKeyboard.Capture();
-            mMouse.Capture();
-
             if (mRenderWindow.IsClosed)
             {
                 return false;
@@ -142,28 +119,11 @@ namespace sma_ogre
                 return false;
             }
 
-            // Move camera forward.
-            if (mKeyboard.IsKeyDown(MOIS.KeyCode.KC_UP))
-                mCameraRTS.TranslatePosition(0, 1, 0);
- 
-            // Move camera backward.
-            if(mKeyboard.IsKeyDown(MOIS.KeyCode.KC_DOWN))
-                mCameraRTS.TranslatePosition(0, -1, 0);
- 
-            // Move camera left.
-            if(mKeyboard.IsKeyDown(MOIS.KeyCode.KC_LEFT))
-                mCameraRTS.TranslatePosition(-1, 0, 0);
- 
-            // Move camera right.
-            if (mKeyboard.IsKeyDown(MOIS.KeyCode.KC_RIGHT))
-                mCameraRTS.TranslatePosition(1, 0, 0);
+            ProcessInput();
+
+            UpdateScene(evt);
 
             mCameraRTS.UpdatePosition(evt.timeSinceLastFrame);
-
-            if (mMouse.MouseState.ButtonDown(MOIS.MouseButtonID.MB_Right))
-            {
-                mCameraRTS.UpdateRotation(mMouse.MouseState.X.rel, mMouse.MouseState.Y.rel, evt.timeSinceLastFrame);
-            }    
 
             return true;
         }
@@ -171,6 +131,10 @@ namespace sma_ogre
         protected void EnterRenderLoop()
         {
             mRoot.StartRendering();
+        }
+
+        protected virtual void UpdateScene(FrameEvent evt)
+        {
         }
     }
 }

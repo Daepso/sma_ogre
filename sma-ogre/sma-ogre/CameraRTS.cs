@@ -32,7 +32,7 @@ namespace sma_ogre
             nextTranslation.z = 0;
         }
 
-        public void UpdateRotation(int x, int y, float elapsedTime)
+        public void UpdateRotation(int x, int y)
         {
             mCamera.Yaw(new Degree(-x * rotateSpeed));
             mCamera.Pitch(new Degree(-y * rotateSpeed));
