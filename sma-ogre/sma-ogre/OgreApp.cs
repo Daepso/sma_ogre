@@ -6,6 +6,7 @@ namespace sma_ogre
     class OgreApp
     {
         protected Root              mRoot;
+        protected SceneManager      mSceneMgr;
         protected RenderWindow      mRenderWindow;
         protected MOIS.InputManager mInputMgr;
         protected MOIS.Keyboard     mKeyboard;
@@ -21,6 +22,8 @@ namespace sma_ogre
             InitializeResources();
             InitializeInput();
 
+            ChooseSceneManager();
+            CreateCamera();
             CreateScene();
 
             CreateFrameListeners();
@@ -80,19 +83,26 @@ namespace sma_ogre
             mMouse = (MOIS.Mouse)mInputMgr.CreateInputObject(MOIS.Type.OISMouse, false);
         }
 
+        protected virtual void ChooseSceneManager()
+        {
+            mSceneMgr = mRoot.CreateSceneManager(SceneType.ST_GENERIC);
+        }
+
+        protected virtual void CreateCamera()
+        {
+            mainCamera = new CameraRTS(mSceneMgr);
+            mainCamera.display(mRenderWindow);
+        }
+
         protected virtual void CreateScene()
         {
-            SceneManager sceneMgr = mRoot.CreateSceneManager(SceneType.ST_GENERIC);
-            mainCamera = new CameraRTS(sceneMgr);
-            mainCamera.display(mRenderWindow);
-
-            Entity ogreHead = sceneMgr.CreateEntity("Head", "ogrehead.mesh");
-            SceneNode headNode = sceneMgr.RootSceneNode.CreateChildSceneNode();
+            Entity ogreHead = mSceneMgr.CreateEntity("Head", "ogrehead.mesh");
+            SceneNode headNode = mSceneMgr.RootSceneNode.CreateChildSceneNode();
             headNode.AttachObject(ogreHead);
 
-            sceneMgr.AmbientLight = new ColourValue(0.5f, 0.5f, 0.5f);
+            mSceneMgr.AmbientLight = new ColourValue(0.5f, 0.5f, 0.5f);
 
-            Light l = sceneMgr.CreateLight("MainLight");
+            Light l = mSceneMgr.CreateLight("MainLight");
             l.Position = new Vector3(20, 80, 50);
         }
 
