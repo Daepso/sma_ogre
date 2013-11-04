@@ -66,6 +66,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CameraRTS.cs" />
+    <Compile Include="Agent.cs" />
+    <Compile Include="AgentFactory.cs" />
     <Compile Include="OgreApp.input.cs" />
     <Compile Include="OgreApp.cs" />
     <Compile Include="Program.cs" />
