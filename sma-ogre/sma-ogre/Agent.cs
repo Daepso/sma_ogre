@@ -10,25 +10,25 @@ namespace sma_ogre
         private Random rnd;
         private Vector3 move;
         int speed;
-
+        private static int ID = 0;
 
         public Agent(SceneManager sceneMgr, string meshName)
         {
             mEntity     = sceneMgr.CreateEntity(meshName);
             mEntityNode = sceneMgr.RootSceneNode.CreateChildSceneNode();
             mEntityNode.AttachObject(mEntity);
-            rnd = new Random();
+            rnd = new Random(ID++);
 
             move = new Vector3(0, 0, 0);
-            move.x = (float)rnd.NextDouble();
-            move.z = (float)rnd.NextDouble();
+            move.x = (float)rnd.NextDouble() - 0.5f;
+            move.z = (float)rnd.NextDouble() - 0.5f;
 
-            speed = rnd.Next(100);
+            speed = rnd.Next(10, 100);
         }
 
         public Agent(SceneManager sceneMgr, string meshName, Vector3 position) : this(sceneMgr, meshName)
         {
-			mEntityNode.Position = position;
+            mEntityNode.Position = position;
         }
 
         public void React(FrameEvent evt)

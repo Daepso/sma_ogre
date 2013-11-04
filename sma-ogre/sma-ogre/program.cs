@@ -25,12 +25,7 @@ namespace sma_ogre
 
             mOgreFactory = AgentFactory.OgreFactory(mSceneMgr);
 
-            Agent ogre  = mOgreFactory.MakeAgent(true);
-            //Agent ogre2 = mOgreFactory.MakeAgent(true );
-            //Agent ogre3 = mOgreFactory.MakeAgent(true );
-            //Agent ogre4 = mOgreFactory.MakeAgent(true );
-            //Agent ogre5 = mOgreFactory.MakeAgent(true );
-            //Agent ogre6 = mOgreFactory.MakeAgent(true );
+            mOgreFactory.MakeNumAgents(100, true);
         }
 
         protected override void UpdateScene(FrameEvent evt)

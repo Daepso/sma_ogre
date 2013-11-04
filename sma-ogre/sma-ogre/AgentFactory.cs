@@ -8,32 +8,28 @@ namespace sma_ogre
         private SceneManager mSceneMgr;
         private string       mMeshName;
         private List<Agent>  mAgents;
+        private System.Random rnd;
 
         private AgentFactory(SceneManager sceneMgr, string meshName)
         {
             mSceneMgr = sceneMgr;
-			mMeshName = meshName;
+            mMeshName = meshName;
             mAgents = new List<Agent>();
+            rnd = new System.Random();
         }
 
-		public static AgentFactory OgreFactory(SceneManager sceneMgr)
+        public static AgentFactory OgreFactory(SceneManager sceneMgr)
         {
             return new AgentFactory(sceneMgr, "ogrehead.mesh");
         }
 
-        public Agent MakeAgent()
-        {
-            return MakeAgent(false);
-        }
-
-        public Agent MakeAgent(bool useRandPos)
+        public Agent MakeAgent(bool useRandPos = false)
         {
             Vector3 pos = new Vector3(0, 0, 0);
 
             if (useRandPos)
             {
-                System.Random rnd = new System.Random();
-                pos.x = rnd.Next(-100, 100);
+                pos.x = rnd.Next(-300, 300);
                 pos.z = rnd.Next(-300, 300);
             }
 
@@ -41,6 +37,14 @@ namespace sma_ogre
             mAgents.Add(agent);
 
             return agent;
+        }
+
+        public void MakeNumAgents(int agentNumber, bool useRandPos = false)
+        {
+            for (int i = 0; i < agentNumber; i++)
+            {
+                MakeAgent(useRandPos);
+            }
         }
 
         public void UpdateAgentsAction(FrameEvent evt)
