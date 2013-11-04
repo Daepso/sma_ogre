@@ -11,7 +11,8 @@ namespace sma_ogre
         protected MOIS.InputManager mInputMgr;
         protected MOIS.Keyboard     mKeyboard;
         protected MOIS.Mouse        mMouse;
-        protected CameraRTS         mainCamera;
+        protected Camera            mCamera;
+        protected CameraRTS         mCameraRTS;
 
         public void Launch()
         {
@@ -24,6 +25,7 @@ namespace sma_ogre
 
             ChooseSceneManager();
             CreateCamera();
+            CreateViewports();
             CreateScene();
 
             CreateFrameListeners();
@@ -90,9 +92,23 @@ namespace sma_ogre
 
         protected virtual void CreateCamera()
         {
-            mainCamera = new CameraRTS(mSceneMgr);
-            mainCamera.display(mRenderWindow);
+            mCamera = mSceneMgr.CreateCamera("CameraRTS");
+
+            mCamera.Position = new Vector3(0, 0, 500);
+            mCamera.SetDirection(0, 0, -1);
+
+            mCameraRTS = new CameraRTS(mCamera);
         }
+
+        protected virtual void CreateViewports()
+        {
+            // Create one viewport, entire window
+            var vp = mRenderWindow.AddViewport(mCamera);
+
+            // Alter the camera aspect ratio to match the viewport
+            mCamera.AspectRatio = (vp.ActualWidth / vp.ActualHeight);
+        }
+
 
         protected virtual void CreateScene()
         {
@@ -128,25 +144,25 @@ namespace sma_ogre
 
             // Move camera forward.
             if (mKeyboard.IsKeyDown(MOIS.KeyCode.KC_UP))
-                mainCamera.translatePosition(0, 1, 0);
+                mCameraRTS.TranslatePosition(0, 1, 0);
  
             // Move camera backward.
             if(mKeyboard.IsKeyDown(MOIS.KeyCode.KC_DOWN))
-                mainCamera.translatePosition(0, -1, 0);
+                mCameraRTS.TranslatePosition(0, -1, 0);
  
             // Move camera left.
             if(mKeyboard.IsKeyDown(MOIS.KeyCode.KC_LEFT))
-                mainCamera.translatePosition(-1, 0, 0);
+                mCameraRTS.TranslatePosition(-1, 0, 0);
  
             // Move camera right.
             if (mKeyboard.IsKeyDown(MOIS.KeyCode.KC_RIGHT))
-                mainCamera.translatePosition(1, 0, 0);
+                mCameraRTS.TranslatePosition(1, 0, 0);
 
-            mainCamera.updatePosition(evt.timeSinceLastFrame);
+            mCameraRTS.UpdatePosition(evt.timeSinceLastFrame);
 
             if (mMouse.MouseState.ButtonDown(MOIS.MouseButtonID.MB_Right))
             {
-                mainCamera.updateRotation(mMouse.MouseState.X.rel, mMouse.MouseState.Y.rel, evt.timeSinceLastFrame);
+                mCameraRTS.UpdateRotation(mMouse.MouseState.X.rel, mMouse.MouseState.Y.rel, evt.timeSinceLastFrame);
             }    
 
             return true;
