@@ -5,9 +5,9 @@ namespace sma_ogre
 {
     class AgentFactory
     {
-        private SceneManager mSceneMgr;
-        private string       mMeshName;
-        private List<Agent>  mAgents;
+        private SceneManager  mSceneMgr;
+        private string        mMeshName;
+        private List<Agent>   mAgents;
         private System.Random rnd;
 
         private AgentFactory(SceneManager sceneMgr, string meshName)
@@ -51,7 +51,7 @@ namespace sma_ogre
         {
             foreach (Agent agent in mAgents)
             {
-                agent.React(evt);
+                agent.UpdateAction(evt);
             }
         }
     }

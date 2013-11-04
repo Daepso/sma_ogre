@@ -7,23 +7,15 @@ namespace sma_ogre
     {
         private Entity    mEntity;
         private SceneNode mEntityNode;
-        private Random rnd;
-        private Vector3 move;
-        int speed;
-        private static int ID = 0;
+        private Behavior  mAgentBehavior;
 
         public Agent(SceneManager sceneMgr, string meshName)
         {
             mEntity     = sceneMgr.CreateEntity(meshName);
             mEntityNode = sceneMgr.RootSceneNode.CreateChildSceneNode();
             mEntityNode.AttachObject(mEntity);
-            rnd = new Random(ID++);
 
-            move = new Vector3(0, 0, 0);
-            move.x = (float)rnd.NextDouble() - 0.5f;
-            move.z = (float)rnd.NextDouble() - 0.5f;
-
-            speed = rnd.Next(10, 100);
+            mAgentBehavior = new Behavior(mEntityNode);
         }
 
         public Agent(SceneManager sceneMgr, string meshName, Vector3 position) : this(sceneMgr, meshName)
@@ -31,9 +23,9 @@ namespace sma_ogre
             mEntityNode.Position = position;
         }
 
-        public void React(FrameEvent evt)
+        public void UpdateAction(FrameEvent evt)
         {
-            mEntityNode.Translate(move * evt.timeSinceLastFrame * speed);
+            mAgentBehavior.Update(evt.timeSinceLastFrame);
         }
     }
 }

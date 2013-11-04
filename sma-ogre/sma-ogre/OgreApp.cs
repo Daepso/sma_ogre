@@ -74,7 +74,7 @@ namespace sma_ogre
         {
             mCamera = mSceneMgr.CreateCamera("CameraRTS");
 
-            mCamera.Position = new Vector3(0, 1000, 500);
+            mCamera.Position = new Vector3(0, 2000, 1000);
             mCamera.LookAt(Vector3.ZERO);
 
             mCameraRTS = new CameraRTS(mCamera);
