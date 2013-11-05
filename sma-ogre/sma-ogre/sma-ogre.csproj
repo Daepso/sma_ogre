@@ -69,6 +69,7 @@
     <Compile Include="Agent.cs" />
     <Compile Include="AgentFactory.cs" />
     <Compile Include="Behavior.cs" />
+    <Compile Include="BehaviorFactories.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemFactory.cs" />
     <Compile Include="OgreApp.input.cs" />

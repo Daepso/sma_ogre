@@ -9,16 +9,19 @@ namespace sma_ogre
         private SceneNode mEntityNode;
         private Behavior  mAgentBehavior;
 
-        public Agent(SceneManager sceneMgr, string meshName)
+        public Agent(SceneManager sceneMgr, string meshName, Behavior agentBehavior)
         {
             mEntity     = sceneMgr.CreateEntity(meshName);
             mEntityNode = sceneMgr.RootSceneNode.CreateChildSceneNode();
             mEntityNode.AttachObject(mEntity);
 
-            mAgentBehavior = new Behavior(mEntityNode);
+            mAgentBehavior = agentBehavior;
+            mAgentBehavior.Setup(mEntityNode);
+            mAgentBehavior.Init();
         }
 
-        public Agent(SceneManager sceneMgr, string meshName, Vector3 position) : this(sceneMgr, meshName)
+        public Agent(SceneManager sceneMgr, string meshName, Behavior agentBehavior, Vector3 position):
+            this(sceneMgr, meshName, agentBehavior)
         {
             mEntityNode.Position = position;
         }

@@ -5,22 +5,24 @@ namespace sma_ogre
 {
     class AgentFactory
     {
-        private SceneManager  mSceneMgr;
-        private string        mMeshName;
-        private List<Agent>   mAgents;
-        private System.Random rnd;
+        private SceneManager    mSceneMgr;
+        private string          mMeshName;
+        private BehaviorFactory mBehaviorFactory;
+        private List<Agent>     mAgents;
+        private System.Random   rnd;
 
-        private AgentFactory(SceneManager sceneMgr, string meshName)
+        private AgentFactory(SceneManager sceneMgr, string meshName, BehaviorFactory agentsBehavior)
         {
-            mSceneMgr = sceneMgr;
-            mMeshName = meshName;
-            mAgents = new List<Agent>();
-            rnd = new System.Random();
+            mSceneMgr        = sceneMgr;
+            mMeshName        = meshName;
+            mBehaviorFactory = agentsBehavior;
+            mAgents          = new List<Agent>();
+            rnd              = new System.Random();
         }
 
         public static AgentFactory OgreFactory(SceneManager sceneMgr)
         {
-            return new AgentFactory(sceneMgr, "ogrehead.mesh");
+            return new AgentFactory(sceneMgr, "ogrehead.mesh", new BuilderBehaviorFactory());
         }
 
         public Agent MakeAgent(bool useRandPos = false)
@@ -33,7 +35,7 @@ namespace sma_ogre
                 pos.z = rnd.Next(-300, 300);
             }
 
-            Agent agent = new Agent(mSceneMgr, mMeshName, pos);
+            Agent agent = new Agent(mSceneMgr, mMeshName, mBehaviorFactory.MakeBehavior(), pos);
             mAgents.Add(agent);
 
             return agent;
