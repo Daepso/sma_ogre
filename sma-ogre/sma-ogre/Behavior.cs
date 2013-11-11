@@ -7,26 +7,21 @@ namespace sma_ogre
     {
         private   static int ID = 0;
         protected SceneNode  mAgentNode;
-        protected Random     rnd;
         protected Vector3    direction;
-        protected int        speed;
+        protected float      speed;
 
         public void Setup(SceneNode agentNode)
         {
             mAgentNode = agentNode;
-
-            // Ensure that every number generator is different
-            // If this is not done, diverse behaviors can be similar
-            rnd = new Random(ID++);
         }
 
         public virtual void Init()
         {
-            direction   = new Vector3(0, 0, 0);
-            direction.x = (float)rnd.NextDouble() - 0.5f;
-            direction.z = (float)rnd.NextDouble() - 0.5f;
+            direction   = new Vector3(0f, 0f, 0f);
+            direction.x = WorldConfig.Singleton.RandFloat(-1f, 1f);
+            direction.z = WorldConfig.Singleton.RandFloat(-1f, 1f);
 
-            speed = rnd.Next(10, 100);
+            speed = WorldConfig.Singleton.RandFloat(10, 100);
         }
 
         public virtual void Update(float elapsedTime)
@@ -41,17 +36,19 @@ namespace sma_ogre
         {
             base.Init();
 
-            speed = rnd.Next(100, 1000);
+            speed = WorldConfig.Singleton.RandFloat(100, 1000);
         }
 
         public override void Update(float elapsedTime)
         {
-            if (mAgentNode.Position.x >= 750 || mAgentNode.Position.x <= -750)
+            if ( mAgentNode.Position.x >=  WorldConfig.Singleton.GroundWidth / 2 ||
+                 mAgentNode.Position.x <= -WorldConfig.Singleton.GroundWidth / 2)
             {
                 direction.x *= -1;
             }
 
-            if (mAgentNode.Position.z >= 750 || mAgentNode.Position.z <= -750)
+            if ( mAgentNode.Position.z >=  WorldConfig.Singleton.GroundLength / 2 ||
+                 mAgentNode.Position.z <= -WorldConfig.Singleton.GroundLength / 2)
             {
                 direction.z *= -1;
             }

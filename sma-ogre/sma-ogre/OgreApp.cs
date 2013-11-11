@@ -92,7 +92,7 @@ namespace sma_ogre
 
         protected virtual void CreateScene()
         {
-            Entity ogreHead = mSceneMgr.CreateEntity("Head", "ogrehead.mesh");
+            Entity ogreHead = mSceneMgr.CreateEntity("Head", WorldConfig.Singleton.OgreMesh);
             SceneNode headNode = mSceneMgr.RootSceneNode.CreateChildSceneNode();
             headNode.AttachObject(ogreHead);
 
