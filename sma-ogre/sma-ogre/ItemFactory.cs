@@ -7,28 +7,52 @@ namespace sma_ogre
     {
         private SceneManager mSceneMgr;
         private string mMeshName;
-        List<Item> itemList;
+        private List<Item> mItems;
+        private System.Random rnd;
 
          private ItemFactory(SceneManager sceneMgr, string meshName)
         {
             mSceneMgr = sceneMgr;
 			mMeshName = meshName;
+            mItems = new List<Item>();
+            rnd = new System.Random();
         }
 
-         public static ItemFactory BoxFactory(SceneManager sceneMgr)
+         public static ItemFactory penguinFactory(SceneManager sceneMgr)
          {
              //Todo Change the ogrehead.mesh with another mesh
-             return new ItemFactory(sceneMgr, "ogrehead.mesh");
+             return new ItemFactory(sceneMgr, "Cube.mesh");
          }
 
         /* Add a new Resource to the world at a random position*/
-         public void makeResource()
+         public Item makeItem(bool useRandPos = true)
          {
+             Vector3 pos = new Vector3(0, 30, 0);
+
+             if(useRandPos)
+             {
+                 pos.x = rnd.Next(-500, 500);
+                 pos.z = rnd.Next(-500, 500);
+             }
+
+             Item item = new Item(mSceneMgr, mMeshName, pos);
+             mItems.Add(item);
+
+             return item;
          }
 
            /*Add a new Resource to the world at a given position*/
-         public void makeResource(int x, int z)
+         public void makeNumItems(int itemNumber, bool useRandPos = true)
          {
+             for(int i = 0; i < itemNumber; i++)
+             {
+                 makeItem(useRandPos);
+             }
+         }
+
+         public List<Item> itemsList()
+         {
+             return mItems;
          }
 
     }
