@@ -8,14 +8,12 @@ namespace sma_ogre
         private SceneManager mSceneMgr;
         private string mMeshName;
         private List<Item> mItems;
-        private System.Random rnd;
 
          private ItemFactory(SceneManager sceneMgr, string meshName)
         {
             mSceneMgr = sceneMgr;
 			mMeshName = meshName;
             mItems = new List<Item>();
-            rnd = new System.Random();
         }
 
          public static ItemFactory penguinFactory(SceneManager sceneMgr)
@@ -31,8 +29,12 @@ namespace sma_ogre
 
              if(useRandPos)
              {
-                 pos.x = rnd.Next(-500, 500);
-                 pos.z = rnd.Next(-500, 500);
+                pos.x = WorldConfig.Singleton.RandFloat(
+                    -WorldConfig.Singleton.GroundWidth / 2,
+                     WorldConfig.Singleton.GroundWidth / 2);
+                pos.z = WorldConfig.Singleton.RandFloat(
+                    -WorldConfig.Singleton.GroundLength / 2,
+                     WorldConfig.Singleton.GroundLength / 2);
              }
 
              Item item = new Item(mSceneMgr, mMeshName, pos);
