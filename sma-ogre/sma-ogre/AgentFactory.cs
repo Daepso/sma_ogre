@@ -9,7 +9,6 @@ namespace sma_ogre
         private string          mMeshName;
         private BehaviorFactory mBehaviorFactory;
         private List<Agent>     mAgents;
-        private System.Random   rnd;
 
         private AgentFactory(SceneManager sceneMgr, string meshName, BehaviorFactory agentsBehavior)
         {
@@ -17,7 +16,6 @@ namespace sma_ogre
             mMeshName        = meshName;
             mBehaviorFactory = agentsBehavior;
             mAgents          = new List<Agent>();
-            rnd              = new System.Random();
         }
 
         public static AgentFactory OgreFactory(SceneManager sceneMgr)
@@ -31,8 +29,12 @@ namespace sma_ogre
 
             if (useRandPos)
             {
-                pos.x = rnd.Next(-300, 300);
-                pos.z = rnd.Next(-300, 300);
+                pos.x = WorldConfig.Singleton.RandFloat(
+                    -WorldConfig.Singleton.GroundWidth / 2,
+                     WorldConfig.Singleton.GroundWidth / 2);
+                pos.z = WorldConfig.Singleton.RandFloat(
+                    -WorldConfig.Singleton.GroundLength / 2,
+                     WorldConfig.Singleton.GroundLength / 2);
             }
 
             Agent agent = new Agent(mSceneMgr, mMeshName, mBehaviorFactory.MakeBehavior(), pos);
