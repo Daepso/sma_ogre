@@ -20,6 +20,7 @@ namespace sma_ogre
             direction   = new Vector3(0f, 0f, 0f);
             direction.x = WorldConfig.Singleton.RandFloat(-1f, 1f);
             direction.z = WorldConfig.Singleton.RandFloat(-1f, 1f);
+            direction.Normalise();
 
             speed = WorldConfig.Singleton.RandFloat(10, 100);
         }
