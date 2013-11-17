@@ -21,6 +21,24 @@ namespace sma_ogre
             mEntityNode.Position = pos;
         }
 
+        public float distance(float obj_x, float obj_z)
+        {
+            float x = (obj_x-mEntityNode.Position.x);
+            float z = (obj_z-mEntityNode.Position.z);
+            float dis = (float)System.Math.Sqrt(x * x + z * z);
+            return dis;
+        }
+
+        public void pickUp()
+        {
+            mEntity.Visible = false;
+        }
+
+        public void drop(float x, float z)
+        {
+            mEntityNode.SetPosition(x, mEntityNode.Position.y, z);
+            mEntity.Visible = true;
+        }
 
     }
 }

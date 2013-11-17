@@ -1,4 +1,6 @@
-﻿namespace sma_ogre
+﻿using System.Collections.Generic;
+
+namespace sma_ogre
 {
     class BehaviorFactory
     {
@@ -12,11 +14,16 @@
 
     class BuilderBehaviorFactory : BehaviorFactory
     {
-        public BuilderBehaviorFactory() {}
+        List<Item> listItem;
+
+        public BuilderBehaviorFactory(List<Item> listItem)
+        {
+            this.listItem = listItem;
+        }
 
         public override Behavior MakeBehavior()
         {
-            return new BuilderBehavior();
+            return new BuilderBehavior(listItem);
         }
     }
 }

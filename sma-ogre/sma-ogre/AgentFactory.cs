@@ -18,9 +18,9 @@ namespace sma_ogre
             mAgents          = new List<Agent>();
         }
 
-        public static AgentFactory OgreFactory(SceneManager sceneMgr)
+        public static AgentFactory OgreFactory(SceneManager sceneMgr, List<Item> listItem)
         {
-            return new AgentFactory(sceneMgr, "ogrehead.mesh", new BuilderBehaviorFactory());
+            return new AgentFactory(sceneMgr, "ogrehead.mesh", new BuilderBehaviorFactory(listItem));
         }
 
         public Agent MakeAgent(bool useRandPos = false)

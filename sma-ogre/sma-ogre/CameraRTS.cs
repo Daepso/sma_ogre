@@ -6,7 +6,7 @@ namespace sma_ogre
     {
         private Camera  mCamera;
         private Vector3 nextTranslation;
-        private float   translateSpeed = 100;
+        private float   translateSpeed = 1000;
         private float   rotateSpeed    = 0.15f;
 
         public CameraRTS(Camera camera)

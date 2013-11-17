@@ -1,5 +1,6 @@
 ﻿using System;
 using Mogre;
+using System.Collections.Generic;
 
 namespace sma_ogre
 {
@@ -33,6 +34,14 @@ namespace sma_ogre
 
     class BuilderBehavior : Behavior
     {
+        static float disPickUp = 20;
+        static float disDrop = 20;
+        static float timeToWait = 3;
+
+        private List<Item> listItem;
+        private Item item;
+        private float timerItem;
+
         public override void Init()
         {
             base.Init();
@@ -55,6 +64,53 @@ namespace sma_ogre
             }
 
             mAgentNode.Translate(direction * elapsedTime * speed);
+
+
+            if (timerItem <= 0)
+            {
+                if (item == null)
+                {
+                    foreach (Item i in listItem)
+                    {
+                        if (i.distance(mAgentNode.Position.x, mAgentNode.Position.z) < disPickUp)
+                        {
+                            Console.WriteLine("PickUp!" + i.distance(mAgentNode.Position.x, mAgentNode.Position.z));
+                            item = i;
+                            item.pickUp();
+                            listItem.Remove(item);
+                            timerItem = BuilderBehavior.timeToWait;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (Item i in listItem)
+                    {
+                        if (i.distance(mAgentNode.Position.x, mAgentNode.Position.z) < disDrop)
+                        {
+                            Console.WriteLine("Drop!" + i.distance(mAgentNode.Position.x, mAgentNode.Position.z));
+                            item.drop(mAgentNode.Position.x, mAgentNode.Position.z);
+                            listItem.Add(item);
+                            item = null;
+                            timerItem = BuilderBehavior.timeToWait;
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                timerItem -= elapsedTime;
+            }
+
+        }
+
+        public BuilderBehavior(List<Item> listItem)
+        {
+            this.listItem = listItem;
+            item = null;
+            timerItem = 0;
         }
     }
 }

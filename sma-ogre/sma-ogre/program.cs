@@ -27,9 +27,9 @@ namespace sma_ogre
             CreateGround();
 
             mPenguinFactory = ItemFactory.penguinFactory(mSceneMgr);
-            mOgreFactory = AgentFactory.OgreFactory(mSceneMgr);
+            mPenguinFactory.makeNumItems(75, true);
 
-            mPenguinFactory.makeNumItems(30, true);
+            mOgreFactory = AgentFactory.OgreFactory(mSceneMgr,mPenguinFactory.itemsList());
             mOgreFactory.MakeNumAgents(WorldConfig.Singleton.InitialGoodAgentsNumber, true);
         }
 
