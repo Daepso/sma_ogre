@@ -65,7 +65,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CameraRTS.cs" />
+    <Compile Include="CameraMan.cs" />
     <Compile Include="Agent.cs" />
     <Compile Include="AgentFactory.cs" />
     <Compile Include="Behavior.cs" />

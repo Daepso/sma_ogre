@@ -9,7 +9,7 @@ namespace sma_ogre
         protected SceneManager      mSceneMgr;
         protected RenderWindow      mRenderWindow;
         protected Camera            mCamera;
-        protected CameraRTS         mCameraRTS;
+        protected CameraMan         mCameraMan;
 
         public void Launch()
         {
@@ -72,12 +72,12 @@ namespace sma_ogre
 
         protected virtual void CreateCamera()
         {
-            mCamera = mSceneMgr.CreateCamera("CameraRTS");
+            mCamera = mSceneMgr.CreateCamera("WorldCamera");
 
             mCamera.Position = new Vector3(0, 2000, 1000);
             mCamera.LookAt(Vector3.ZERO);
 
-            mCameraRTS = new CameraRTS(mCamera);
+            mCameraMan = new CameraMan(mCamera);
         }
 
         protected virtual void CreateViewports()
@@ -123,7 +123,7 @@ namespace sma_ogre
 
             UpdateScene(evt);
 
-            mCameraRTS.UpdatePosition(evt.timeSinceLastFrame);
+            mCameraMan.UpdatePosition(evt.timeSinceLastFrame);
 
             return true;
         }
