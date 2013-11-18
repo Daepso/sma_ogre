@@ -30,11 +30,11 @@ namespace sma_ogre
             if (useRandPos)
             {
                 pos.x = WorldConfig.Singleton.RandFloat(
-                    -WorldConfig.Singleton.GroundWidth / 2,
-                     WorldConfig.Singleton.GroundWidth / 2);
+                    1-WorldConfig.Singleton.GroundWidth / 2,
+                    1+WorldConfig.Singleton.GroundWidth / 2);
                 pos.z = WorldConfig.Singleton.RandFloat(
-                    -WorldConfig.Singleton.GroundLength / 2,
-                     WorldConfig.Singleton.GroundLength / 2);
+                    1-WorldConfig.Singleton.GroundLength / 2,
+                    1+WorldConfig.Singleton.GroundLength / 2);
             }
 
             Agent agent = new Agent(mSceneMgr, mMeshName, mBehaviorFactory.MakeBehavior(), pos);

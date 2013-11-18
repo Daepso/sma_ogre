@@ -26,59 +26,65 @@ namespace sma_ogre
             speed = WorldConfig.Singleton.RandFloat(10, 100);
         }
 
+        protected void MoveWithCollision(Vector3 translation, float elapsedTime)
+        {
+
+            Vector3 newPosition = translation + mAgentNode.Position;
+
+            //Console.WriteLine("newPos : " + newPosition);
+            //Console.WriteLine("trans : " + translation);
+            //Console.WriteLine("pos : " + mAgentNode.Position
+
+            if (newPosition.x >=  WorldConfig.Singleton.GroundWidth / 2 ||
+                newPosition.x <= -WorldConfig.Singleton.GroundWidth / 2)
+            {
+                direction.x *= -1;
+            }
+
+            if (newPosition.z >=  WorldConfig.Singleton.GroundLength / 2 ||
+                newPosition.z <= -WorldConfig.Singleton.GroundLength / 2)
+            {
+                direction.z *= -1;
+            }
+            mAgentNode.Translate(direction * elapsedTime * speed);
+        }
+
         public virtual void Update(float elapsedTime)
         {
-            mAgentNode.Translate(direction * elapsedTime * speed);
+            MoveWithCollision(direction,elapsedTime);
         }
     }
 
     class BuilderBehavior : Behavior
     {
-        static float disPickUp = 20;
-        static float disDrop = 20;
-        static float timeToWait = 3;
+        static float pickUpDistance = 20;
+        static float dropDistance = 20;
+        static float actionDelay = 3;
 
         private List<Item> listItem;
-        private Item item;
-        private float timerItem;
+        private Item carriedItem;
+        private float actionTimer ;
 
         public override void Init()
         {
             base.Init();
-
             speed = WorldConfig.Singleton.RandFloat(100, 1000);
         }
 
-        public override void Update(float elapsedTime)
+        protected void BuildAction(float elapsedTime)
         {
-            if ( mAgentNode.Position.x >=  WorldConfig.Singleton.GroundWidth / 2 ||
-                 mAgentNode.Position.x <= -WorldConfig.Singleton.GroundWidth / 2)
+            if (actionTimer <= 0)
             {
-                direction.x *= -1;
-            }
-
-            if ( mAgentNode.Position.z >=  WorldConfig.Singleton.GroundLength / 2 ||
-                 mAgentNode.Position.z <= -WorldConfig.Singleton.GroundLength / 2)
-            {
-                direction.z *= -1;
-            }
-
-            mAgentNode.Translate(direction * elapsedTime * speed);
-
-
-            if (timerItem <= 0)
-            {
-                if (item == null)
+                if (carriedItem == null)
                 {
                     foreach (Item i in listItem)
                     {
-                        if (i.distance(mAgentNode.Position.x, mAgentNode.Position.z) < disPickUp)
-                        {
-                            Console.WriteLine("PickUp!" + i.distance(mAgentNode.Position.x, mAgentNode.Position.z));
-                            item = i;
-                            item.pickUp();
-                            listItem.Remove(item);
-                            timerItem = BuilderBehavior.timeToWait;
+                        if (i.distance(mAgentNode.Position.x, mAgentNode.Position.z) < pickUpDistance)
+                        {                        
+                            carriedItem = i;
+                            carriedItem.pickUp();
+                            listItem.Remove(carriedItem);
+                            actionTimer = BuilderBehavior.actionDelay;
                             break;
                         }
                     }
@@ -87,13 +93,12 @@ namespace sma_ogre
                 {
                     foreach (Item i in listItem)
                     {
-                        if (i.distance(mAgentNode.Position.x, mAgentNode.Position.z) < disDrop)
-                        {
-                            Console.WriteLine("Drop!" + i.distance(mAgentNode.Position.x, mAgentNode.Position.z));
-                            item.drop(mAgentNode.Position.x, mAgentNode.Position.z);
-                            listItem.Add(item);
-                            item = null;
-                            timerItem = BuilderBehavior.timeToWait;
+                        if (i.distance(mAgentNode.Position.x, mAgentNode.Position.z) < dropDistance)
+                        {                         
+                            carriedItem.drop(mAgentNode.Position.x, mAgentNode.Position.z);
+                            listItem.Add(carriedItem);
+                            carriedItem = null;
+                            actionTimer = BuilderBehavior.actionDelay;
                             break;
                         }
                     }
@@ -101,16 +106,22 @@ namespace sma_ogre
             }
             else
             {
-                timerItem -= elapsedTime;
+                actionTimer -= elapsedTime;
             }
+        }
 
+
+        public override void Update(float elapsedTime)
+        {
+            MoveWithCollision(direction, elapsedTime);
+            BuildAction(elapsedTime);        
         }
 
         public BuilderBehavior(List<Item> listItem)
         {
             this.listItem = listItem;
-            item = null;
-            timerItem = 0;
+            carriedItem = null;
+            actionTimer = 0;
         }
     }
 }
