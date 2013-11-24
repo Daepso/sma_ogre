@@ -1,4 +1,4 @@
-using MOIS;
+﻿using MOIS;
 
 namespace sma_ogre
 {
@@ -39,33 +39,43 @@ namespace sma_ogre
         {
             switch (evt.key)
             {
+                // Camera movement
                 case MOIS.KeyCode.KC_Z:
+                case MOIS.KeyCode.KC_UP:
                     mCameraMan.GoingForward = true;
 					break;
 
                 case MOIS.KeyCode.KC_S:
+                case MOIS.KeyCode.KC_DOWN:
                     mCameraMan.GoingBack = true;
 					break;
 
-                case MOIS.KeyCode.KC_UP:
+                case MOIS.KeyCode.KC_A:
                     mCameraMan.GoingUp = true;
 					break;
 
-                case MOIS.KeyCode.KC_DOWN:
+                case MOIS.KeyCode.KC_E:
                     mCameraMan.GoingDown = true;
 					break;
 
                 case MOIS.KeyCode.KC_LEFT:
+                case MOIS.KeyCode.KC_Q:
                     mCameraMan.GoingLeft = true;
 					break;
 
 	            case MOIS.KeyCode.KC_RIGHT:
+                case MOIS.KeyCode.KC_D:
                     mCameraMan.GoingRight = true;
 					break;
 
                 case MOIS.KeyCode.KC_LSHIFT:
                 case MOIS.KeyCode.KC_RSHIFT:
                     mCameraMan.FastMove = true;
+                    break;
+
+                // World properties
+                case MOIS.KeyCode.KC_L:
+                    mSceneMgr.AmbientLight = WorldConfig.Singleton.SwitchedLight();
                     break;
             }
 
@@ -77,26 +87,30 @@ namespace sma_ogre
             switch (evt.key)
             {
                 case MOIS.KeyCode.KC_Z:
+                case MOIS.KeyCode.KC_UP:
                     mCameraMan.GoingForward = false;
 					break;
 
                 case MOIS.KeyCode.KC_S:
+                case MOIS.KeyCode.KC_DOWN:
                     mCameraMan.GoingBack = false;
 					break;
 
-                case MOIS.KeyCode.KC_UP:
+                case MOIS.KeyCode.KC_A:
                     mCameraMan.GoingUp = false;
 					break;
 
-                case MOIS.KeyCode.KC_DOWN:
+                case MOIS.KeyCode.KC_E:
                     mCameraMan.GoingDown = false;
 					break;
 
                 case MOIS.KeyCode.KC_LEFT:
+                case MOIS.KeyCode.KC_Q:
                     mCameraMan.GoingLeft = false;
 					break;
 
 	            case MOIS.KeyCode.KC_RIGHT:
+                case MOIS.KeyCode.KC_D:
                     mCameraMan.GoingRight = false;
 					break;
 

@@ -19,9 +19,14 @@ namespace sma_ogre
         private float  mGroundBorderWidth;
         private string mOgreMesh;
 
+        private ColourValue mAmbientLightOn;
+        private ColourValue mAmbientLightOff;
+        private bool        mAmbientLightIsOn;
+
         private WorldConfig()
         {
             rnd = new Random();
+            mAmbientLightIsOn = true;
 
             try
             {
@@ -86,9 +91,33 @@ namespace sma_ogre
             get { return mInitialBadAgentsNumber; }
         }
 
+        public ColourValue AmbientLightOn
+        {
+            get { return mAmbientLightOn; }
+        }
+
+        public ColourValue AmbientLightOff
+        {
+            get { return mAmbientLightOff; }
+        }
+
         public string OgreMesh
         {
             get { return mOgreMesh; }
+        }
+
+        public ColourValue SwitchedLight()
+        {
+            if (mAmbientLightIsOn)
+            {
+                mAmbientLightIsOn = false;
+                return mAmbientLightOff;
+            }
+			else
+            {
+                mAmbientLightIsOn = true;
+                return mAmbientLightOn;
+            }
         }
 
         private void DefineConfig()
@@ -129,6 +158,20 @@ namespace sma_ogre
 			else if (line.Key.Equals("InitialBadAgentsNumber"))
             {
                 mInitialBadAgentsNumber = int.Parse(line.Value);
+            }
+			else if (line.Key.Equals("AmbientLightOn"))
+            {
+                string[] lightOnColors = line.Value.Split(',');
+                mAmbientLightOn = new ColourValue(float.Parse(lightOnColors[0], System.Globalization.CultureInfo.InvariantCulture),
+                                                  float.Parse(lightOnColors[1], System.Globalization.CultureInfo.InvariantCulture),
+                                                  float.Parse(lightOnColors[2], System.Globalization.CultureInfo.InvariantCulture));
+            }
+			else if (line.Key.Equals("AmbientLightOff"))
+            {
+                string[] lightOffColors = line.Value.Split(',');
+                mAmbientLightOff = new ColourValue(float.Parse(lightOffColors[0], System.Globalization.CultureInfo.InvariantCulture),
+                                                   float.Parse(lightOffColors[1], System.Globalization.CultureInfo.InvariantCulture),
+                                                   float.Parse(lightOffColors[2], System.Globalization.CultureInfo.InvariantCulture));
             }
 			else {
                 throw new UnkownConfigKeyException();

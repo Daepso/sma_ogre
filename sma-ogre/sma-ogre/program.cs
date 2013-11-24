@@ -22,7 +22,7 @@ namespace sma_ogre
 
         protected override void CreateScene()
         {
-            mSceneMgr.AmbientLight = new ColourValue(0.5f, 0.5f, 0.5f);
+            mSceneMgr.AmbientLight = WorldConfig.Singleton.AmbientLightOn;
 
             CreateGround();
 

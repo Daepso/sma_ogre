@@ -6,7 +6,6 @@ namespace sma_ogre
 {
     class Behavior
     {
-        private   static int ID = 0;
         protected SceneNode  mAgentNode;
         protected Vector3   targetPosition;
         protected float      speed;
@@ -22,7 +21,7 @@ namespace sma_ogre
             speed = 0f;
         }
 
-        public virtual void ChooseTagertPosition()
+        public virtual void ChooseTargetPosition()
         {
             targetPosition.x = WorldConfig.Singleton.RandFloat(-WorldConfig.Singleton.GroundLength / 2f, WorldConfig.Singleton.GroundLength / 2f);
             targetPosition.z = WorldConfig.Singleton.RandFloat(-WorldConfig.Singleton.GroundLength / 2f, WorldConfig.Singleton.GroundLength / 2f);
@@ -43,7 +42,7 @@ namespace sma_ogre
             else
             {
                 mAgentNode.Translate(direction);
-                this.ChooseTagertPosition();
+                this.ChooseTargetPosition();
             }
 
             
@@ -68,7 +67,7 @@ namespace sma_ogre
         public override void Init()
         {
             base.Init();
-            this.ChooseTagertPosition();
+            this.ChooseTargetPosition();
         }
 
         protected void BuildAction(float elapsedTime)

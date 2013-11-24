@@ -96,7 +96,7 @@ namespace sma_ogre
             SceneNode headNode = mSceneMgr.RootSceneNode.CreateChildSceneNode();
             headNode.AttachObject(ogreHead);
 
-            mSceneMgr.AmbientLight = new ColourValue(0.5f, 0.5f, 0.5f);
+            mSceneMgr.AmbientLight = WorldConfig.Singleton.AmbientLightOn;
 
             Light l = mSceneMgr.CreateLight("MainLight");
             l.Position = new Vector3(20, 80, 50);
