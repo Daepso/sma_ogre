@@ -8,7 +8,7 @@ namespace sma_ogre
     {
         private   static int ID = 0;
         protected SceneNode  mAgentNode;
-        protected Vector3    direction;
+        protected Vector3   targetPosition;
         protected float      speed;
 
         public void Setup(SceneNode agentNode)
@@ -18,40 +18,40 @@ namespace sma_ogre
 
         public virtual void Init()
         {
-            direction   = new Vector3(0f, 0f, 0f);
-            direction.x = WorldConfig.Singleton.RandFloat(-1f, 1f);
-            direction.z = WorldConfig.Singleton.RandFloat(-1f, 1f);
-            direction.Normalise();
-
-            speed = WorldConfig.Singleton.RandFloat(10, 100);
+            targetPosition = new Vector3(0f, 0f, 0f);
+            speed = 0f;
         }
 
-        protected void MoveWithCollision(Vector3 translation, float elapsedTime)
+        public virtual void ChooseTagertPosition()
         {
+            targetPosition.x = WorldConfig.Singleton.RandFloat(-WorldConfig.Singleton.GroundLength / 2f, WorldConfig.Singleton.GroundLength / 2f);
+            targetPosition.z = WorldConfig.Singleton.RandFloat(-WorldConfig.Singleton.GroundLength / 2f, WorldConfig.Singleton.GroundLength / 2f);
+            speed = WorldConfig.Singleton.RandFloat(200, 1000);
+        }
 
-            Vector3 newPosition = translation + mAgentNode.Position;
-
-            //Console.WriteLine("newPos : " + newPosition);
-            //Console.WriteLine("trans : " + translation);
-            //Console.WriteLine("pos : " + mAgentNode.Position
-
-            if (newPosition.x >=  WorldConfig.Singleton.GroundWidth / 2 ||
-                newPosition.x <= -WorldConfig.Singleton.GroundWidth / 2)
+        protected void MoveToTargetPosition(float elapsedTime)
+        {
+            Vector3 direction = targetPosition - mAgentNode.Position;
+            Vector3 newPosition = new Vector3();
+            newPosition += direction;
+            newPosition.Normalise();
+            newPosition *= speed * elapsedTime;
+            if (newPosition.Length < direction.Length)
             {
-                direction.x *= -1;
+                mAgentNode.Translate(newPosition);
+            }
+            else
+            {
+                mAgentNode.Translate(direction);
+                this.ChooseTagertPosition();
             }
 
-            if (newPosition.z >=  WorldConfig.Singleton.GroundLength / 2 ||
-                newPosition.z <= -WorldConfig.Singleton.GroundLength / 2)
-            {
-                direction.z *= -1;
-            }
-            mAgentNode.Translate(direction * elapsedTime * speed);
+            
         }
 
         public virtual void Update(float elapsedTime)
         {
-            MoveWithCollision(direction,elapsedTime);
+            MoveToTargetPosition(elapsedTime);
         }
     }
 
@@ -68,7 +68,7 @@ namespace sma_ogre
         public override void Init()
         {
             base.Init();
-            speed = WorldConfig.Singleton.RandFloat(100, 1000);
+            this.ChooseTagertPosition();
         }
 
         protected void BuildAction(float elapsedTime)
@@ -113,7 +113,7 @@ namespace sma_ogre
 
         public override void Update(float elapsedTime)
         {
-            MoveWithCollision(direction, elapsedTime);
+            MoveToTargetPosition(elapsedTime);
             BuildAction(elapsedTime);        
         }
 
