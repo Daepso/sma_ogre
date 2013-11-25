@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
-namespace sma_ogre
+
+namespace sma_ogre.behavior
 {
     class BehaviorFactory
     {
@@ -24,6 +25,21 @@ namespace sma_ogre
         public override Behavior MakeBehavior()
         {
             return new BuilderBehavior(listItem);
+        }
+    }
+
+    class WreckerBehaviorFactory : BehaviorFactory
+    {
+        List<Item> listItem;
+
+        public WreckerBehaviorFactory(List<Item> listItem)
+        {
+            this.listItem = listItem;
+        }
+
+        public override Behavior MakeBehavior()
+        {
+            return new WreckerBehavior(listItem);
         }
     }
 }

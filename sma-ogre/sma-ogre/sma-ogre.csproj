@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -65,11 +65,13 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="behavior\BuilderBehavior.cs" />
+    <Compile Include="behavior\WreckerBehavior.cs" />
     <Compile Include="CameraMan.cs" />
     <Compile Include="Agent.cs" />
     <Compile Include="AgentFactory.cs" />
-    <Compile Include="Behavior.cs" />
-    <Compile Include="BehaviorFactories.cs" />
+    <Compile Include="behavior\Behavior.cs" />
+    <Compile Include="behavior\BehaviorFactories.cs" />
     <Compile Include="WorldConfig.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemFactory.cs" />

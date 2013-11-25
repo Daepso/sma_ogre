@@ -1,5 +1,6 @@
 ﻿using Mogre;
 using System;
+using sma_ogre.behavior;
 
 namespace sma_ogre
 {
