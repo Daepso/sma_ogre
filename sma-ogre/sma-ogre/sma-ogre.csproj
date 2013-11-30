@@ -72,6 +72,7 @@
     <Compile Include="AgentFactory.cs" />
     <Compile Include="behavior\Behavior.cs" />
     <Compile Include="behavior\BehaviorFactories.cs" />
+    <Compile Include="utils\Timer.cs" />
     <Compile Include="WorldConfig.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemFactory.cs" />

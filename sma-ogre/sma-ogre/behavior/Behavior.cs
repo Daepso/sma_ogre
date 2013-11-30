@@ -6,10 +6,6 @@ namespace sma_ogre.behavior
 {
     class Behavior
     {
-        static float minActionDelay = 2;
-        static float maxActionDelay = 10;
-        private float actionTimer;
-
         protected SceneNode  mAgentNode;
         protected Vector3   targetPosition;
         protected float      speed;

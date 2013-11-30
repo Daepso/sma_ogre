@@ -1,4 +1,5 @@
-﻿using System;
+﻿using sma_ogre.utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,10 @@ namespace sma_ogre.behavior
 
         private List<Item> listItem;
         private Item carriedItem;
-        private float actionTimer;
+
+        private float minCarriedTimer = 2;
+        private float maxCarriedTimer = 10;
+        private Timer carriedTimer;
 
         public override void Init()
         {
@@ -20,57 +24,61 @@ namespace sma_ogre.behavior
             this.ChooseTargetPosition();
         }
 
-        protected void BuildAction(float elapsedTime)
+        protected bool BuildAction(float elapsedTime)
         {
-            if (actionTimer <= 0)
+            if (carriedItem == null)
             {
-                if (carriedItem == null)
+                foreach (Item i in listItem)
                 {
-                    foreach (Item i in listItem)
+                    if (i.distance(mAgentNode.Position.x, mAgentNode.Position.z) < pickUpDistance)
                     {
-                        if (i.distance(mAgentNode.Position.x, mAgentNode.Position.z) < pickUpDistance)
-                        {
-                            carriedItem = i;
-                            carriedItem.pickUp();
-                            listItem.Remove(carriedItem);
-                            actionTimer = BuilderBehavior.actionDelay;
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    foreach (Item i in listItem)
-                    {
-                        if (i.distance(mAgentNode.Position.x, mAgentNode.Position.z) < dropDistance)
-                        {
-                            carriedItem.drop(mAgentNode.Position.x, mAgentNode.Position.z);
-                            listItem.Add(carriedItem);
-                            carriedItem = null;
-                            actionTimer = BuilderBehavior.actionDelay;
-                            break;
-                        }
+                        carriedItem = i;
+                        carriedItem.pickUp();
+                        listItem.Remove(carriedItem);
+                        return true;
                     }
                 }
             }
             else
             {
-                actionTimer -= elapsedTime;
+                foreach (Item i in listItem)
+                {
+                    if (i.distance(mAgentNode.Position.x, mAgentNode.Position.z) < dropDistance)
+                    {
+                        carriedItem.drop(mAgentNode.Position.x, mAgentNode.Position.z);
+                        listItem.Add(carriedItem);
+                        carriedItem = null;
+                        return true;
+                    }
+                }
             }
+            return false;
         }
 
 
         public override void Update(float elapsedTime)
         {
             MoveToTargetPosition(elapsedTime);
-            BuildAction(elapsedTime);
+
+            if (carriedTimer.isFinished())
+            {
+                if (BuildAction(elapsedTime))
+                {
+                    carriedTimer.init();
+                }
+            }
+            else
+            {
+                carriedTimer.updateTimer(elapsedTime);
+            }
         }
 
         public BuilderBehavior(List<Item> listItem)
         {
             this.listItem = listItem;
             carriedItem = null;
-            actionTimer = 0;
+            carriedTimer = new Timer(minCarriedTimer, maxCarriedTimer);
+            carriedTimer.init();
         }
     }
 }
