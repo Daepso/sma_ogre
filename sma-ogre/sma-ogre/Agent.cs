@@ -11,23 +11,19 @@ namespace sma_ogre
         private Behavior       mAgentBehavior;
         private AgentAnimation mAgentAnimation;
 
-        public Agent(SceneManager sceneMgr, string meshName, Behavior agentBehavior)
+        public Agent(SceneManager sceneMgr, string meshName, Vector3 meshFacedDirection, Behavior agentBehavior, Vector3 position,
+            bool useAnimation = false)
         {
             mEntity     = sceneMgr.CreateEntity(meshName);
             mEntityNode = sceneMgr.RootSceneNode.CreateChildSceneNode();
             mEntityNode.AttachObject(mEntity);
+            mEntityNode.Position = position;
 
             mAgentBehavior = agentBehavior;
-            mAgentBehavior.Setup(mEntityNode);
+            mAgentBehavior.Setup(mEntityNode, meshFacedDirection);
             mAgentBehavior.Init();
 
             mAgentAnimation = null;
-        }
-
-        public Agent(SceneManager sceneMgr, string meshName, Behavior agentBehavior, Vector3 position, bool useAnimation = false):
-            this(sceneMgr, meshName, agentBehavior)
-        {
-            mEntityNode.Position = position;
 
             if (useAnimation)
             {

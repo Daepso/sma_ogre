@@ -7,12 +7,14 @@ namespace sma_ogre.behavior
     class Behavior
     {
         protected SceneNode mAgentNode;
+        protected Vector3   mMeshFacedDirection;
         protected Vector3   targetPosition;
         protected float     speed;
 
-        public void Setup(SceneNode agentNode)
+        public void Setup(SceneNode agentNode, Vector3 meshFacedDirection)
         {
-            mAgentNode = agentNode;
+            mAgentNode          = agentNode;
+            mMeshFacedDirection = meshFacedDirection;
         }
 
         public virtual void Init()
@@ -34,7 +36,7 @@ namespace sma_ogre.behavior
 
         protected void FaceDirection(Vector3 direction)
         {
-            Vector3 src = mAgentNode.Orientation * Vector3.UNIT_X;
+            Vector3 src = mAgentNode.Orientation * mMeshFacedDirection;
 			// Rotate will fail if we ask for a 180 degrees rotation, we use Yaw in this particular case
             if ((1.0f + src.DotProduct(direction)) < 0.0001f)
             {

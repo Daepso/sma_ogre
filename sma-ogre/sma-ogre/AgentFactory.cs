@@ -7,26 +7,28 @@ namespace sma_ogre
     class AgentFactory
     {
         private SceneManager    mSceneMgr;
+        private Vector3         mMeshFacedDirection;
         private string          mMeshName;
         private BehaviorFactory mBehaviorFactory;
         private List<Agent>     mAgents;
 
-        private AgentFactory(SceneManager sceneMgr, string meshName, BehaviorFactory agentsBehavior)
+        private AgentFactory(SceneManager sceneMgr, string meshName, Vector3 meshFacedDirection,BehaviorFactory agentsBehavior)
         {
-            mSceneMgr        = sceneMgr;
-            mMeshName        = meshName;
-            mBehaviorFactory = agentsBehavior;
-            mAgents          = new List<Agent>();
+            mSceneMgr           = sceneMgr;
+            mMeshName           = meshName;
+            mMeshFacedDirection = meshFacedDirection;
+            mBehaviorFactory    = agentsBehavior;
+            mAgents             = new List<Agent>();
         }
 
         public static AgentFactory OgreFactory(SceneManager sceneMgr, List<Item> listItem)
         {
-            return new AgentFactory(sceneMgr, WorldConfig.Singleton.OgreMesh, new BuilderBehaviorFactory(listItem));
+            return new AgentFactory(sceneMgr, WorldConfig.Singleton.OgreMesh, Vector3.UNIT_Z,new BuilderBehaviorFactory(listItem));
         }
 
         public static AgentFactory RobotFactory(SceneManager sceneMgr, List<Item> listItem)
         {
-            return new AgentFactory(sceneMgr, WorldConfig.Singleton.RobotMesh, new WreckerBehaviorFactory(listItem));
+            return new AgentFactory(sceneMgr, WorldConfig.Singleton.RobotMesh, Vector3.UNIT_X, new WreckerBehaviorFactory(listItem));
         }
 
         public Agent MakeAgent(bool useRandPos = false, bool useAnimation = false)
@@ -43,7 +45,7 @@ namespace sma_ogre
                     1+WorldConfig.Singleton.GroundLength / 2);
             }
 
-            Agent agent = new Agent(mSceneMgr, mMeshName, mBehaviorFactory.MakeBehavior(), pos, useAnimation);
+            Agent agent = new Agent(mSceneMgr, mMeshName, mMeshFacedDirection, mBehaviorFactory.MakeBehavior(), pos, useAnimation);
             mAgents.Add(agent);
 
             return agent;
