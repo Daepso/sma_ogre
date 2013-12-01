@@ -5,11 +5,11 @@ namespace sma_ogre
 {
     partial class OgreApp
     {
-        protected Root              mRoot;
-        protected SceneManager      mSceneMgr;
-        protected RenderWindow      mRenderWindow;
-        protected Camera            mCamera;
-        protected CameraMan         mCameraMan;
+        protected Root         mRoot;
+        protected SceneManager mSceneMgr;
+        protected RenderWindow mRenderWindow;
+        protected Camera       mCamera;
+        protected CameraMan    mCameraMan;
 
         public void Launch()
         {
@@ -88,7 +88,6 @@ namespace sma_ogre
             // Alter the camera aspect ratio to match the viewport
             mCamera.AspectRatio = (vp.ActualWidth / vp.ActualHeight);
         }
-
 
         protected virtual void CreateScene()
         {

@@ -27,13 +27,13 @@ namespace sma_ogre
 
             CreateGround();
 
-            mBrickFactory = ItemFactory.brickFactory(mSceneMgr);
-            mBrickFactory.makeNumItems(75, true);
+            mBrickFactory = ItemFactory.BrickFactory(mSceneMgr);
+            mBrickFactory.MakeNumItems(75, true);
 
-            mOgreFactory = AgentFactory.OgreFactory(mSceneMgr,mBrickFactory.itemsList());
+            mOgreFactory = AgentFactory.OgreFactory(mSceneMgr,mBrickFactory.ItemsList());
             mOgreFactory.MakeNumAgents(WorldConfig.Singleton.InitialGoodAgentsNumber, true);
 
-            mRobotFactory = AgentFactory.RobotFactory(mSceneMgr,mBrickFactory.itemsList());
+            mRobotFactory = AgentFactory.RobotFactory(mSceneMgr,mBrickFactory.ItemsList());
             mRobotFactory.MakeNumAgents(WorldConfig.Singleton.InitialBadAgentsNumber, true);
         }
 
@@ -60,8 +60,6 @@ namespace sma_ogre
             groundEnt.SetMaterialName("Examples/Rockwall");
             groundEnt.CastShadows = false;
         }
-
-
     }
 }
 

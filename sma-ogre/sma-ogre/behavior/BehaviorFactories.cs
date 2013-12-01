@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 
-
 namespace sma_ogre.behavior
 {
     class BehaviorFactory

@@ -15,30 +15,29 @@ namespace sma_ogre
             mEntityNode.AttachObject(mEntity);
         }
 
-        public Item(SceneManager sceneMgr, string meshName, Vector3 pos):
-            this(sceneMgr, meshName)        
+        public Item(SceneManager sceneMgr, string meshName, Vector3 pos) :
+            this(sceneMgr, meshName)
         {
             mEntityNode.Position = pos;
         }
 
-        public float distance(float obj_x, float obj_z)
+        public float Distance(float obj_x, float obj_z)
         {
-            float x = (obj_x-mEntityNode.Position.x);
-            float z = (obj_z-mEntityNode.Position.z);
+            float x = (obj_x - mEntityNode.Position.x);
+            float z = (obj_z - mEntityNode.Position.z);
             float dis = (float)System.Math.Sqrt(x * x + z * z);
             return dis;
         }
 
-        public void pickUp()
+        public void PickUp()
         {
             mEntity.Visible = false;
         }
 
-        public void drop(float x, float z)
+        public void Drop(float x, float z)
         {
             mEntityNode.SetPosition(x, mEntityNode.Position.y, z);
             mEntity.Visible = true;
         }
-
     }
 }

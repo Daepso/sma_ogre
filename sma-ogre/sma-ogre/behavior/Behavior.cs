@@ -6,9 +6,9 @@ namespace sma_ogre.behavior
 {
     class Behavior
     {
-        protected SceneNode  mAgentNode;
+        protected SceneNode mAgentNode;
         protected Vector3   targetPosition;
-        protected float      speed;
+        protected float     speed;
 
         public void Setup(SceneNode agentNode)
         {

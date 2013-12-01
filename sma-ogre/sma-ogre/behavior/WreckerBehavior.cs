@@ -37,10 +37,10 @@ namespace sma_ogre.behavior
             {
                 foreach (Item i in listItem)
                 {
-                    if (i.distance(mAgentNode.Position.x, mAgentNode.Position.z) < pickUpDistance)
+                    if (i.Distance(mAgentNode.Position.x, mAgentNode.Position.z) < pickUpDistance)
                     {
                         carriedItem = i;
-                        carriedItem.pickUp();
+                        carriedItem.PickUp();
                         listItem.Remove(carriedItem);
                         return true;
                     }
@@ -50,9 +50,9 @@ namespace sma_ogre.behavior
             {
                 foreach (Item i in listItem)
                 {
-                    if (i.distance(mAgentNode.Position.x, mAgentNode.Position.z) < dropDistance)
+                    if (i.Distance(mAgentNode.Position.x, mAgentNode.Position.z) < dropDistance)
                     {
-                        carriedItem.drop(mAgentNode.Position.x, mAgentNode.Position.z);
+                        carriedItem.Drop(mAgentNode.Position.x, mAgentNode.Position.z);
                         listItem.Add(carriedItem);
                         carriedItem = null;
                         return true;

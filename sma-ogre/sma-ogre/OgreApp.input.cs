@@ -4,8 +4,8 @@ namespace sma_ogre
 {
     partial class OgreApp
     {
-        protected Keyboard     mKeyboard;
-        protected Mouse        mMouse;
+        protected Keyboard mKeyboard;
+        protected Mouse    mMouse;
 
         protected void InitializeInput()
         {

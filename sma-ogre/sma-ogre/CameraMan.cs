@@ -4,7 +4,7 @@ namespace sma_ogre
 {
     class CameraMan
     {
-        private Camera  mCamera;
+        private Camera mCamera;
         private bool   mGoingForward;
         private bool   mGoingBack;
         private bool   mGoingRight;
@@ -13,8 +13,8 @@ namespace sma_ogre
         private bool   mGoingDown;
         private bool   mFastMove;
 
-        private float   translateSpeed = 500;
-        private float   rotateSpeed    = 0.15f;
+        private float  translateSpeed = 500;
+        private float  rotateSpeed    = 0.15f;
 
         public CameraMan(Camera camera)
         {
