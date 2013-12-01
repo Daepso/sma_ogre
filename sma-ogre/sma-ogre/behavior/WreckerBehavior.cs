@@ -31,7 +31,7 @@ namespace sma_ogre.behavior
                                                     WorldConfig.Singleton.WreckerSpeedRange[1]);
         }
 
-        protected bool WreckeAction(float elapsedTime)
+        protected bool WreckerAction(float elapsedTime)
         {
             if (carriedItem == null)
             {
@@ -62,13 +62,13 @@ namespace sma_ogre.behavior
             return false;
         }
 
-        public override void Update(float elapsedTime)
+        public override void Update(float elapsedTime, AgentAnimation animation = null)
         {
             MoveToTargetPosition(elapsedTime);
 
             if (wreckerTimer.isFinished())
             {
-                if (WreckeAction(elapsedTime))
+                if (WreckerAction(elapsedTime))
                 {
                     wreckerTimer.init();
                 }
@@ -76,6 +76,11 @@ namespace sma_ogre.behavior
             else
             {
                 wreckerTimer.updateTimer(elapsedTime);
+            }
+
+            if (animation != null)
+            {
+                animation.UpdatePosture(elapsedTime, speed);
             }
         }
 

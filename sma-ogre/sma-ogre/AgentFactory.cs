@@ -29,9 +29,9 @@ namespace sma_ogre
             return new AgentFactory(sceneMgr, WorldConfig.Singleton.RobotMesh, new WreckerBehaviorFactory(listItem));
         }
 
-        public Agent MakeAgent(bool useRandPos = false)
+        public Agent MakeAgent(bool useRandPos = false, bool useAnimation = false)
         {
-            Vector3 pos = new Vector3(0, 30, 0);
+            Vector3 pos = new Vector3(0, 0, 0);
 
             if (useRandPos)
             {
@@ -43,17 +43,17 @@ namespace sma_ogre
                     1+WorldConfig.Singleton.GroundLength / 2);
             }
 
-            Agent agent = new Agent(mSceneMgr, mMeshName, mBehaviorFactory.MakeBehavior(), pos);
+            Agent agent = new Agent(mSceneMgr, mMeshName, mBehaviorFactory.MakeBehavior(), pos, useAnimation);
             mAgents.Add(agent);
 
             return agent;
         }
 
-        public void MakeNumAgents(int agentNumber, bool useRandPos = false)
+        public void MakeNumAgents(int agentNumber, bool useRandPos = false, bool useAnimation = false)
         {
             for (int i = 0; i < agentNumber; i++)
             {
-                MakeAgent(useRandPos);
+                MakeAgent(useRandPos, useAnimation);
             }
         }
 

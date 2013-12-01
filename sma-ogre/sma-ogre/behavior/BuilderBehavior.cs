@@ -62,7 +62,7 @@ namespace sma_ogre.behavior
             return false;
         }
 
-        public override void Update(float elapsedTime)
+        public override void Update(float elapsedTime, AgentAnimation animation = null)
         {
             MoveToTargetPosition(elapsedTime);
 
@@ -76,6 +76,11 @@ namespace sma_ogre.behavior
             else
             {
                 carriedTimer.updateTimer(elapsedTime);
+            }
+
+            if (animation != null)
+            {
+                animation.UpdatePosture(elapsedTime, speed);
             }
         }
 

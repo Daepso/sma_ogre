@@ -32,9 +32,25 @@ namespace sma_ogre.behavior
                                                     WorldConfig.Singleton.DefaultSpeedRange[1]);
         }
 
+        protected void FaceDirection(Vector3 direction)
+        {
+            Vector3 src = mAgentNode.Orientation * Vector3.UNIT_X;
+			// Rotate will fail if we ask for a 180 degrees rotation, we use Yaw in this particular case
+            if ((1.0f + src.DotProduct(direction)) < 0.0001f)
+            {
+                mAgentNode.Yaw(180.0f);
+            }
+            else
+            {
+                Quaternion quat = src.GetRotationTo(direction);
+                mAgentNode.Rotate(quat);
+            }
+        }
+
         protected void MoveToTargetPosition(float elapsedTime)
         {
             Vector3 direction = targetPosition - mAgentNode.Position;
+            FaceDirection(direction);
             Vector3 newPosition = new Vector3();
             newPosition += direction;
             newPosition.Normalise();
@@ -50,9 +66,14 @@ namespace sma_ogre.behavior
             }    
         }
 
-        public virtual void Update(float elapsedTime)
+        public virtual void Update(float elapsedTime, AgentAnimation animation = null)
         {
             MoveToTargetPosition(elapsedTime);
+
+            if (animation != null)
+            {
+                animation.UpdatePosture(elapsedTime, speed);
+            }
         }
     }
 }
