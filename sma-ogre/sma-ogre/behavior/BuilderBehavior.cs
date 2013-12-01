@@ -24,6 +24,13 @@ namespace sma_ogre.behavior
             this.ChooseTargetPosition();
         }
 
+        public override void ChooseTargetPosition()
+        {
+            base.ChooseTargetPosition();
+            speed = WorldConfig.Singleton.RandFloat(WorldConfig.Singleton.BuilderSpeedRange[0],
+                                                    WorldConfig.Singleton.BuilderSpeedRange[1]);
+        }
+
         protected bool BuildAction(float elapsedTime)
         {
             if (carriedItem == null)

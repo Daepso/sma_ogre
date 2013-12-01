@@ -21,12 +21,12 @@ namespace sma_ogre
 
         public static AgentFactory OgreFactory(SceneManager sceneMgr, List<Item> listItem)
         {
-            return new AgentFactory(sceneMgr, "ogrehead.mesh", new BuilderBehaviorFactory(listItem));
+            return new AgentFactory(sceneMgr, WorldConfig.Singleton.OgreMesh, new BuilderBehaviorFactory(listItem));
         }
 
         public static AgentFactory RobotFactory(SceneManager sceneMgr, List<Item> listItem)
         {
-            return new AgentFactory(sceneMgr, "robot.mesh", new WreckerBehaviorFactory(listItem));
+            return new AgentFactory(sceneMgr, WorldConfig.Singleton.RobotMesh, new WreckerBehaviorFactory(listItem));
         }
 
         public Agent MakeAgent(bool useRandPos = false)

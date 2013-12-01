@@ -23,9 +23,13 @@ namespace sma_ogre.behavior
 
         public virtual void ChooseTargetPosition()
         {
-            targetPosition.x = WorldConfig.Singleton.RandFloat(-WorldConfig.Singleton.GroundLength / 2f, WorldConfig.Singleton.GroundLength / 2f);
-            targetPosition.z = WorldConfig.Singleton.RandFloat(-WorldConfig.Singleton.GroundLength / 2f, WorldConfig.Singleton.GroundLength / 2f);
-            speed = WorldConfig.Singleton.RandFloat(200, 1000);
+            targetPosition.x = WorldConfig.Singleton.RandFloat(-WorldConfig.Singleton.GroundLength / 2f,
+                                                                WorldConfig.Singleton.GroundLength / 2f);
+            targetPosition.z = WorldConfig.Singleton.RandFloat(-WorldConfig.Singleton.GroundLength / 2f,
+                                                                WorldConfig.Singleton.GroundLength / 2f);
+
+            speed = WorldConfig.Singleton.RandFloat(WorldConfig.Singleton.DefaultSpeedRange[0],
+                                                    WorldConfig.Singleton.DefaultSpeedRange[1]);
         }
 
         protected void MoveToTargetPosition(float elapsedTime)

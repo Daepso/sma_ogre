@@ -3,8 +3,8 @@ using System;
 
 namespace sma_ogre
 {
-	class UnkownConfigKeyException : Exception {}
-	class UnkownConfigSectionException : Exception {}
+    class UnkownConfigKeyException : Exception {}
+    class UnkownConfigSectionException : Exception {}
 
     class WorldConfig
     {
@@ -12,12 +12,20 @@ namespace sma_ogre
 
         private Random rnd;
 
-        private int    mInitialGoodAgentsNumber;
-        private int    mInitialBadAgentsNumber;
-        private float  mGroundWidth;
-        private float  mGroundLength;
-        private float  mGroundBorderWidth;
-        private string mOgreMesh;
+        private int     mInitialGoodAgentsNumber;
+        private int     mInitialBadAgentsNumber;
+
+        private float   mGroundWidth;
+        private float   mGroundLength;
+        private float   mGroundBorderWidth;
+
+        private string  mOgreMesh;
+        private string  mRobotMesh;
+        private string  mBrickMesh;
+
+        private float[] mDefaultSpeedRange;
+        private float[] mBuilderSpeedRange;
+        private float[] mWreckerSpeedRange;
 
         private ColourValue mAmbientLightOn;
         private ColourValue mAmbientLightOff;
@@ -54,17 +62,17 @@ namespace sma_ogre
             }
         }
 
-		public int RandInt(int min, int max)
+        public int RandInt(int min, int max)
         {
             return rnd.Next(min, max);
         }
 
-		public float RandFloat(float min, float max)
+        public float RandFloat(float min, float max)
         {
             return (float)rnd.NextDouble() * (max - min) + min;
         }
 
-		// Properties to get configuration
+        // Properties to get configuration
 
         public float GroundWidth
         {
@@ -106,6 +114,31 @@ namespace sma_ogre
             get { return mOgreMesh; }
         }
 
+        public string RobotMesh
+        {
+            get { return mRobotMesh; }
+        }
+
+        public string BrickMesh
+        {
+            get { return mBrickMesh; }
+        }
+
+        public float[] DefaultSpeedRange
+        {
+            get { return mDefaultSpeedRange; }
+        }
+
+        public float[] BuilderSpeedRange
+        {
+            get { return mBuilderSpeedRange; }
+        }
+
+        public float[] WreckerSpeedRange
+        {
+            get { return mWreckerSpeedRange; }
+        }
+
         public ColourValue SwitchedLight()
         {
             if (mAmbientLightIsOn)
@@ -113,7 +146,7 @@ namespace sma_ogre
                 mAmbientLightIsOn = false;
                 return mAmbientLightOff;
             }
-			else
+            else
             {
                 mAmbientLightIsOn = true;
                 return mAmbientLightOn;
@@ -141,7 +174,11 @@ namespace sma_ogre
                     {
                         LoadMeshesConfig(line);
                     }
-					else
+                    else if (section.CurrentKey.Equals("Behavior"))
+                    {
+                        LoadBehaviorConfig(line);
+                    }
+                    else
                     {
                         throw new UnkownConfigSectionException();
                     }
@@ -155,25 +192,25 @@ namespace sma_ogre
             {
                 mInitialGoodAgentsNumber = int.Parse(line.Value);
             }
-			else if (line.Key.Equals("InitialBadAgentsNumber"))
+            else if (line.Key.Equals("InitialBadAgentsNumber"))
             {
                 mInitialBadAgentsNumber = int.Parse(line.Value);
             }
-			else if (line.Key.Equals("AmbientLightOn"))
+            else if (line.Key.Equals("AmbientLightOn"))
             {
                 string[] lightOnColors = line.Value.Split(',');
                 mAmbientLightOn = new ColourValue(float.Parse(lightOnColors[0], System.Globalization.CultureInfo.InvariantCulture),
                                                   float.Parse(lightOnColors[1], System.Globalization.CultureInfo.InvariantCulture),
                                                   float.Parse(lightOnColors[2], System.Globalization.CultureInfo.InvariantCulture));
             }
-			else if (line.Key.Equals("AmbientLightOff"))
+            else if (line.Key.Equals("AmbientLightOff"))
             {
                 string[] lightOffColors = line.Value.Split(',');
                 mAmbientLightOff = new ColourValue(float.Parse(lightOffColors[0], System.Globalization.CultureInfo.InvariantCulture),
                                                    float.Parse(lightOffColors[1], System.Globalization.CultureInfo.InvariantCulture),
                                                    float.Parse(lightOffColors[2], System.Globalization.CultureInfo.InvariantCulture));
             }
-			else {
+            else {
                 throw new UnkownConfigKeyException();
             }
         }
@@ -184,15 +221,15 @@ namespace sma_ogre
             {
                 mGroundWidth = int.Parse(line.Value);
             }
-			else if (line.Key.Equals("Length"))
+            else if (line.Key.Equals("Length"))
             {
                 mGroundLength = int.Parse(line.Value);
             }
-			else if (line.Key.Equals("BorderWidth"))
+            else if (line.Key.Equals("BorderWidth"))
             {
                 mGroundBorderWidth = int.Parse(line.Value);
             }
-			else {
+            else {
                 throw new UnkownConfigKeyException();
             }
         }
@@ -203,7 +240,43 @@ namespace sma_ogre
             {
                 mOgreMesh = line.Value;
             }
-			else {
+            else if (line.Key.Equals("Robot"))
+            {
+                mRobotMesh = line.Value;
+            }
+            else if (line.Key.Equals("Brick"))
+            {
+                mBrickMesh = line.Value;
+            }
+            else {
+                throw new UnkownConfigKeyException();
+            }
+        }
+
+        private void LoadBehaviorConfig(System.Collections.Generic.KeyValuePair<string,string> line)
+        {
+            if (line.Key.Equals("DefaultSpeedRange"))
+            {
+                string[] defaultSpeedRange = line.Value.Split(',');
+                mDefaultSpeedRange = new float[2];
+                mDefaultSpeedRange[0] = float.Parse(defaultSpeedRange[0], System.Globalization.CultureInfo.InvariantCulture);
+                mDefaultSpeedRange[1] = float.Parse(defaultSpeedRange[1], System.Globalization.CultureInfo.InvariantCulture);
+            }
+            else if (line.Key.Equals("BuilderSpeedRange"))
+            {
+                string[] builderSpeedRange = line.Value.Split(',');
+                mBuilderSpeedRange = new float[2];
+                mBuilderSpeedRange[0] = float.Parse(builderSpeedRange[0], System.Globalization.CultureInfo.InvariantCulture);
+                mBuilderSpeedRange[1] = float.Parse(builderSpeedRange[1], System.Globalization.CultureInfo.InvariantCulture);
+            }
+            else if (line.Key.Equals("WreckerSpeedRange"))
+            {
+                string[] wreckerSpeedRange = line.Value.Split(',');
+                mWreckerSpeedRange = new float[2];
+                mWreckerSpeedRange[0] = float.Parse(wreckerSpeedRange[0], System.Globalization.CultureInfo.InvariantCulture);
+                mWreckerSpeedRange[1] = float.Parse(wreckerSpeedRange[1], System.Globalization.CultureInfo.InvariantCulture);
+            }
+            else {
                 throw new UnkownConfigKeyException();
             }
         }

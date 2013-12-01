@@ -12,14 +12,13 @@ namespace sma_ogre
          private ItemFactory(SceneManager sceneMgr, string meshName)
         {
             mSceneMgr = sceneMgr;
-			mMeshName = meshName;
+            mMeshName = meshName;
             mItems = new List<Item>();
         }
 
          public static ItemFactory brickFactory(SceneManager sceneMgr)
          {
-             //Todo Change the ogrehead.mesh with another mesh
-             return new ItemFactory(sceneMgr, "Cube.mesh");
+             return new ItemFactory(sceneMgr, WorldConfig.Singleton.BrickMesh);
          }
 
         /* Add a new Resource to the world at a random position*/
