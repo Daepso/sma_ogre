@@ -55,7 +55,6 @@ namespace sma_ogre.behavior
             return false;
         }
 
-
         public override void Update(float elapsedTime)
         {
             MoveToTargetPosition(elapsedTime);

@@ -7,7 +7,7 @@ namespace sma_ogre
     {
         AgentFactory mOgreFactory;
         AgentFactory mRobotFactory;
-        ItemFactory mPenguinFactory;
+        ItemFactory mBrickFactory;
 
         public static void Main()
         {
@@ -27,13 +27,13 @@ namespace sma_ogre
 
             CreateGround();
 
-            mPenguinFactory = ItemFactory.penguinFactory(mSceneMgr);
-            mPenguinFactory.makeNumItems(75, true);
+            mBrickFactory = ItemFactory.brickFactory(mSceneMgr);
+            mBrickFactory.makeNumItems(75, true);
 
-            mOgreFactory = AgentFactory.OgreFactory(mSceneMgr,mPenguinFactory.itemsList());
+            mOgreFactory = AgentFactory.OgreFactory(mSceneMgr,mBrickFactory.itemsList());
             mOgreFactory.MakeNumAgents(WorldConfig.Singleton.InitialGoodAgentsNumber, true);
 
-            mRobotFactory = AgentFactory.RobotFactory(mSceneMgr,mPenguinFactory.itemsList());
+            mRobotFactory = AgentFactory.RobotFactory(mSceneMgr,mBrickFactory.itemsList());
             mRobotFactory.MakeNumAgents(WorldConfig.Singleton.InitialBadAgentsNumber, true);
         }
 

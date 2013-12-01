@@ -16,7 +16,7 @@ namespace sma_ogre
             mItems = new List<Item>();
         }
 
-         public static ItemFactory penguinFactory(SceneManager sceneMgr)
+         public static ItemFactory brickFactory(SceneManager sceneMgr)
          {
              //Todo Change the ogrehead.mesh with another mesh
              return new ItemFactory(sceneMgr, "Cube.mesh");

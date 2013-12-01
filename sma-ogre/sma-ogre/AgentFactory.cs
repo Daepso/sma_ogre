@@ -26,7 +26,7 @@ namespace sma_ogre
 
         public static AgentFactory RobotFactory(SceneManager sceneMgr, List<Item> listItem)
         {
-            return new AgentFactory(sceneMgr, "robot.mesh", new BuilderBehaviorFactory(listItem));
+            return new AgentFactory(sceneMgr, "robot.mesh", new WreckerBehaviorFactory(listItem));
         }
 
         public Agent MakeAgent(bool useRandPos = false)
