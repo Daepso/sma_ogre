@@ -6,6 +6,7 @@ namespace sma_ogre
     class Program : OgreApp
     {
         AgentFactory mOgreFactory;
+        AgentFactory mRobotFactory;
         ItemFactory mPenguinFactory;
 
         public static void Main()
@@ -31,11 +32,15 @@ namespace sma_ogre
 
             mOgreFactory = AgentFactory.OgreFactory(mSceneMgr,mPenguinFactory.itemsList());
             mOgreFactory.MakeNumAgents(WorldConfig.Singleton.InitialGoodAgentsNumber, true);
+
+            mRobotFactory = AgentFactory.RobotFactory(mSceneMgr,mPenguinFactory.itemsList());
+            mRobotFactory.MakeNumAgents(WorldConfig.Singleton.InitialBadAgentsNumber, true);
         }
 
         protected override void UpdateScene(FrameEvent evt)
         {
             mOgreFactory.UpdateAgentsAction(evt);
+            mRobotFactory.UpdateAgentsAction(evt);
         }
 
         protected void CreateGround()

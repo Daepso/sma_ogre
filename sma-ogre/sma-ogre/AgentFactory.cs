@@ -23,6 +23,11 @@ namespace sma_ogre
             return new AgentFactory(sceneMgr, "ogrehead.mesh", new BuilderBehaviorFactory(listItem));
         }
 
+        public static AgentFactory RobotFactory(SceneManager sceneMgr, List<Item> listItem)
+        {
+            return new AgentFactory(sceneMgr, "robot.mesh", new BuilderBehaviorFactory(listItem));
+        }
+
         public Agent MakeAgent(bool useRandPos = false)
         {
             Vector3 pos = new Vector3(0, 30, 0);
