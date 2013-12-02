@@ -27,8 +27,8 @@ namespace sma_ogre.behavior
         public override void ChooseTargetPosition()
         {
             base.ChooseTargetPosition();
-            speed = WorldConfig.Singleton.RandFloat(WorldConfig.Singleton.BuilderSpeedRange[0],
-                                                    WorldConfig.Singleton.BuilderSpeedRange[1]);
+            baseSpeed = WorldConfig.Singleton.RandFloat(WorldConfig.Singleton.BuilderSpeedRange[0],
+                                                        WorldConfig.Singleton.BuilderSpeedRange[1]);
         }
 
         protected bool BuildAction(float elapsedTime)
@@ -64,6 +64,7 @@ namespace sma_ogre.behavior
 
         public override void Update(float elapsedTime, AgentAnimation animation = null)
         {
+            speed = baseSpeed * WorldConfig.Singleton.SpeedFactor;
             MoveToTargetPosition(elapsedTime);
 
             if (carriedTimer.isFinished())

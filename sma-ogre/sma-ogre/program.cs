@@ -39,8 +39,11 @@ namespace sma_ogre
 
         protected override void UpdateScene(FrameEvent evt)
         {
-            mOgreFactory.UpdateAgentsAction(evt);
-            mRobotFactory.UpdateAgentsAction(evt);
+            if (WorldConfig.Singleton.Pause)
+            {
+                mOgreFactory.UpdateAgentsAction(evt);
+                mRobotFactory.UpdateAgentsAction(evt);
+            }
         }
 
         protected void CreateGround()

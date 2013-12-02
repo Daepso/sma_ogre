@@ -27,8 +27,8 @@ namespace sma_ogre.behavior
         public override void ChooseTargetPosition()
         {
             base.ChooseTargetPosition();
-            speed = WorldConfig.Singleton.RandFloat(WorldConfig.Singleton.WreckerSpeedRange[0],
-                                                    WorldConfig.Singleton.WreckerSpeedRange[1]);
+            baseSpeed = WorldConfig.Singleton.RandFloat(WorldConfig.Singleton.WreckerSpeedRange[0],
+                                                        WorldConfig.Singleton.WreckerSpeedRange[1]);
         }
 
         protected bool WreckerAction(float elapsedTime)
@@ -64,6 +64,7 @@ namespace sma_ogre.behavior
 
         public override void Update(float elapsedTime, AgentAnimation animation = null)
         {
+            speed = baseSpeed * WorldConfig.Singleton.SpeedFactor;
             MoveToTargetPosition(elapsedTime);
 
             if (wreckerTimer.isFinished())

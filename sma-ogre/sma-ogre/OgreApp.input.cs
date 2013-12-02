@@ -6,6 +6,7 @@ namespace sma_ogre
     {
         protected Keyboard mKeyboard;
         protected Mouse    mMouse;
+        protected bool     mShiftKeyPressed;
 
         protected void InitializeInput()
         {
@@ -43,39 +44,56 @@ namespace sma_ogre
                 case MOIS.KeyCode.KC_Z:
                 case MOIS.KeyCode.KC_UP:
                     mCameraMan.GoingForward = true;
-					break;
+                    break;
 
                 case MOIS.KeyCode.KC_S:
                 case MOIS.KeyCode.KC_DOWN:
                     mCameraMan.GoingBack = true;
-					break;
+                    break;
 
                 case MOIS.KeyCode.KC_A:
                     mCameraMan.GoingUp = true;
-					break;
+                    break;
 
                 case MOIS.KeyCode.KC_E:
                     mCameraMan.GoingDown = true;
-					break;
+                    break;
 
                 case MOIS.KeyCode.KC_LEFT:
                 case MOIS.KeyCode.KC_Q:
                     mCameraMan.GoingLeft = true;
-					break;
+                    break;
 
-	            case MOIS.KeyCode.KC_RIGHT:
+                case MOIS.KeyCode.KC_RIGHT:
                 case MOIS.KeyCode.KC_D:
                     mCameraMan.GoingRight = true;
-					break;
-
-                case MOIS.KeyCode.KC_LSHIFT:
-                case MOIS.KeyCode.KC_RSHIFT:
-                    mCameraMan.FastMove = true;
                     break;
 
                 // World properties
                 case MOIS.KeyCode.KC_L:
                     mSceneMgr.AmbientLight = WorldConfig.Singleton.SwitchedLight();
+                    break;
+
+                case MOIS.KeyCode.KC_P:
+                    if (mShiftKeyPressed)
+                    {
+                        WorldConfig.Singleton.SwitchPause();
+                    }
+                    else
+                    {
+                        WorldConfig.Singleton.SpeedFactorIncrease();
+                    }
+                    break;
+
+                case MOIS.KeyCode.KC_M:
+                    WorldConfig.Singleton.SpeedFactorDecrease();
+                    break;
+
+                // Key modifiers
+                case MOIS.KeyCode.KC_LSHIFT:
+                case MOIS.KeyCode.KC_RSHIFT:
+                    mCameraMan.FastMove = true;
+                    mShiftKeyPressed = true;
                     break;
             }
 
@@ -89,34 +107,35 @@ namespace sma_ogre
                 case MOIS.KeyCode.KC_Z:
                 case MOIS.KeyCode.KC_UP:
                     mCameraMan.GoingForward = false;
-					break;
+                    break;
 
                 case MOIS.KeyCode.KC_S:
                 case MOIS.KeyCode.KC_DOWN:
                     mCameraMan.GoingBack = false;
-					break;
+                    break;
 
                 case MOIS.KeyCode.KC_A:
                     mCameraMan.GoingUp = false;
-					break;
+                    break;
 
                 case MOIS.KeyCode.KC_E:
                     mCameraMan.GoingDown = false;
-					break;
+                    break;
 
                 case MOIS.KeyCode.KC_LEFT:
                 case MOIS.KeyCode.KC_Q:
                     mCameraMan.GoingLeft = false;
-					break;
+                    break;
 
-	            case MOIS.KeyCode.KC_RIGHT:
+                case MOIS.KeyCode.KC_RIGHT:
                 case MOIS.KeyCode.KC_D:
                     mCameraMan.GoingRight = false;
-					break;
+                    break;
 
                 case MOIS.KeyCode.KC_LSHIFT:
                 case MOIS.KeyCode.KC_RSHIFT:
                     mCameraMan.FastMove = false;
+                    mShiftKeyPressed = false;
                     break;
             }
 

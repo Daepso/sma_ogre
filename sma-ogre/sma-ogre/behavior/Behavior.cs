@@ -10,6 +10,7 @@ namespace sma_ogre.behavior
         protected Vector3   mMeshFacedDirection;
         protected Vector3   targetPosition;
         protected float     speed;
+        protected float     baseSpeed;
 
         public void Setup(SceneNode agentNode, Vector3 meshFacedDirection)
         {
@@ -20,7 +21,8 @@ namespace sma_ogre.behavior
         public virtual void Init()
         {
             targetPosition = new Vector3(0f, 0f, 0f);
-            speed = 0f;
+            baseSpeed      = 0f;
+            speed          = baseSpeed;
         }
 
         public virtual void ChooseTargetPosition()
@@ -30,8 +32,8 @@ namespace sma_ogre.behavior
             targetPosition.z = WorldConfig.Singleton.RandFloat(-WorldConfig.Singleton.GroundLength / 2f,
                                                                 WorldConfig.Singleton.GroundLength / 2f);
 
-            speed = WorldConfig.Singleton.RandFloat(WorldConfig.Singleton.DefaultSpeedRange[0],
-                                                    WorldConfig.Singleton.DefaultSpeedRange[1]);
+            baseSpeed = WorldConfig.Singleton.RandFloat(WorldConfig.Singleton.DefaultSpeedRange[0],
+                                                        WorldConfig.Singleton.DefaultSpeedRange[1]);
         }
 
         protected void FaceDirection(Vector3 direction)
@@ -70,6 +72,7 @@ namespace sma_ogre.behavior
 
         public virtual void Update(float elapsedTime, AgentAnimation animation = null)
         {
+            speed = baseSpeed * WorldConfig.Singleton.SpeedFactor;
             MoveToTargetPosition(elapsedTime);
 
             if (animation != null)
