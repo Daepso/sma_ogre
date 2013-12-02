@@ -7,9 +7,11 @@ namespace sma_ogre
     {
         private Entity mEntity;
         private SceneNode mEntityNode;
+        private SceneManager sceneMgr;
 
         public Item(SceneManager sceneMgr, string meshName)
         {
+            this.sceneMgr = sceneMgr;
             mEntity = sceneMgr.CreateEntity(meshName);
             mEntityNode = sceneMgr.RootSceneNode.CreateChildSceneNode();
             mEntityNode.AttachObject(mEntity);
@@ -29,15 +31,18 @@ namespace sma_ogre
             return dis;
         }
 
-        public void PickUp()
+        public void PickUp(SceneNode mAgentNode)
         {
-            mEntity.Visible = false;
+            sceneMgr.RootSceneNode.RemoveChild(mEntityNode);
+            mAgentNode.AddChild(mEntityNode);
+            mEntityNode.SetPosition(0, mEntityNode.Position.y + 80, 0);
         }
 
-        public void Drop(float x, float z)
-        {
-            mEntityNode.SetPosition(x, mEntityNode.Position.y, z);
-            mEntity.Visible = true;
+        public void Drop(float x, float z, SceneNode mAgentNode)
+        {       
+            mAgentNode.RemoveChild(mEntityNode);
+            sceneMgr.RootSceneNode.AddChild(mEntityNode);
+            mEntityNode.SetPosition(x, mEntityNode.Position.y - 80, z);
         }
     }
 }

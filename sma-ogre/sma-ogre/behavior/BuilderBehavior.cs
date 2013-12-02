@@ -6,13 +6,10 @@ using System.Text;
 
 namespace sma_ogre.behavior
 {
-    class BuilderBehavior : Behavior
+    class BuilderBehavior : CarrierBehavior
     {
         static float pickUpDistance = 20;
         static float dropDistance = 20;
-
-        private List<Item> listItem;
-        private Item carriedItem;
 
         private float minCarriedTimer = 2;
         private float maxCarriedTimer = 10;
@@ -39,9 +36,7 @@ namespace sma_ogre.behavior
                 {
                     if (i.Distance(mAgentNode.Position.x, mAgentNode.Position.z) < pickUpDistance)
                     {
-                        carriedItem = i;
-                        carriedItem.PickUp();
-                        listItem.Remove(carriedItem);
+                        pickUpAction(i);
                         return true;
                     }
                 }
@@ -52,9 +47,7 @@ namespace sma_ogre.behavior
                 {
                     if (i.Distance(mAgentNode.Position.x, mAgentNode.Position.z) < dropDistance)
                     {
-                        carriedItem.Drop(mAgentNode.Position.x, mAgentNode.Position.z);
-                        listItem.Add(carriedItem);
-                        carriedItem = null;
+                        dropAction(mAgentNode.Position.x, mAgentNode.Position.z);
                         return true;
                     }
                 }
@@ -86,9 +79,8 @@ namespace sma_ogre.behavior
         }
 
         public BuilderBehavior(List<Item> listItem)
+            :base(listItem)
         {
-            this.listItem = listItem;
-            carriedItem = null;
             carriedTimer = new Timer(minCarriedTimer, maxCarriedTimer);
             carriedTimer.init();
         }

@@ -6,13 +6,10 @@ using System.Text;
 
 namespace sma_ogre.behavior
 {
-    class WreckerBehavior : Behavior
+    class WreckerBehavior : CarrierBehavior
     {
         static float pickUpDistance = 20;
         static float dropDistance = 20;
-
-        private List<Item> listItem;
-        private Item carriedItem;
 
         static float minWreckerTime = 2;
         static float maxWreckerTime = 10;
@@ -39,24 +36,27 @@ namespace sma_ogre.behavior
                 {
                     if (i.Distance(mAgentNode.Position.x, mAgentNode.Position.z) < pickUpDistance)
                     {
-                        carriedItem = i;
-                        carriedItem.PickUp();
-                        listItem.Remove(carriedItem);
+                        pickUpAction(i);
                         return true;
                     }
                 }
             }
             else
             {
+                bool isEmptySpace = true;
                 foreach (Item i in listItem)
                 {
                     if (i.Distance(mAgentNode.Position.x, mAgentNode.Position.z) < dropDistance)
                     {
-                        carriedItem.Drop(mAgentNode.Position.x, mAgentNode.Position.z);
-                        listItem.Add(carriedItem);
-                        carriedItem = null;
-                        return true;
+                        isEmptySpace = false;
+
                     }
+                }
+
+                if (isEmptySpace)
+                {
+                    dropAction(mAgentNode.Position.x, mAgentNode.Position.z);
+                    return true;
                 }
             }
             return false;
@@ -86,9 +86,8 @@ namespace sma_ogre.behavior
         }
 
         public WreckerBehavior(List<Item> listItem)
+            :base(listItem)
         {
-            this.listItem = listItem;
-            carriedItem = null;
             wreckerTimer = new Timer(minWreckerTime, maxWreckerTime);
             wreckerTimer.init();
         }

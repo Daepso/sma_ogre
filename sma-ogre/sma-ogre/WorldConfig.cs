@@ -14,6 +14,7 @@ namespace sma_ogre
 
         private int     mInitialGoodAgentsNumber;
         private int     mInitialBadAgentsNumber;
+        private int     mInitialBrickNumber;
 
         private float   mGroundWidth;
         private float   mGroundLength;
@@ -102,6 +103,11 @@ namespace sma_ogre
         public int InitialBadAgentsNumber
         {
             get { return mInitialBadAgentsNumber; }
+        }
+
+        public int InitialBrickNumber
+        {
+            get { return mInitialBrickNumber; }
         }
 
         public ColourValue AmbientLightOn
@@ -230,6 +236,10 @@ namespace sma_ogre
             else if (line.Key.Equals("InitialBadAgentsNumber"))
             {
                 mInitialBadAgentsNumber = int.Parse(line.Value);
+            }
+            else if (line.Key.Equals("InitialBrickNumber"))
+            {
+                mInitialBrickNumber = int.Parse(line.Value);
             }
             else if (line.Key.Equals("AmbientLightOn"))
             {

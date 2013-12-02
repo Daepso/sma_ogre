@@ -28,7 +28,7 @@ namespace sma_ogre
             CreateGround();
 
             mBrickFactory = ItemFactory.BrickFactory(mSceneMgr);
-            mBrickFactory.MakeNumItems(75, true);
+            mBrickFactory.MakeNumItems(WorldConfig.Singleton.InitialBrickNumber, true);
 
             mOgreFactory = AgentFactory.OgreFactory(mSceneMgr,mBrickFactory.ItemsList());
             mOgreFactory.MakeNumAgents(WorldConfig.Singleton.InitialGoodAgentsNumber, true);
