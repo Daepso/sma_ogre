@@ -48,15 +48,22 @@ namespace sma_ogre.behavior
             }
             else
             {
+                bool isEmptySpace = true;
                 foreach (Item i in listItem)
                 {
                     if (i.Distance(mAgentNode.Position.x, mAgentNode.Position.z) < dropDistance)
                     {
-                        carriedItem.Drop(mAgentNode.Position.x, mAgentNode.Position.z);
-                        listItem.Add(carriedItem);
-                        carriedItem = null;
-                        return true;
+                        isEmptySpace = false;
+
                     }
+                }
+
+                if (isEmptySpace)
+                {
+                    carriedItem.Drop(mAgentNode.Position.x, mAgentNode.Position.z);
+                    listItem.Add(carriedItem);
+                    carriedItem = null;
+                    return true;
                 }
             }
             return false;
