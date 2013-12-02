@@ -91,13 +91,13 @@ namespace sma_ogre
 
         protected virtual void CreateScene()
         {
-            Entity ogreHead = mSceneMgr.CreateEntity("Head", WorldConfig.Singleton.OgreMesh);
+            Entity ogreHead    = mSceneMgr.CreateEntity("Head", WorldConfig.Singleton.OgreMesh);
             SceneNode headNode = mSceneMgr.RootSceneNode.CreateChildSceneNode();
             headNode.AttachObject(ogreHead);
 
             mSceneMgr.AmbientLight = WorldConfig.Singleton.AmbientLightOn;
 
-            Light l = mSceneMgr.CreateLight("MainLight");
+            Light l    = mSceneMgr.CreateLight("MainLight");
             l.Position = new Vector3(20, 80, 50);
         }
 

@@ -5,15 +5,15 @@ namespace sma_ogre
 {
     class Item
     {
-        private Entity mEntity;
-        private SceneNode mEntityNode;
+        private Entity       mEntity;
+        private SceneNode    mEntityNode;
         private SceneManager sceneMgr;
 
         public Item(SceneManager sceneMgr, string meshName)
         {
             this.sceneMgr = sceneMgr;
-            mEntity = sceneMgr.CreateEntity(meshName);
-            mEntityNode = sceneMgr.RootSceneNode.CreateChildSceneNode();
+            mEntity       = sceneMgr.CreateEntity(meshName);
+            mEntityNode   = sceneMgr.RootSceneNode.CreateChildSceneNode();
             mEntityNode.AttachObject(mEntity);
         }
 
@@ -25,8 +25,8 @@ namespace sma_ogre
 
         public float Distance(float obj_x, float obj_z)
         {
-            float x = (obj_x - mEntityNode.Position.x);
-            float z = (obj_z - mEntityNode.Position.z);
+            float x   = (obj_x - mEntityNode.Position.x);
+            float z   = (obj_z - mEntityNode.Position.z);
             float dis = (float)System.Math.Sqrt(x * x + z * z);
             return dis;
         }

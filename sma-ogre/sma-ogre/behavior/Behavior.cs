@@ -1,6 +1,4 @@
-﻿using System;
-using Mogre;
-using System.Collections.Generic;
+﻿using Mogre;
 
 namespace sma_ogre.behavior
 {
@@ -39,7 +37,7 @@ namespace sma_ogre.behavior
         protected void FaceDirection(Vector3 direction)
         {
             Vector3 src = mAgentNode.Orientation * mMeshFacedDirection;
-			// Rotate will fail if we ask for a 180 degrees rotation, we use Yaw in this particular case
+            // Rotate will fail if we ask for a 180 degrees rotation, we use Yaw in this particular case
             if ((1.0f + src.DotProduct(direction)) < 0.0001f)
             {
                 mAgentNode.Yaw(180.0f);

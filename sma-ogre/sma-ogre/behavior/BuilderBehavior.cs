@@ -1,18 +1,15 @@
 ﻿using sma_ogre.utils;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace sma_ogre.behavior
 {
     class BuilderBehavior : CarrierBehavior
     {
-        static float pickUpDistance = 20;
-        static float dropDistance = 20;
+        static private float pickUpDistance = 20;
+        static private float dropDistance   = 20;
 
-        private float minCarriedTimer = 2;
-        private float maxCarriedTimer = 10;
+        static private float minCarriedTimer = 2;
+        static private float maxCarriedTimer = 10;
         private Timer carriedTimer;
 
         public override void Init()

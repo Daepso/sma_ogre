@@ -1,18 +1,15 @@
 ﻿using sma_ogre.utils;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace sma_ogre.behavior
 {
     class WreckerBehavior : CarrierBehavior
     {
-        static float pickUpDistance = 20;
-        static float dropDistance = 20;
+        static private float pickUpDistance = 20;
+        static private float dropDistance   = 20;
 
-        static float minWreckerTime = 2;
-        static float maxWreckerTime = 10;
+        static private float minWreckerTime = 2;
+        static private float maxWreckerTime = 10;
         private Timer wreckerTimer;
 
         public override void Init()

@@ -82,7 +82,7 @@ namespace sma_ogre
 
         public void MouseMovement(int x, int y)
         {
-            mCamera.Yaw(new Degree(-x * rotateSpeed));
+            mCamera.Yaw(  new Degree(-x * rotateSpeed));
             mCamera.Pitch(new Degree(-y * rotateSpeed));
         }
     }

@@ -16,17 +16,17 @@ namespace sma_ogre
             {
                 InputManager mInputMgr = MOIS.InputManager.CreateInputSystem((uint)windowHandle);
                 mKeyboard = (MOIS.Keyboard)mInputMgr.CreateInputObject(MOIS.Type.OISKeyboard, true);
-                mMouse    = (MOIS.Mouse)mInputMgr.CreateInputObject(MOIS.Type.OISMouse, true);
+                mMouse    = (MOIS.Mouse)   mInputMgr.CreateInputObject(MOIS.Type.OISMouse,    true);
             }
             catch (System.Runtime.InteropServices.SEHException e)
             {
                 System.Console.Out.WriteLine(e.ToString());
             }
 
-            mKeyboard.KeyPressed  += new KeyListener.KeyPressedHandler(     OnKeyPressed);
-            mKeyboard.KeyReleased += new KeyListener.KeyReleasedHandler(    OnKeyReleased);
-            mMouse.MouseMoved     += new MouseListener.MouseMovedHandler(   OnMouseMoved);
-            mMouse.MousePressed   += new MouseListener.MousePressedHandler( OnMousePressed);
+            mKeyboard.KeyPressed  += new KeyListener.KeyPressedHandler(     OnKeyPressed   );
+            mKeyboard.KeyReleased += new KeyListener.KeyReleasedHandler(    OnKeyReleased  );
+            mMouse.MouseMoved     += new MouseListener.MouseMovedHandler(   OnMouseMoved   );
+            mMouse.MousePressed   += new MouseListener.MousePressedHandler( OnMousePressed );
             mMouse.MouseReleased  += new MouseListener.MouseReleasedHandler(OnMouseReleased);
         }
 

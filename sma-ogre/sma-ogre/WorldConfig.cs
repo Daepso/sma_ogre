@@ -170,7 +170,7 @@ namespace sma_ogre
 
         public void SpeedFactorDecrease()
         {
-			if (mSpeedFactor > 0.01)
+            if (mSpeedFactor > 0.01)
             {
                 mSpeedFactor /= 2;
             }
@@ -178,7 +178,7 @@ namespace sma_ogre
 
         public void SpeedFactorIncrease()
         {
-			if (mSpeedFactor < 100)
+            if (mSpeedFactor < 100)
             {
                 mSpeedFactor *= 2;
             }
@@ -244,16 +244,16 @@ namespace sma_ogre
             else if (line.Key.Equals("AmbientLightOn"))
             {
                 string[] lightOnColors = line.Value.Split(',');
-                mAmbientLightOn = new ColourValue(float.Parse(lightOnColors[0], System.Globalization.CultureInfo.InvariantCulture),
-                                                  float.Parse(lightOnColors[1], System.Globalization.CultureInfo.InvariantCulture),
-                                                  float.Parse(lightOnColors[2], System.Globalization.CultureInfo.InvariantCulture));
+                mAmbientLightOn = new ColourValue(FloatParse(lightOnColors[0]),
+                                                  FloatParse(lightOnColors[1]),
+                                                  FloatParse(lightOnColors[2]));
             }
             else if (line.Key.Equals("AmbientLightOff"))
             {
                 string[] lightOffColors = line.Value.Split(',');
-                mAmbientLightOff = new ColourValue(float.Parse(lightOffColors[0], System.Globalization.CultureInfo.InvariantCulture),
-                                                   float.Parse(lightOffColors[1], System.Globalization.CultureInfo.InvariantCulture),
-                                                   float.Parse(lightOffColors[2], System.Globalization.CultureInfo.InvariantCulture));
+                mAmbientLightOff = new ColourValue(FloatParse(lightOffColors[0]),
+                                                   FloatParse(lightOffColors[1]),
+                                                   FloatParse(lightOffColors[2]));
             }
             else {
                 throw new UnkownConfigKeyException();
@@ -303,27 +303,32 @@ namespace sma_ogre
             if (line.Key.Equals("DefaultSpeedRange"))
             {
                 string[] defaultSpeedRange = line.Value.Split(',');
-                mDefaultSpeedRange = new float[2];
-                mDefaultSpeedRange[0] = float.Parse(defaultSpeedRange[0], System.Globalization.CultureInfo.InvariantCulture);
-                mDefaultSpeedRange[1] = float.Parse(defaultSpeedRange[1], System.Globalization.CultureInfo.InvariantCulture);
+                mDefaultSpeedRange    = new float[2];
+                mDefaultSpeedRange[0] = FloatParse(defaultSpeedRange[0]);
+                mDefaultSpeedRange[1] = FloatParse(defaultSpeedRange[1]);
             }
             else if (line.Key.Equals("BuilderSpeedRange"))
             {
                 string[] builderSpeedRange = line.Value.Split(',');
-                mBuilderSpeedRange = new float[2];
-                mBuilderSpeedRange[0] = float.Parse(builderSpeedRange[0], System.Globalization.CultureInfo.InvariantCulture);
-                mBuilderSpeedRange[1] = float.Parse(builderSpeedRange[1], System.Globalization.CultureInfo.InvariantCulture);
+                mBuilderSpeedRange    = new float[2];
+                mBuilderSpeedRange[0] = FloatParse(builderSpeedRange[0]);
+                mBuilderSpeedRange[1] = FloatParse(builderSpeedRange[1]);
             }
             else if (line.Key.Equals("WreckerSpeedRange"))
             {
                 string[] wreckerSpeedRange = line.Value.Split(',');
-                mWreckerSpeedRange = new float[2];
-                mWreckerSpeedRange[0] = float.Parse(wreckerSpeedRange[0], System.Globalization.CultureInfo.InvariantCulture);
-                mWreckerSpeedRange[1] = float.Parse(wreckerSpeedRange[1], System.Globalization.CultureInfo.InvariantCulture);
+                mWreckerSpeedRange    = new float[2];
+                mWreckerSpeedRange[0] = FloatParse(wreckerSpeedRange[0]);
+                mWreckerSpeedRange[1] = FloatParse(wreckerSpeedRange[1]);
             }
             else {
                 throw new UnkownConfigKeyException();
             }
+        }
+
+        private float FloatParse(string s)
+        {
+            return float.Parse(s, System.Globalization.CultureInfo.InvariantCulture);
         }
     }
 }

@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace sma_ogre.behavior
 {
     class CarrierBehavior : Behavior
     {
         protected List<Item> listItem;
-        protected Item carriedItem;
+        protected Item       carriedItem;
 
         public CarrierBehavior(List<Item> listItem)
         {
             this.listItem = listItem;
-            carriedItem = null;
+            carriedItem   = null;
         }
 
         protected void pickUpAction(Item i)
