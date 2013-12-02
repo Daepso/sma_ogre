@@ -3,6 +3,13 @@ TODO
 
 * Look at behaviour (David & Thibaud)
 * Create menu to add moveable lights
+* Add debug window
+* Add help window
+* Add information window
+* Add death and birth
+* Add fog
+* Add Agent selection
+* Add viewports for camera (First person, etc.)
 
 DONE
 ====
