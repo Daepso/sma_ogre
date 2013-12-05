@@ -12,23 +12,31 @@ namespace sma_ogre
         private BehaviorFactory mBehaviorFactory;
         private List<Agent>     mAgents;
 
-        private AgentFactory(SceneManager sceneMgr, string meshName, Vector3 meshFacedDirection,BehaviorFactory agentsBehavior)
+        private AgentFactory(SceneManager sceneMgr, string meshName, BehaviorFactory agentsBehavior)
         {
             mSceneMgr           = sceneMgr;
             mMeshName           = meshName;
-            mMeshFacedDirection = meshFacedDirection;
+            mMeshFacedDirection = Vector3.UNIT_Z;
             mBehaviorFactory    = agentsBehavior;
             mAgents             = new List<Agent>();
         }
 
+        private void CorrectMeshFacedDirection(Vector3 meshFacedDirection)
+        {
+            mMeshFacedDirection = meshFacedDirection;
+        }
+
         public static AgentFactory OgreFactory(SceneManager sceneMgr, List<Item> listItem)
         {
-            return new AgentFactory(sceneMgr, WorldConfig.Singleton.OgreMesh, Vector3.UNIT_Z,new BuilderBehaviorFactory(listItem));
+            return new AgentFactory(sceneMgr, WorldConfig.Singleton.OgreMesh, new BuilderBehaviorFactory(listItem));
         }
 
         public static AgentFactory RobotFactory(SceneManager sceneMgr, List<Item> listItem)
         {
-            return new AgentFactory(sceneMgr, WorldConfig.Singleton.RobotMesh, Vector3.UNIT_X, new WreckerBehaviorFactory(listItem));
+			AgentFactory agentFactory =
+                new AgentFactory(sceneMgr, WorldConfig.Singleton.RobotMesh, new WreckerBehaviorFactory(listItem));
+            agentFactory.CorrectMeshFacedDirection(Vector3.UNIT_X);
+            return agentFactory;
         }
 
         public Agent MakeAgent(bool useRandPos = false, bool useAnimation = false)
