@@ -1,4 +1,5 @@
 ﻿using sma_ogre.utils;
+using sma_ogre.item;
 using System.Collections.Generic;
 
 namespace sma_ogre.behavior
@@ -31,7 +32,8 @@ namespace sma_ogre.behavior
             {
                 foreach (Item i in listItem)
                 {
-                    if (i.Distance(mAgentNode.Position.x, mAgentNode.Position.z) < pickUpDistance)
+                    float dis = i.Distance(mAgentNode.Position.x, mAgentNode.Position.z);
+                    if (dis < pickUpDistance)
                     {
                         pickUpAction(i);
                         return true;

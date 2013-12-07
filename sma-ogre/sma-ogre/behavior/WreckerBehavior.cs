@@ -1,4 +1,5 @@
-﻿using sma_ogre.utils;
+﻿using sma_ogre.item;
+using sma_ogre.utils;
 using System.Collections.Generic;
 
 namespace sma_ogre.behavior

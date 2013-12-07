@@ -1,6 +1,7 @@
 ﻿using Mogre;
 using System.Collections.Generic;
 using sma_ogre.behavior;
+using sma_ogre.item;
 
 namespace sma_ogre
 {

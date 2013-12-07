@@ -1,7 +1,7 @@
 ﻿using Mogre;
 using System;
 
-namespace sma_ogre
+namespace sma_ogre.item
 {
     class Item
     {

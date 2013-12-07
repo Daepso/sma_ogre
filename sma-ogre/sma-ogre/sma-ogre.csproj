@@ -74,8 +74,9 @@
     <Compile Include="behavior\Behavior.cs" />
     <Compile Include="behavior\BehaviorFactories.cs" />
     <Compile Include="Animation.cs" />
-    <Compile Include="Item\Item.cs" />
-    <Compile Include="Item\ItemFactory.cs" />
+    <Compile Include="item\Item.cs" />
+    <Compile Include="item\ItemFactory.cs" />
+    <Compile Include="item\ItemManager.cs" />
     <Compile Include="utils\Timer.cs" />
     <Compile Include="WorldConfig.cs" />
     <Compile Include="OgreApp.input.cs" />
