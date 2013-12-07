@@ -6,8 +6,7 @@ namespace sma_ogre.behavior
 {
     class WreckerBehavior : CarrierBehavior
     {
-        static private float pickUpDistance = 20;
-        static private float dropDistance   = 20;
+        static private float actionDistance = 20;
 
         static private float minWreckerTime = 2;
         static private float maxWreckerTime = 10;
@@ -16,46 +15,52 @@ namespace sma_ogre.behavior
         public override void Init()
         {
             base.Init();
-            this.ChooseTargetPosition();
+            this.ChooseRandomTargetPosition();
         }
 
-        public override void ChooseTargetPosition()
+        public override void ChooseRandomTargetPosition()
         {
-            base.ChooseTargetPosition();
+            base.ChooseRandomTargetPosition();
             baseSpeed = WorldConfig.Singleton.RandFloat(WorldConfig.Singleton.WreckerSpeedRange[0],
                                                         WorldConfig.Singleton.WreckerSpeedRange[1]);
         }
 
         protected bool WreckerAction(float elapsedTime)
         {
-            if (carriedItem == null)
+            List<Item> listItem = itemManager.GetItemInSight(mAgentNode.Position.x,
+                                                             mAgentNode.Position.z,
+                                                              WorldConfig.Singleton.WreckerSightRange);
+            float minDis = float.MaxValue;
+            Item closestItem = null;
+
+            foreach (Item i in listItem)
             {
-                foreach (Item i in listItem)
+                float dis = i.Distance(mAgentNode.Position.x, mAgentNode.Position.z);
+                if (dis < minDis)
                 {
-                    if (i.Distance(mAgentNode.Position.x, mAgentNode.Position.z) < pickUpDistance)
+
+                    if (dis < actionDistance)
                     {
-                        pickUpAction(i);
-                        return true;
+                        if (carriedItem == null)
+                        {
+                            pickUpAction(i);
+                            return true;
+                        }
                     }
+                    minDis = dis;
+                    closestItem = i;
                 }
             }
-            else
+
+            if (closestItem == null && carriedItem != null)
             {
-                bool isEmptySpace = true;
-                foreach (Item i in listItem)
-                {
-                    if (i.Distance(mAgentNode.Position.x, mAgentNode.Position.z) < dropDistance)
-                    {
-                        isEmptySpace = false;
-
-                    }
-                }
-
-                if (isEmptySpace)
-                {
-                    dropAction(mAgentNode.Position.x, mAgentNode.Position.z);
-                    return true;
-                }
+                dropAction(mAgentNode.Position.x, mAgentNode.Position.z);
+                return true;
+            }
+            else if (closestItem != null && carriedItem == null)
+            {
+                targetPosition.x = closestItem.getPositionX();
+                targetPosition.z = closestItem.getPositionZ();
             }
             return false;
         }
@@ -83,8 +88,8 @@ namespace sma_ogre.behavior
             }
         }
 
-        public WreckerBehavior(List<Item> listItem)
-            :base(listItem)
+        public WreckerBehavior(ItemManager itemManager)
+            : base(itemManager)
         {
             wreckerTimer = new Timer(minWreckerTime, maxWreckerTime);
             wreckerTimer.init();

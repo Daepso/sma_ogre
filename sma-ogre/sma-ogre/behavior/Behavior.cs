@@ -23,7 +23,7 @@ namespace sma_ogre.behavior
             speed          = baseSpeed;
         }
 
-        public virtual void ChooseTargetPosition()
+        public virtual void ChooseRandomTargetPosition()
         {
             targetPosition.x = WorldConfig.Singleton.RandFloat(-WorldConfig.Singleton.GroundLength / 2f,
                                                                 WorldConfig.Singleton.GroundLength / 2f);
@@ -64,7 +64,7 @@ namespace sma_ogre.behavior
             else
             {
                 mAgentNode.Translate(direction);
-                this.ChooseTargetPosition();
+                this.ChooseRandomTargetPosition();
             }    
         }
 

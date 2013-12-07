@@ -15,31 +15,31 @@ namespace sma_ogre.behavior
 
     class BuilderBehaviorFactory : BehaviorFactory
     {
-        List<Item> listItem;
+        ItemManager itemManager;
 
-        public BuilderBehaviorFactory(List<Item> listItem)
+        public BuilderBehaviorFactory(ItemManager itemManager)
         {
-            this.listItem = listItem;
+            this.itemManager = itemManager;
         }
 
         public override Behavior MakeBehavior()
         {
-            return new BuilderBehavior(listItem);
+            return new BuilderBehavior(itemManager);
         }
     }
 
     class WreckerBehaviorFactory : BehaviorFactory
     {
-        List<Item> listItem;
+        ItemManager itemManager;
 
-        public WreckerBehaviorFactory(List<Item> listItem)
+        public WreckerBehaviorFactory(ItemManager itemManager)
         {
-            this.listItem = listItem;
+            this.itemManager = itemManager;
         }
 
         public override Behavior MakeBehavior()
         {
-            return new WreckerBehavior(listItem);
+            return new WreckerBehavior(itemManager);
         }
     }
 }

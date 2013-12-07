@@ -7,13 +7,14 @@ namespace sma_ogre.item
     {
         private SceneManager mSceneMgr;
         private string       mMeshName;
-        private List<Item>   mItems;
+        private ItemManager mItemManager;
+
 
         private ItemFactory(SceneManager sceneMgr, string meshName)
         {
             mSceneMgr = sceneMgr;
             mMeshName = meshName;
-            mItems    = new List<Item>();
+            mItemManager = new ItemManager();
         }
 
         public static ItemFactory BrickFactory(SceneManager sceneMgr)
@@ -37,12 +38,12 @@ namespace sma_ogre.item
             }
 
             Item item = new Item(mSceneMgr, mMeshName, pos);
-            mItems.Add(item);
+            mItemManager.Add(item);
 
             return item;
         }
 
-        /*Add a new Resource to the world at a given position*/
+        /*Add resources to the world at random positions*/
         public void MakeNumItems(int itemNumber, bool useRandPos = true)
         {
             for (int i = 0; i < itemNumber; i++)
@@ -51,9 +52,9 @@ namespace sma_ogre.item
             }
         }
 
-        public List<Item> ItemsList()
+        public ItemManager getItemManager()
         {
-            return mItems;
+            return mItemManager;
         }
     }
 }

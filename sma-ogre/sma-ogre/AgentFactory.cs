@@ -27,15 +27,15 @@ namespace sma_ogre
             mMeshFacedDirection = meshFacedDirection;
         }
 
-        public static AgentFactory OgreFactory(SceneManager sceneMgr, List<Item> listItem)
+        public static AgentFactory OgreFactory(SceneManager sceneMgr, ItemManager itemManager)
         {
-            return new AgentFactory(sceneMgr, WorldConfig.Singleton.OgreMesh, new BuilderBehaviorFactory(listItem));
+            return new AgentFactory(sceneMgr, WorldConfig.Singleton.OgreMesh, new BuilderBehaviorFactory(itemManager));
         }
 
-        public static AgentFactory RobotFactory(SceneManager sceneMgr, List<Item> listItem)
+        public static AgentFactory RobotFactory(SceneManager sceneMgr, ItemManager itemManager)
         {
 			AgentFactory agentFactory =
-                new AgentFactory(sceneMgr, WorldConfig.Singleton.RobotMesh, new WreckerBehaviorFactory(listItem));
+                new AgentFactory(sceneMgr, WorldConfig.Singleton.RobotMesh, new WreckerBehaviorFactory(itemManager));
             agentFactory.CorrectMeshFacedDirection(Vector3.UNIT_X);
             return agentFactory;
         }

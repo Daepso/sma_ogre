@@ -23,6 +23,17 @@ namespace sma_ogre.item
             mEntityNode.Position = pos;
         }
 
+        public float getPositionX()
+        {
+            return mEntityNode.Position.x;
+        }
+
+        public float getPositionZ()
+        {
+            return mEntityNode.Position.z;
+        }
+
+
         public float Distance(float obj_x, float obj_z)
         {
             float x   = (obj_x - mEntityNode.Position.x);

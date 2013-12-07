@@ -28,6 +28,10 @@ namespace sma_ogre
         private float[] mBuilderSpeedRange;
         private float[] mWreckerSpeedRange;
 
+        private float mDefaultSightRange;
+        private float mBuilderSightRange;
+        private float mWreckerSightRange;
+
         private ColourValue mAmbientLightOn;
         private ColourValue mAmbientLightOff;
         private bool        mAmbientLightIsOn;
@@ -148,6 +152,21 @@ namespace sma_ogre
         public float[] WreckerSpeedRange
         {
             get { return mWreckerSpeedRange; }
+        }
+
+        public float DefaultSightRange
+        {
+            get { return mDefaultSightRange; }
+        }
+
+        public float BuilderSightRange
+        {
+            get { return mBuilderSightRange; }
+        }
+
+        public float WreckerSightRange
+        {
+            get { return mWreckerSightRange; }
         }
 
         public ColourValue SwitchedLight()
@@ -320,6 +339,18 @@ namespace sma_ogre
                 mWreckerSpeedRange    = new float[2];
                 mWreckerSpeedRange[0] = FloatParse(wreckerSpeedRange[0]);
                 mWreckerSpeedRange[1] = FloatParse(wreckerSpeedRange[1]);
+            }
+            else if (line.Key.Equals("DefaultSightRange"))
+            {
+                mDefaultSightRange = FloatParse(line.Value);
+            }
+            else if (line.Key.Equals("BuilderSightRange"))
+            {
+                mBuilderSightRange = FloatParse(line.Value);
+            }
+            else if (line.Key.Equals("WreckerSightRange"))
+            {
+                mWreckerSightRange = FloatParse(line.Value);
             }
             else {
                 throw new UnkownConfigKeyException();

@@ -5,12 +5,12 @@ namespace sma_ogre.behavior
 {
     class CarrierBehavior : Behavior
     {
-        protected List<Item> listItem;
+        protected ItemManager itemManager;
         protected Item       carriedItem;
 
-        public CarrierBehavior(List<Item> listItem)
+        public CarrierBehavior(ItemManager itemManager)
         {
-            this.listItem = listItem;
+            this.itemManager = itemManager;
             carriedItem   = null;
         }
 
@@ -18,13 +18,13 @@ namespace sma_ogre.behavior
         {
               carriedItem = i;
               carriedItem.PickUp(mAgentNode);
-              listItem.Remove(carriedItem);
+              itemManager.Remove(carriedItem);
         }
 
         protected void dropAction(float x, float z)
         {
             carriedItem.Drop(x, z, mAgentNode);
-            listItem.Add(carriedItem);
+            itemManager.Add(carriedItem);
             carriedItem = null;
         }
     }
