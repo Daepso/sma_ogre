@@ -13,7 +13,7 @@ namespace sma_ogre
         private bool   mGoingDown;
         private bool   mFastMove;
 
-        private float  translateSpeed = 500;
+        private float  translateSpeed = 1000;
         private float  rotateSpeed    = 0.15f;
 
         public CameraMan(Camera camera)
