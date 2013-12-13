@@ -21,9 +21,6 @@ namespace sma_ogre.behavior
         protected float betterPositionX;
         protected float betterPositionZ;
 
-        /* DROP OBJECT*/
-        protected bool readyToDrop;
-
         public override void Init()
         {
             base.Init();
@@ -35,48 +32,6 @@ namespace sma_ogre.behavior
             base.ChooseRandomTargetPosition();
             baseSpeed = WorldConfig.Singleton.RandFloat(WorldConfig.Singleton.BuilderSpeedRange[0],
                                                         WorldConfig.Singleton.BuilderSpeedRange[1]);
-        }
-
-        protected bool BuildAction(float elapsedTime)
-        {
-            List<Item> listItem = itemManager.GetItemInSight(mAgentNode.Position.x,
-                                                             mAgentNode.Position.z,
-                                                             WorldConfig.Singleton.BuilderSightRange);
-
-            float minDis = float.MaxValue;
-            Item closestItem = null;
-            foreach (Item i in listItem)
-            {
-                float dis = i.Distance(mAgentNode.Position.x, mAgentNode.Position.z);
-                if (dis < minDis)
-                {
-                    if (dis < actionDistance)
-                    {
-                        if (carriedItem == null)
-                        {
-                            pickUpAction(i);
-                            return true;
-                        }
-                        else
-                        {
-                            dropAction(mAgentNode.Position.x, mAgentNode.Position.z);
-                            return true;
-                        }
-                    }
-                    else
-                    {
-                        minDis = dis;
-                        closestItem = i;
-                    }
-                }
-            }
-
-            if (closestItem != null)
-            {
-                targetPosition.x = closestItem.getPositionX();
-                targetPosition.z = closestItem.getPositionZ();
-            }
-            return false;
         }
 
         protected bool searchObject()
@@ -130,94 +85,80 @@ namespace sma_ogre.behavior
 
         protected bool dropObject()
         {
-            if (readyToDrop == false)
-            {
-                float x = (targetPosition.x - mAgentNode.Position.x);
-                float z = (targetPosition.z - mAgentNode.Position.z);
-                float dis = (float)System.Math.Sqrt(x * x + z * z);
-                if (dis < WorldConfig.Singleton.BuilderSightRange)
-                {
-                    readyToDrop = true;
-                }
-            }
-            else
-            {
-                List<Item> listItem = itemManager.GetItemInSight(mAgentNode.Position.x,
+            List<Item> listItem = itemManager.GetItemInSight(mAgentNode.Position.x,
                                                             mAgentNode.Position.z,
                                                             WorldConfig.Singleton.BuilderSightRange);
-
-                float minDis = float.MaxValue;
-                Item closestItem = null;
-                foreach (Item i in listItem)
+            if (carriedItem != null)
+            {
+                float dis = Utils.distanceXZ(targetPosition, mAgentNode.Position);
+                if (dis < actionDistance)
                 {
-                    float dis = i.Distance(mAgentNode.Position.x, mAgentNode.Position.z);
-                    if (dis < minDis)
-                    {
-                        if (dis < actionDistance)
-                        {
-                            dropAction(mAgentNode.Position.x, mAgentNode.Position.z);
-                            return true;
-                        }
-                        else
-                        {
-                            minDis = dis;
-                            closestItem = i;
-                        }
-                    }
-                }
-
-                if (closestItem != null)
-                {
-                    targetPosition.x = closestItem.getPositionX();
-                    targetPosition.z = closestItem.getPositionZ();
+                    dropAction(mAgentNode.Position.x, mAgentNode.Position.z);
                 }
             }
+
+            if(isAtTargetPosition)
+            {
+                ObjectInSightMaxNumber = listItem.Count;
+                return true;
+            }
+  
             return false;
+        }
+
+        protected void stateAction(float elapsedTime)
+        {
+            bool res;
+            switch (this.currentState)
+            {
+
+                case state.SEARCH_OBJECT:
+                    res = searchObject();
+                    if (res == true)
+                    {
+                        this.currentState = state.SEARCH_POSITION;
+                        searchTimer.init();
+                    }
+                    break;
+
+                case state.SEARCH_POSITION:
+                    searchTimer.updateTimer(elapsedTime);
+                    res = searchPosition();
+                    if (res == true)
+                    {
+                        this.currentState = state.DROP_OBJECT;
+                        targetPosition.x = betterPositionX;
+                        targetPosition.z = betterPositionZ;
+                    }
+                    break;
+
+                case state.DROP_OBJECT:
+                    res = dropObject();
+                    if (res == true)
+                    {
+                        this.currentState = state.GO_AWAY;
+                        searchTimer.init();
+                    }
+                    break;
+
+                case state.GO_AWAY:
+                    searchTimer.updateTimer(elapsedTime);
+                    if (searchTimer.isFinished())
+                    {
+                        this.currentState = state.SEARCH_OBJECT;
+                    }
+                    break;
+            }
         }
 
         public override void Update(float elapsedTime, AgentAnimation animation = null)
         {
             speed = baseSpeed * WorldConfig.Singleton.SpeedFactor;
             MoveToTargetPosition(elapsedTime);
-            bool res;
-
-            if (state.SEARCH_OBJECT == this.currentState)
+            stateAction(elapsedTime);
+            if (isAtTargetPosition)
             {
-                res = searchObject();
-                if (res == true)
-                {
-                    this.currentState = state.SEARCH_POSITION;
-                    searchTimer.init();
-                }
-            }
-            else if (state.SEARCH_POSITION == this.currentState)
-            {
-                searchTimer.updateTimer(elapsedTime);
-                res = searchPosition();
-                if (res == true)
-                {
-                    this.currentState = state.DROP_OBJECT;
-                    targetPosition.x = betterPositionX;
-                    targetPosition.z = betterPositionZ;
-                    readyToDrop = false;
-                }
-            }
-            else if (state.DROP_OBJECT == this.currentState)
-            {
-                res = dropObject();
-                if (res == true)
-                {
-                    this.currentState = state.GO_AWAY;
-                    searchTimer.init();
-                }
-            }
-            else if (state.GO_AWAY == this.currentState)
-            {
-                searchTimer.updateTimer(elapsedTime);
-                if (searchTimer.isFinished())
-                {
-                    this.currentState = state.SEARCH_OBJECT;
-                }
+                this.ChooseRandomTargetPosition();
             }
 
             if (animation != null)

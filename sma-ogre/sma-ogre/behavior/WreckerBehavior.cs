@@ -82,6 +82,11 @@ namespace sma_ogre.behavior
                 wreckerTimer.updateTimer(elapsedTime);
             }
 
+            if (isAtTargetPosition)
+            {
+                this.ChooseRandomTargetPosition();
+            }
+
             if (animation != null)
             {
                 animation.UpdatePosture(elapsedTime, speed);

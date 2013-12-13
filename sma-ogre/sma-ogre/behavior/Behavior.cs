@@ -7,6 +7,7 @@ namespace sma_ogre.behavior
         protected SceneNode mAgentNode;
         protected Vector3   mMeshFacedDirection;
         protected Vector3   targetPosition;
+        protected bool      isAtTargetPosition;
         protected float     speed;
         protected float     baseSpeed;
 
@@ -19,6 +20,7 @@ namespace sma_ogre.behavior
         public virtual void Init()
         {
             targetPosition = new Vector3(0f, 0f, 0f);
+            isAtTargetPosition = false;
             baseSpeed      = 0f;
             speed          = baseSpeed;
         }
@@ -32,6 +34,7 @@ namespace sma_ogre.behavior
 
             baseSpeed = WorldConfig.Singleton.RandFloat(WorldConfig.Singleton.DefaultSpeedRange[0],
                                                         WorldConfig.Singleton.DefaultSpeedRange[1]);
+            isAtTargetPosition = false;
         }
 
         protected void FaceDirection(Vector3 direction)
@@ -64,7 +67,8 @@ namespace sma_ogre.behavior
             else
             {
                 mAgentNode.Translate(direction);
-                this.ChooseRandomTargetPosition();
+                this.isAtTargetPosition = true;
+   
             }    
         }
 
@@ -72,6 +76,10 @@ namespace sma_ogre.behavior
         {
             speed = baseSpeed * WorldConfig.Singleton.SpeedFactor;
             MoveToTargetPosition(elapsedTime);
+            if(isAtTargetPosition)
+            {
+                this.ChooseRandomTargetPosition();
+            }
 
             if (animation != null)
             {
