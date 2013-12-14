@@ -6,17 +6,15 @@ namespace sma_ogre.behavior
 {
     class WreckerBehavior : CarrierBehavior
     {
-        static private float actionDistance = 20;
+        protected enum state { SEARCH_OBJECT, DROP_OBJECT, GO_AWAY };
 
         static private float minWreckerTime = 2;
         static private float maxWreckerTime = 10;
-        private Timer wreckerTimer;
 
-        public override void Init()
-        {
-            base.Init();
-            this.ChooseRandomTargetPosition();
-        }
+        protected state currentState;
+
+        protected Timer timer;
+
 
         public override void ChooseRandomTargetPosition()
         {
@@ -25,63 +23,67 @@ namespace sma_ogre.behavior
                                                         WorldConfig.Singleton.WreckerSpeedRange[1]);
         }
 
-        protected bool WreckerAction(float elapsedTime)
+        protected bool DropObject()
         {
             List<Item> listItem = itemManager.GetItemInSight(mAgentNode.Position.x,
-                                                             mAgentNode.Position.z,
-                                                              WorldConfig.Singleton.WreckerSightRange);
-            float minDis = float.MaxValue;
-            Item closestItem = null;
+                                                        mAgentNode.Position.z,
+                                                        WorldConfig.Singleton.BuilderSightRange);
 
-            foreach (Item i in listItem)
+            if (listItem.Count == 0)
             {
-                float dis = i.Distance(mAgentNode.Position.x, mAgentNode.Position.z);
-                if (dis < minDis)
-                {
+                  DropAction(mAgentNode.Position.x, mAgentNode.Position.z);
+                  return true;
+            }
+                      
+            return false;
+        }
 
-                    if (dis < actionDistance)
+        protected void StateAction(float elapsedTime)
+        {
+            bool res;
+            switch (this.currentState)
+            {
+
+                case state.SEARCH_OBJECT:
+                    res = SearchObjectAction();
+                    if (res == true)
+                    {
+                        this.currentState = state.GO_AWAY;
+                        timer.init();
+                    }
+                    break;
+
+                case state.DROP_OBJECT:
+                    res = DropObject();
+                    if (res == true)
+                    {
+                        this.currentState = state.GO_AWAY;
+                        timer.init();
+                    }
+                    break;
+
+                case state.GO_AWAY:
+                    timer.updateTimer(elapsedTime);
+                    if (timer.isFinished())
                     {
                         if (carriedItem == null)
                         {
-                            pickUpAction(i);
-                            return true;
+                            this.currentState = state.SEARCH_OBJECT;
+                        }
+                        else
+                        {
+                            this.currentState = state.DROP_OBJECT;
                         }
                     }
-                    minDis = dis;
-                    closestItem = i;
-                }
+                    break;
             }
-
-            if (closestItem == null && carriedItem != null)
-            {
-                dropAction(mAgentNode.Position.x, mAgentNode.Position.z);
-                return true;
-            }
-            else if (closestItem != null && carriedItem == null)
-            {
-                targetPosition.x = closestItem.getPositionX();
-                targetPosition.z = closestItem.getPositionZ();
-            }
-            return false;
         }
 
         public override void Update(float elapsedTime, AgentAnimation animation = null)
         {
             speed = baseSpeed * WorldConfig.Singleton.SpeedFactor;
             MoveToTargetPosition(elapsedTime);
-
-            if (wreckerTimer.isFinished())
-            {
-                if (WreckerAction(elapsedTime))
-                {
-                    wreckerTimer.init();
-                }
-            }
-            else
-            {
-                wreckerTimer.updateTimer(elapsedTime);
-            }
-
+            StateAction(elapsedTime);
             if (isAtTargetPosition)
             {
                 this.ChooseRandomTargetPosition();
@@ -93,11 +95,12 @@ namespace sma_ogre.behavior
             }
         }
 
+
         public WreckerBehavior(ItemManager itemManager)
             : base(itemManager)
         {
-            wreckerTimer = new Timer(minWreckerTime, maxWreckerTime);
-            wreckerTimer.init();
+           timer = new Timer(minWreckerTime, maxWreckerTime);
+           timer.init();
         }
     }
 }

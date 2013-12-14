@@ -28,6 +28,21 @@ namespace sma_ogre.behavior
         }
     }
 
+    class CleverBuilderBehaviorFactory : BehaviorFactory
+    {
+        ItemManager itemManager;
+
+        public CleverBuilderBehaviorFactory(ItemManager itemManager)
+        {
+            this.itemManager = itemManager;
+        }
+
+        public override Behavior MakeBehavior()
+        {
+            return new CleverBuilderBehavior(itemManager);
+        }
+    }
+
     class WreckerBehaviorFactory : BehaviorFactory
     {
         ItemManager itemManager;

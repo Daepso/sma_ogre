@@ -29,7 +29,15 @@ namespace sma_ogre
 
         public static AgentFactory OgreFactory(SceneManager sceneMgr, ItemManager itemManager)
         {
-            return new AgentFactory(sceneMgr, WorldConfig.Singleton.OgreMesh, new BuilderBehaviorFactory(itemManager));
+            if (WorldConfig.Singleton.IsBuilderClever)
+            {
+                return new AgentFactory(sceneMgr, WorldConfig.Singleton.OgreMesh, new CleverBuilderBehaviorFactory(itemManager));
+                
+            }
+            else
+            {
+                return new AgentFactory(sceneMgr, WorldConfig.Singleton.OgreMesh, new BuilderBehaviorFactory(itemManager));
+            }
         }
 
         public static AgentFactory RobotFactory(SceneManager sceneMgr, ItemManager itemManager)

@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="behavior\BuilderBehavior.cs" />
     <Compile Include="behavior\CarrierBehavior.cs" />
+    <Compile Include="behavior\CleverBuilderBehavior.cs" />
     <Compile Include="behavior\WreckerBehavior.cs" />
     <Compile Include="CameraMan.cs" />
     <Compile Include="Agent.cs" />
