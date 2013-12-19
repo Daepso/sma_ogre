@@ -117,6 +117,7 @@ namespace sma_ogre
                 "p : increase life speed\n" +
                 "m : decrease life speed\n" +
                 "\n" +
+                "Move mouse for camera rotation\n" +
                 "a : move camera upward\n" +
                 "e : move camera downward\n" +
                 "z, up : move camera forward\n" +
@@ -130,7 +131,12 @@ namespace sma_ogre
         {
             OverlayManager.Singleton.GetOverlayElement("InfoBox" + "/Templates/MessageBox/Title").Caption = "Information";
             OverlayManager.Singleton.GetOverlayElement("InfoBox" + "/Templates/MessageBox/Body").Caption =
-                "Time : " + WorldTime.Singleton.GetTimeString() + " s\n";
+                "Time: "                   + WorldTime.Singleton.GetTimeString()      + " s\n" +
+                "Number of robots: "       + InformationLogger.Singleton.RobotsNumber +   "\n" +
+                "Number of ogres: "        + InformationLogger.Singleton.OgresNumber  +   "\n" +
+                "Birth since beginning: "  +                                       "" +   "\n" +
+                "Death since beginning: "  +                                       "" +   "\n" +
+                "Life acceleration rate: " +                                       "" +   "\n" ;
         }
     }
 }

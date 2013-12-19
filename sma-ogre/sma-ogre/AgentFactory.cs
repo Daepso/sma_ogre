@@ -76,6 +76,11 @@ namespace sma_ogre
             }
         }
 
+        public int GetAgentsNumber()
+        {
+            return mAgents.Count;
+        }
+
         public void UpdateAgentsAction(FrameEvent evt)
         {
             foreach (Agent agent in mAgents)

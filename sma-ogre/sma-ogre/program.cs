@@ -7,9 +7,9 @@ namespace sma_ogre
 {
     class Program : OgreApp
     {
-        AgentFactory mOgreFactory;
-        AgentFactory mRobotFactory;
-        ItemFactory  mBrickFactory;
+        private AgentFactory mOgreFactory;
+        private AgentFactory mRobotFactory;
+        private ItemFactory  mBrickFactory;
 
         public static void Main()
         {
@@ -45,8 +45,15 @@ namespace sma_ogre
                 mRobotFactory.UpdateAgentsAction(evt);
 
                 WorldTime.Singleton.UpdateTime(evt.timeSinceLastFrame);
+                LogInformation();
             }
             OverlayUtils.Singleton.Update();
+        }
+
+        protected void LogInformation()
+        {
+            InformationLogger.Singleton.OgresNumber  = mOgreFactory.GetAgentsNumber();
+            InformationLogger.Singleton.RobotsNumber = mRobotFactory.GetAgentsNumber();
         }
     }
 }
