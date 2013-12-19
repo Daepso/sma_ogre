@@ -130,7 +130,7 @@ namespace sma_ogre
         {
             OverlayManager.Singleton.GetOverlayElement("InfoBox" + "/Templates/MessageBox/Title").Caption = "Information";
             OverlayManager.Singleton.GetOverlayElement("InfoBox" + "/Templates/MessageBox/Body").Caption =
-                "Time : " + WorldTime.Singleton.GetTime();
+                "Time : " + WorldTime.Singleton.GetTimeString() + " s\n";
         }
     }
 }

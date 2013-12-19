@@ -31,5 +31,10 @@
         {
             return time;
         }
+
+        public string GetTimeString()
+        {
+            return time.ToString("0.00");
+        }
     }
 }
