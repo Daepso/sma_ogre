@@ -5,7 +5,7 @@ namespace sma_ogre
     class World
     {
 
-        static public void init(SceneManager sceneMgr)
+        static public void Init(SceneManager sceneMgr)
         {
             sceneMgr.AmbientLight = WorldConfig.Singleton.AmbientLightOn;
             sceneMgr.SetSkyBox(true, "SpaceSkyBox");

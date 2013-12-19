@@ -14,14 +14,14 @@ namespace sma_ogre.behavior
             carriedItem   = null;
         }
 
-        protected void pickUpAction(Item i)
+        protected void PickUpAction(Item i)
         {
               carriedItem = i;
               carriedItem.PickUp(mAgentNode);
               itemManager.Remove(carriedItem);
         }
 
-        protected void dropAction(float x, float z)
+        protected void DropAction(float x, float z)
         {
             carriedItem.Drop(x, z, mAgentNode);
             itemManager.Add(carriedItem);

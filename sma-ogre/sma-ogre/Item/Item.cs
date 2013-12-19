@@ -23,12 +23,12 @@ namespace sma_ogre.item
             mEntityNode.Position = pos;
         }
 
-        public float getPositionX()
+        public float GetPositionX()
         {
             return mEntityNode.Position.x;
         }
 
-        public float getPositionZ()
+        public float GetPositionZ()
         {
             return mEntityNode.Position.z;
         }

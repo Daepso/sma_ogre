@@ -43,7 +43,7 @@ namespace sma_ogre.behavior
                     {
                         if (carriedItem == null)
                         {
-                            pickUpAction(i);
+                            PickUpAction(i);
                             return true;
                         }
                     }
@@ -54,13 +54,13 @@ namespace sma_ogre.behavior
 
             if (closestItem == null && carriedItem != null)
             {
-                dropAction(mAgentNode.Position.x, mAgentNode.Position.z);
+                DropAction(mAgentNode.Position.x, mAgentNode.Position.z);
                 return true;
             }
             else if (closestItem != null && carriedItem == null)
             {
-                targetPosition.x = closestItem.getPositionX();
-                targetPosition.z = closestItem.getPositionZ();
+                targetPosition.x = closestItem.GetPositionX();
+                targetPosition.z = closestItem.GetPositionZ();
             }
             return false;
         }
@@ -70,16 +70,16 @@ namespace sma_ogre.behavior
             speed = baseSpeed * WorldConfig.Singleton.SpeedFactor;
             MoveToTargetPosition(elapsedTime);
 
-            if (wreckerTimer.isFinished())
+            if (wreckerTimer.IsFinished())
             {
                 if (WreckerAction(elapsedTime))
                 {
-                    wreckerTimer.init();
+                    wreckerTimer.Init();
                 }
             }
             else
             {
-                wreckerTimer.updateTimer(elapsedTime);
+                wreckerTimer.UpdateTimer(elapsedTime);
             }
 
             if (animation != null)
@@ -92,7 +92,7 @@ namespace sma_ogre.behavior
             : base(itemManager)
         {
             wreckerTimer = new Timer(minWreckerTime, maxWreckerTime);
-            wreckerTimer.init();
+            wreckerTimer.Init();
         }
     }
 }

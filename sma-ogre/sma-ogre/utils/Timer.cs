@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace sma_ogre.utils
+﻿namespace sma_ogre.utils
 {
     class Timer
     {
@@ -18,17 +13,17 @@ namespace sma_ogre.utils
             time = 0;
         }
 
-        public void init()
+        public void Init()
         {
             time = WorldConfig.Singleton.RandFloat(minDelay, maxDelay);
         }
 
-        public void updateTimer(float elapsedTime)
+        public void UpdateTimer(float elapsedTime)
         {
             time -= elapsedTime;
         }
 
-        public bool isFinished()
+        public bool IsFinished()
         {
             return time <= 0;
         }

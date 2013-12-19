@@ -52,7 +52,7 @@ namespace sma_ogre.item
             }
         }
 
-        public ItemManager getItemManager()
+        public ItemManager GetItemManager()
         {
             return mItemManager;
         }
