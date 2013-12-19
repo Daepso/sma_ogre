@@ -14,13 +14,13 @@ une nouvelle destination. La méthode \texttt{Update} sera appelée à chaque fr
 Afin de rassembler le code en commun dans les comportements constructeurs et
 destructeurs, une classe \texttt{CarriedBehavior} a été faites. Cette classe
 hérite donc de la classe \texttt{Behavior}.  Elle rassemble les mécanisme pour
-ramasser des objets et les déposer. Nos comportements constructeurs et destructeurs 
+ramasser des objets et les déposer. Nos comportements constructeurs et destructeurs
 hérite de cette classe.
 
 
 \subsubsection{Builder}
 \paragraph{}Pour les comportement de type constructeur deux types de comportement ont été
-réalisés. Le premier comportement \texttt{BuilderBehavior} peut être assimiler à un petit automate à 4 états.
+réalisés. Le premier comportement \texttt{BuilderBehavior} peut être assimilé à un petit automate à 4 états.
 
 
 \begin{description}
@@ -29,7 +29,7 @@ réalisés. Le premier comportement \texttt{BuilderBehavior} peut être assimile
     \item[\'Etat 2] l'ogre vient de ramasser un objet. Il se déplace pendant une
         durée aléatoire sans faire d'autres actions puis passe dans l'état 3.
     \item[\'Etat 3] l'ogre porte un objet. Si un objet est à porté il
-        dépose l'objet qu'il porte à côté de celui ci. Il passe ensuite dans
+        dépose l'objet qu'il porte à côté de celui-ci. Il passe ensuite dans
         l'état 4.
     \item[\'Etat 4] l'ogre vient de poser un objet. Il se déplace pendant une
         durée aléatoire sans faire d'autres actions puis passe dans l'état 1.
@@ -41,7 +41,7 @@ convergence vers un seul tas unique peut être particulièrement longue.
 
 \paragraph{}Le deuxième comportement \texttt{CleverBuilderBahavior} est quand à lui plus
 complexe. On ajoute une mémoire aux ogres : ils se rappellent l'endroit où ils ont vu le
-plus de caisses. Et ainsi, quand ils désirent poser leur objet alors ils se rendent à
+plus de caisses. Et ainsi, quand ils désirent poser leur objet ils se rendent à
 cet endroit.
 
 \begin{description}
@@ -59,14 +59,14 @@ cet endroit.
         durée aléatoire sans faire d'autres actions puis passe dans l'état 1.
 \end{description}
 
-\paragraph{}Ce comportement permet d'augmenter de façon important l'efficacité
+\paragraph{}Ce comportement permet d'augmenter de façon importante l'efficacité
 des ogres. Au bout d'une durée relativement courte les ogres ont tous trouvé
-l'endroit comportent le plus de caisses. 
+l'endroit comportent le plus de caisses.
 
 \subsubsection{Wrecker}
 \paragraph{}Au niveau du comportement de type destructeur, une seule version a
-été implementé : \texttt{WrekerBehavior}. Celle ci ressemble fortement au premier comportement des
-ogres mais les conditions pour poser un objet sont différentes. 
+été implementé : \texttt{WrekerBehavior}. Celle-ci ressemble fortement au premier comportement des
+ogres mais les conditions pour poser un objet sont différentes.
 
 \begin{description}
     \item[\'Etat 1] l'ogre ne porte pas d'objet. Si un objet est à porté il
@@ -80,11 +80,11 @@ ogres mais les conditions pour poser un objet sont différentes.
         durée aléatoire sans faire d'autres actions puis passe dans l'état 1.
 \end{description}
 
-\paragraph{}Se comportement permet au robot de disséminer les caisses.
+\paragraph{}Ce comportement permet au robot de disséminer les caisses.
 Cependant, on remarque que l'efficacité de ce comportement augmente quand les
 caisses ne sont pas réparties de façon homogène sur l'ensemble du terrain. En
 effet, dans ce cas là les robots peuvent alors mettre en temps important à
-trouver un endroit où ils n'ont pas d'autres caisses en vue. 
+trouver un endroit où ils n'ont pas d'autres caisses en vue.
 
 \section{Modélisation 3D}
 
@@ -94,7 +94,7 @@ trouver un endroit où ils n'ont pas d'autres caisses en vue.
 Nous avons essayé plusieurs méthodes pour le ciel : SkyBox et SkyDome. Le
 skydome n'était pas adapté à notre application. Notre terrain étant une
 surface carré de dimension fini il était possible voir le bas du skydome.
-Hors comme le skydome consiste à appliquer une image carré sur un dôme, le
+Or, comme le skydome consiste à appliquer une image carré sur un dôme, le
 rendu sur le bas du dôme est déformé. Il est donc préférable d'utiliser une
 skybox.
 
@@ -102,9 +102,9 @@ skybox.
 Pour réaliser nos caisses, nous avons utiliser le logiciel de modélisation 3D
 blender afin de réaliser le mesh. Le mesh correspond tout simplement à un
 cube. Nous avons ensuite fais une texture basique avec gimp que nous avons
-appliquer sur notre cube en utilisant la méthode "UV texture map".
+appliqué sur notre cube en utilisant la méthode "UV texture map".
 Nous avons ensuite exporté le mesh afin de le mettre dans le format
-accepter par le moteur OGRE 3D. 
+accepté par le moteur Ogre3D.
 
 % Fog ?
 % Lights ?
