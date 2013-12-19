@@ -1,6 +1,7 @@
 ﻿using Mogre;
 using System;
 using sma_ogre.item;
+using sma_ogre.utils;
 
 namespace sma_ogre
 {
@@ -43,10 +44,9 @@ namespace sma_ogre
                 mOgreFactory.UpdateAgentsAction(evt);
                 mRobotFactory.UpdateAgentsAction(evt);
 
-                OverlayUtils.Singleton.Update();
+                WorldTime.Singleton.UpdateTime(evt.timeSinceLastFrame);
             }
+            OverlayUtils.Singleton.Update();
         }
-
-  
     }
 }

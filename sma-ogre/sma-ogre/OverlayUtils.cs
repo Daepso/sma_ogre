@@ -1,5 +1,6 @@
 ﻿using Mogre;
 using System;
+using sma_ogre.utils;
 
 namespace sma_ogre
 {
@@ -129,7 +130,7 @@ namespace sma_ogre
         {
             OverlayManager.Singleton.GetOverlayElement("InfoBox" + "/Templates/MessageBox/Title").Caption = "Information";
             OverlayManager.Singleton.GetOverlayElement("InfoBox" + "/Templates/MessageBox/Body").Caption =
-                "Titi";
+                "Time : " + WorldTime.Singleton.GetTime();
         }
     }
 }
