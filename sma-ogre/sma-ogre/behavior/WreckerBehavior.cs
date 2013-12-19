@@ -81,7 +81,7 @@ namespace sma_ogre.behavior
 
         public override void Update(float elapsedTime, AgentAnimation animation = null)
         {
-            speed = baseSpeed * WorldConfig.Singleton.SpeedFactor;
+            speed = baseSpeed * WorldTime.Singleton.SpeedFactor;
             MoveToTargetPosition(elapsedTime);
             StateAction(elapsedTime);
             if (isAtTargetPosition)

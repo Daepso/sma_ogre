@@ -1,4 +1,5 @@
 ﻿using Mogre;
+using sma_ogre.utils;
 
 namespace sma_ogre.behavior
 {
@@ -74,7 +75,7 @@ namespace sma_ogre.behavior
 
         public virtual void Update(float elapsedTime, AgentAnimation animation = null)
         {
-            speed = baseSpeed * WorldConfig.Singleton.SpeedFactor;
+            speed = baseSpeed * WorldTime.Singleton.SpeedFactor;
             MoveToTargetPosition(elapsedTime);
             if(isAtTargetPosition)
             {

@@ -1,4 +1,5 @@
 ﻿using MOIS;
+using sma_ogre.utils;
 
 namespace sma_ogre
 {
@@ -77,16 +78,16 @@ namespace sma_ogre
                 case MOIS.KeyCode.KC_P:
                     if (mShiftKeyPressed)
                     {
-                        WorldConfig.Singleton.SwitchPause();
+                        WorldTime.Singleton.SwitchPause();
                     }
                     else
                     {
-                        WorldConfig.Singleton.SpeedFactorIncrease();
+                        WorldTime.Singleton.SpeedFactorIncrease();
                     }
                     break;
 
                 case MOIS.KeyCode.KC_M:
-                    WorldConfig.Singleton.SpeedFactorDecrease();
+                    WorldTime.Singleton.SpeedFactorDecrease();
                     break;
 
                 // Overlays

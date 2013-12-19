@@ -39,7 +39,7 @@ namespace sma_ogre
 
         protected override void UpdateScene(FrameEvent evt)
         {
-            if (WorldConfig.Singleton.Pause)
+            if (WorldTime.Singleton.Pause)
             {
                 mOgreFactory.UpdateAgentsAction(evt);
                 mRobotFactory.UpdateAgentsAction(evt);

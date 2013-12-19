@@ -136,7 +136,7 @@ namespace sma_ogre
                 "Number of ogres: "        + InformationLogger.Singleton.OgresNumber  +   "\n" +
                 "Birth since beginning: "  +                                       "" +   "\n" +
                 "Death since beginning: "  +                                       "" +   "\n" +
-                "Life acceleration rate: " +                                       "" +   "\n" ;
+                "Life acceleration rate: " + WorldTime.Singleton.SpeedFactor          +   "\n" ;
         }
     }
 }

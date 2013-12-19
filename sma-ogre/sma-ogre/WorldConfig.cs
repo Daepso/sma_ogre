@@ -38,15 +38,10 @@ namespace sma_ogre
         private ColourValue mAmbientLightOff;
         private bool        mAmbientLightIsOn;
 
-        private float       mSpeedFactor;
-        private bool        mPause;
-
         private WorldConfig()
         {
             rnd               = new Random();
             mAmbientLightIsOn = true;
-            mSpeedFactor      = 1f;
-            mPause            = true;
 
             try
             {
@@ -187,37 +182,6 @@ namespace sma_ogre
             {
                 return mAmbientLightOff;
             }
-        }
-
-        public float SpeedFactor
-        {
-            get { return mSpeedFactor; }
-        }
-
-        public void SpeedFactorDecrease()
-        {
-            if (mSpeedFactor > 0.01)
-            {
-                mSpeedFactor /= 2;
-            }
-        }
-
-        public void SpeedFactorIncrease()
-        {
-            if (mSpeedFactor < 100)
-            {
-                mSpeedFactor *= 2;
-            }
-        }
-
-        public bool Pause
-        {
-            get { return mPause; }
-        }
-
-        public void SwitchPause()
-        {
-            mPause = !mPause;
         }
 
         private void DefineConfig()
