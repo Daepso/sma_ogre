@@ -42,6 +42,8 @@ namespace sma_ogre
             {
                 mOgreFactory.UpdateAgentsAction(evt);
                 mRobotFactory.UpdateAgentsAction(evt);
+
+                OverlayUtils.Singleton.Update();
             }
         }
 

@@ -89,6 +89,15 @@ namespace sma_ogre
                     WorldConfig.Singleton.SpeedFactorDecrease();
                     break;
 
+                // Overlays
+                case MOIS.KeyCode.KC_H:
+                    OverlayUtils.Singleton.ToggleHelp();
+                    break;
+
+                case MOIS.KeyCode.KC_I:
+                    OverlayUtils.Singleton.ToggleInformation();
+                    break;
+
                 // Key modifiers
                 case MOIS.KeyCode.KC_LSHIFT:
                 case MOIS.KeyCode.KC_RSHIFT:

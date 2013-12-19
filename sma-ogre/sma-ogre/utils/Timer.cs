@@ -25,12 +25,12 @@ namespace sma_ogre.utils
 
         public void updateTimer(float elapsedTime)
         {
-                time -= elapsedTime;
+            time -= elapsedTime;
         }
 
         public bool isFinished()
         {
-                return time <= 0;
+            return time <= 0;
         }
     }
 }

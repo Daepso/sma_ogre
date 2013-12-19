@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -52,6 +52,7 @@
     <Folder Include="Media\materials\scripts\" />
     <Folder Include="Media\materials\textures\" />
     <Folder Include="Media\models\" />
+    <Folder Include="Media\overlays\" />
     <Folder Include="Media\packs\" />
   </ItemGroup>
   <ItemGroup>
@@ -77,8 +78,10 @@
     <Compile Include="item\Item.cs" />
     <Compile Include="item\ItemFactory.cs" />
     <Compile Include="item\ItemManager.cs" />
+    <Compile Include="utils\WorldTime.cs" />
     <Compile Include="utils\Timer.cs" />
     <Compile Include="World.cs" />
+    <Compile Include="OverlayUtils.cs" />
     <Compile Include="WorldConfig.cs" />
     <Compile Include="OgreApp.input.cs" />
     <Compile Include="OgreApp.cs" />
