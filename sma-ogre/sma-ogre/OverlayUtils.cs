@@ -10,11 +10,10 @@ namespace sma_ogre
     {
         static private OverlayUtils singleton;
 
+        private RenderWindow mRenderWindow;
+
         private OverlayUtils()
         {
-            CreateOverlaysTemplate();
-            CreateHelpOverlay();
-            CreateInformationOverlay();
         }
 
         public static OverlayUtils Singleton
@@ -27,6 +26,15 @@ namespace sma_ogre
                 }
                 return singleton;
             }
+        }
+
+        public void Init(RenderWindow renderWindow)
+        {
+            mRenderWindow = renderWindow;
+
+            CreateOverlaysTemplate();
+            CreateHelpOverlay();
+            CreateInformationOverlay();
         }
 
         private void CreateOverlaysTemplate()
@@ -72,10 +80,10 @@ namespace sma_ogre
         {
             BorderPanelOverlayElement infoBox = (BorderPanelOverlayElement)OverlayManager.Singleton.CreateOverlayElementFromTemplate(
                 "Templates/MessageBox", "BorderPanel", "InfoBox");
-            infoBox.Left = 300;
-            infoBox.Top = 20;
             infoBox.Width = 300;
             infoBox.Height = 300;
+            infoBox.Top = 20;
+            infoBox.Left = mRenderWindow.Width - infoBox.Width - 10;
             OverlayManager.Singleton.Create("InformationOverlay").Add2D(infoBox);
         }
 
