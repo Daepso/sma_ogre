@@ -10,6 +10,8 @@ TODO
 * Add fog
 * Add Agent selection
 * Add viewports for camera (First person, etc.)
+* Add lights
+* Improve speed increase management
 
 DONE
 ====

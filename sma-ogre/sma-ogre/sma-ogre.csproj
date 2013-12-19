@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="behavior\BuilderBehavior.cs" />
     <Compile Include="behavior\CarrierBehavior.cs" />
+    <Compile Include="behavior\CleverBuilderBehavior.cs" />
     <Compile Include="behavior\WreckerBehavior.cs" />
     <Compile Include="CameraMan.cs" />
     <Compile Include="Agent.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="item\ItemManager.cs" />
     <Compile Include="utils\WorldTime.cs" />
     <Compile Include="utils\Timer.cs" />
+    <Compile Include="utils\Utils.cs" />
     <Compile Include="World.cs" />
     <Compile Include="OverlayUtils.cs" />
     <Compile Include="WorldConfig.cs" />

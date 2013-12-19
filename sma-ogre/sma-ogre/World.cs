@@ -14,8 +14,6 @@ namespace sma_ogre
 
         static private void CreateGround(SceneManager sceneMgr)
         {
-            //TODO Add a table and a desk light because david said it's so cool.
-
             Plane plane = new Plane(Vector3.UNIT_Y, 0);
             MeshManager.Singleton.CreatePlane("ground",
                 ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane,

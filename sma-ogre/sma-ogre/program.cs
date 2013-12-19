@@ -30,10 +30,10 @@ namespace sma_ogre
             mBrickFactory = ItemFactory.BrickFactory(mSceneMgr);
             mBrickFactory.MakeNumItems(WorldConfig.Singleton.InitialBrickNumber, true);
 
-            mOgreFactory  = AgentFactory.OgreFactory(mSceneMgr,mBrickFactory.GetItemManager());
+            mOgreFactory  = AgentFactory.OgreFactory(mSceneMgr, mBrickFactory.GetItemManager());
             mOgreFactory.MakeNumAgents(WorldConfig.Singleton.InitialGoodAgentsNumber, true);
 
-            mRobotFactory = AgentFactory.RobotFactory(mSceneMgr,mBrickFactory.GetItemManager());
+            mRobotFactory = AgentFactory.RobotFactory(mSceneMgr, mBrickFactory.GetItemManager());
             mRobotFactory.MakeNumAgents(WorldConfig.Singleton.InitialBadAgentsNumber, true, true);
         }
 

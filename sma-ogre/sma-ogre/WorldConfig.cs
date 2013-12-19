@@ -24,6 +24,8 @@ namespace sma_ogre
         private string  mRobotMesh;
         private string  mBrickMesh;
 
+        private bool mIsBuilderClever;
+
         private float[] mDefaultSpeedRange;
         private float[] mBuilderSpeedRange;
         private float[] mWreckerSpeedRange;
@@ -137,6 +139,11 @@ namespace sma_ogre
         public string BrickMesh
         {
             get { return mBrickMesh; }
+        }
+
+        public bool IsBuilderClever
+        {
+            get { return mIsBuilderClever; }
         }
 
         public float[] DefaultSpeedRange
@@ -319,24 +326,28 @@ namespace sma_ogre
 
         private void LoadBehaviorConfig(System.Collections.Generic.KeyValuePair<string,string> line)
         {
-            if (line.Key.Equals("DefaultSpeedRange"))
+            if (line.Key.Equals("IsBuilderClever"))
+            {
+                mIsBuilderClever = bool.Parse(line.Value);
+            }
+            else if (line.Key.Equals("DefaultSpeedRange"))
             {
                 string[] defaultSpeedRange = line.Value.Split(',');
-                mDefaultSpeedRange    = new float[2];
+                mDefaultSpeedRange = new float[2];
                 mDefaultSpeedRange[0] = FloatParse(defaultSpeedRange[0]);
                 mDefaultSpeedRange[1] = FloatParse(defaultSpeedRange[1]);
             }
             else if (line.Key.Equals("BuilderSpeedRange"))
             {
                 string[] builderSpeedRange = line.Value.Split(',');
-                mBuilderSpeedRange    = new float[2];
+                mBuilderSpeedRange = new float[2];
                 mBuilderSpeedRange[0] = FloatParse(builderSpeedRange[0]);
                 mBuilderSpeedRange[1] = FloatParse(builderSpeedRange[1]);
             }
             else if (line.Key.Equals("WreckerSpeedRange"))
             {
                 string[] wreckerSpeedRange = line.Value.Split(',');
-                mWreckerSpeedRange    = new float[2];
+                mWreckerSpeedRange = new float[2];
                 mWreckerSpeedRange[0] = FloatParse(wreckerSpeedRange[0]);
                 mWreckerSpeedRange[1] = FloatParse(wreckerSpeedRange[1]);
             }
@@ -352,7 +363,8 @@ namespace sma_ogre
             {
                 mWreckerSightRange = FloatParse(line.Value);
             }
-            else {
+            else
+            {
                 throw new UnkownConfigKeyException();
             }
         }
