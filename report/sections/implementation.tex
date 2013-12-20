@@ -11,12 +11,20 @@ La classe \texttt{Behavior} regroupe les méthodes de bases. On trouve des
 méthodes pour effectuer un déplacement vers une position visée, pour choisir
 une nouvelle destination. La méthode \texttt{Update} sera appelée à chaque frame.
 
-Afin de rassembler le code en commun dans les comportements constructeurs et
+\paragraph{}Afin de rassembler le code en commun dans les comportements constructeurs et
 destructeurs, une classe \texttt{CarrierBehavior} a été créée. Cette classe
 hérite donc de la classe \texttt{Behavior}.  Elle rassemble les mécanisme pour
 ramasser des objets et les déposer. Nos comportements constructeurs et destructeurs
 hérite de cette classe.
 
+\paragraph{}Afin que les agents n'est qu'une vision local du système, une
+distance de vue a été ajoutée. Grâce à cela, quand les agents récupère la
+liste des objets sur le terrain, seulement les objets dans leur champ de
+vision leur sont envoyés. Il ne peuvent alors raisonner que sur une partie des
+objets.
+
+Une distance de d'interaction a aussi été mis en place. Les agents ont besoin
+d'être à une certaine distance d'un objet pour pouvoir le ramasser.
 
 \subsubsection{Builder}
 \paragraph{}Pour les comportement de type constructeur deux types de comportement ont été
@@ -25,7 +33,8 @@ réalisés. Le premier comportement \texttt{BuilderBehavior} peut être assimil�
 
 \begin{description}
     \item[\'Etat 1] l'ogre ne porte pas d'objet. Si un objet est à porté il
-        le ramasse et passe dans l'état 2.
+        le ramasse et passe dans l'état 2. Sinon si au moins un objet est dans son
+        champ de vision alors il se dirige vers l'objet le plus proche.
     \item[\'Etat 2] l'ogre vient de ramasser un objet. Il se déplace pendant une
         durée aléatoire sans faire d'autres actions puis passe dans l'état 3.
     \item[\'Etat 3] l'ogre porte un objet. Si un objet est à porté il
@@ -46,7 +55,8 @@ cet endroit.
 
 \begin{description}
     \item[\'Etat 1] l'ogre ne porte pas d'objet. Si un objet est à porté il
-        le ramasse et passe dans l'état 2.
+        le ramasse et passe dans l'état 2. Sinon si au moins un objet est dans son
+        champ de vision alors il se dirige vers l'objet le plus proche.
     \item[\'Etat 2] l'ogre vient de ramasser un objet. Il se déplace pendant une
         durée aléatoire en regardant le nombre d'objets qui sont dans son
         champ de vision et en mettant à jour sa mémoire si il découvre un
@@ -89,7 +99,8 @@ ogres mais les conditions pour poser un objet sont différentes.
 
 \begin{description}
     \item[\'Etat 1] l'ogre ne porte pas d'objet. Si un objet est à porté il
-        le ramasse et passe dans l'état 2.
+        le ramasse et passe dans l'état 2. Sinon si au moins un objet est dans son
+        champ de vision alors il se dirige vers l'objet le plus proche.
     \item[\'Etat 2] l'ogre vient de ramasser un objet. Il se déplace pendant une
         durée aléatoire sans faire d'autres actions puis passe dans l'état 3.
     \item[\'Etat 3] l'ogre porte un objet. Si aucun objet est à porté il
