@@ -40,7 +40,7 @@
 
         public string GetTimeString()
         {
-            return time.ToString("0.00");
+            return time.ToString("0.000");
         }
 
         // Global speed factor handlers
