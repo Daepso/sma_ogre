@@ -72,7 +72,7 @@ namespace sma_ogre
             helpBox.Left = 10;
             helpBox.Top = 20;
             helpBox.Width = 300;
-            helpBox.Height = 300;
+            helpBox.Height = 320;
             OverlayManager.Singleton.Create("HelpOverlay").Add2D(helpBox);
         }
 
@@ -120,12 +120,14 @@ namespace sma_ogre
                 "h : display this help\n" +
                 "i : display informations about the world\n" +
                 "n : toggle night mode\n" +
+                "l : toggle lights\n" +
                 "\n" +
                 "P : Pause\n" +
                 "p : increase life speed\n" +
                 "m : decrease life speed\n" +
                 "\n" +
                 "Move mouse for camera rotation\n" +
+                "f : toggle follow mode\n" +
                 "a : move camera upward\n" +
                 "e : move camera downward\n" +
                 "z, up : move camera forward\n" +

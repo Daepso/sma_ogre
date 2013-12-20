@@ -108,9 +108,11 @@ namespace sma_ogre
                     
                 case MOIS.KeyCode.KC_F:
                     CameraAttach();
-
-
                     break;
+                case MOIS.KeyCode.KC_L:
+                    World.TurnOffOnLigths();
+                    break;
+             
             }
 
             return true;
