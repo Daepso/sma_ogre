@@ -184,6 +184,11 @@ namespace sma_ogre
             }
         }
 
+        public bool NightMode
+        {
+            get { return !mAmbientLightIsOn; }
+        }
+
         private void DefineConfig()
         {
             ConfigFile cf = new ConfigFile();

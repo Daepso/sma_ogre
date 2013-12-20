@@ -26,8 +26,8 @@ namespace sma_ogre.behavior
         protected bool DropObject()
         {
             List<Item> listItem = itemManager.GetItemInSight(mAgentNode.Position.x,
-                                                        mAgentNode.Position.z,
-                                                        WorldConfig.Singleton.BuilderSightRange);
+                                                             mAgentNode.Position.z,
+                                                             RealSightRange(WorldConfig.Singleton.WreckerSightRange));
 
             if (listItem.Count == 0)
             {
