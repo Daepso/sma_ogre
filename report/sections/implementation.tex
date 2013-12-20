@@ -86,7 +86,7 @@ caisses ne sont pas réparties de façon homogène sur l'ensemble du terrain. En
 effet, dans ce cas là les robots peuvent alors mettre en temps important à
 trouver un endroit où ils n'ont pas d'autres caisses en vue.
 
-\section{Modélisation 3D}
+\section{Fonctionnalités}
 
 
 \subsection{Techniques mises en place}
@@ -108,9 +108,61 @@ accepté par le moteur Ogre3D.
 
 % Fog ?
 % Lights ?
-% Overlay
+
+\subsubsection{Overlays}
+% Aide
+
+\paragraph{Information}
+Cet overlay permet l'affichage de plusieurs informations au sujet de la
+simulation, notamment le nombre d'agents de chaque type et le temps écoulé
+depuis le lancement de la simulation.
+En plus de cela, le facteur de vitesse d'écoulement du temps - détaillé par la
+suite - est également affiché. Lorsque ce facteur est inférieur à 1, la
+simulation est ralentie alors que quand il est supérieur à 1, la simulation
+est accélérée. Nous avons fait en sorte que le temps écoulé depuis le début de
+la simulation évolue plus ou moins rapidement en fonction de ce facteur.
 
 \subsection{Interaction avec l'utilisateur}
+
+L'utilisateur peut interagir avec l'environnement avec la souris ou au
+clavier. La touche \verb!h! affiche la liste des commandes possible et la
+touche i affiche des informations à propos de l'environnement.
+Il est possible de déplacer la caméra dans la scène grâce à des touches
+clavier et d'effectuer des rotations grâce à la souris.
+
+\subsubsection{Saut dans le temps et téléportation}
+Pour permettre à l'utilisateur d'observer plus finement le comportement des
+agents et pour voir un comportement à l'échelle macroscopique se dégager plus
+rapidement, nous avons ajouté la possibilité de ralentir et d'accélérer le
+temps. Dans un premier temps nous nous étions contenté de multiplier la
+vitesse de base de nos agent par un facteur pour donner cette sensation
+d'évolution plus lente ou plus rapide. Nous nous sommes alors aperçu que, si
+cela fonctionnait bien lorsqu'on ralentissait la vitesse des agents, lors
+d'une augmentation de la vitesse des agents le résultat différait de ce que
+l'on attendait.
+
+\paragraph{}
+L'explication est simple, à chaque frame on calcule la nouvelle position des
+agents en fonction du temps qui s'est écoulé depuis la dernière frame et de la
+vitesse de l'agent. Par conséquent entre 2 frames consécutives les agents se
+"téléportent" tous de leur position courante à leur nouvelle position. Lorsque
+la vitesse des agents est élevée, la téléportation s'effectue sur une plus
+grande distance. Le problème est que nos agents sont sensés ramasser des items
+ou en déposer sous certaines conditions lorsque leur trajectoire les fait
+passer près d'un item. Si la vitesse d'un agent est trop élevée, ce dernier
+risque de se téléporter trop loin des items qui étaient sur sa trajectoire et
+ne va donc pas les voir. On observer ainsi que lorsqu'on accélérait la vitesse
+de la simulation, les agents avaient tendance à ne plus ramasser correctement
+les caisses et donc on perdait l'intérêt de la démarche.
+
+\paragraph{}
+Pour palier à ce problème nous avons géré différemment l'augmentation et la
+diminution de la vitesse à laquelle s'écoule le temps. Nous avons gardé la
+même technique pour "ralentir" la simulation. Pour l'accélérer, nous avons
+fait en sorte que, lorsque le \emph{FrameListener} appelle notre fonction de
+mise à jour de la scène, plusieurs frames soient calculée au lieu d'une seule.
+De cette manière les agents n'atteignent pas de vitesse trop élevée et le bon
+résultat est obtenu.
 
 % Mesh selection ?
 % -> put a light on an agent
