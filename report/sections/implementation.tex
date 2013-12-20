@@ -110,10 +110,60 @@ accepté par le moteur Ogre3D.
 % Lights ?
 
 \subsection{Overlays}
-% Aide
+Pour faciliter la prise en main de notre projet nous avons décidé d'afficher
+une fenêtre d'aide donnant la liste des commandes, lors de l'appui sur une
+touche. Nous voulions également offrir une autre fenêtre donnant des
+informations sur l'état actuel de la simulation.
+Pour cela nous avons utilisé les overlays, des éléments 2D pouvant être
+affiché sur la fenêtre de rendu. Ces éléments peuvent être affichés par dessus
+la scène 3D et contenir du texte : ils sont donc bien adapté à ces cas
+d'utilisation.
+
+\paragraph{}
+Cependant, nous avons rencontré de nombreux problèmes avec les overlays et
+nous avons perdu beaucoup de temps à la résoudre. Il y a deux manières
+d'utiliser les overlays, soit en écrivant le code permettant de les créer avec
+divers éléments, soit en écrivant des scripts - qui sont en fait des fichiers
+de descriptions des éléments de l'overlays suivant un certain format.
+Afin de réduire la quantité de code et pour permettre la modification d'un
+overlay dans avoir à recompiler, nous avons choisi de créer les overlays à
+partir d'un script. Ce fut une mauvaise idée.
+
+\paragraph{}
+Malgré la présence d'un tutoriel simple décrivant la procédure de mise en
+place d'overlay, nous avons eu du mal à obtenir le résultat voulu. En fait
+même l'exemple donné par le tutoriel ne donnais pas, lorsque nous lancions
+notre projet, le résultat décrit par le tutoriel. Nous observions notamment la
+disparition des bordures et du texte. Après quelques investigations sur
+internet, il nous est apparu que d'autres personnes avaient rencontré des
+problèmes similaires sans trouver de solution.
+
+\paragraph{}
+Pour ne pas rester bloquer trop longtemps nous avons décidé d'abandonner les
+scripts et de coder entièrement le format de nos overlays. Une fois de plus
+nous avons rencontré des problèmes mais avons, cette fois-ci, réussi à en
+comprendre la source. Le symptôme principal était le non affichage du texte,
+malgré l'affichage correct des autres éléments de l'overlay. Il se trouve que
+lorsqu'on créé et affiche un overlay, ce dernier restera affiché jusqu'à ce
+qu'on demande à le cacher. Nous pensions donc qu'il en était de même pour le
+texte contenu dans cet overlay. Il se trouve que non. Il semblerait que si
+l'on ne réécrit par le texte à chaque frame, ce dernier disparaisse. Ce qui
+nous semble totalement contre-intuitif étant donné que ce dernier s'affiche
+par dessus des éléments de l'overlay qui, eux, restent afficher entre
+plusieurs frames.
+
+Quoiqu'il en soit, une fois la source du problème comprise, nous avons pu
+le corriger et poursuivre la création de nos deux overlays.
+
+\paragraph{Aide}
+Notre première utilisation des overlays a été pour l'affichage d'une aide.
+Cette aide recense les raccourcis claviers et les interactions avec la souris
+que nous proposons à l'utilisateur. Cette aide décrit notamment comment bouger
+la caméra, affecter l'écoulement du temps dans la simulation ou encore comment
+allumer/éteindre la lumière.
 
 \paragraph{Information}
-Cet overlay permet l'affichage de plusieurs informations au sujet de la
+Ce second overlay permet l'affichage de plusieurs informations au sujet de la
 simulation, notamment le nombre d'agents de chaque type et le temps écoulé
 depuis le lancement de la simulation.
 En plus de cela, le facteur de vitesse d'écoulement du temps - détaillé par la
@@ -170,9 +220,4 @@ résultat est obtenu.
 % -> put a light on an agent
 % -> kill an agent
 % -> move an agent
-% Overlay
-% -> help (key bindings)
-% -> informations (nb of each agent/death/birth, life speed, time from start)
-% -> debugging ?
-% Pause
 % Ambient light
