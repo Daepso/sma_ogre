@@ -10,3 +10,6 @@ Pour lancer l'application:
 -Mettre la solution en mode Release
 -Démarrer la solution
 
+Pendant l'execution:
+-Appuyer sur 'h' pour voir la liste des commandes disponibles
+-Appuyer sur 'Echap' pour quitter l'application
