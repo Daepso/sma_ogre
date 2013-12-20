@@ -48,7 +48,7 @@ namespace sma_ogre
             return agentFactory;
         }
 
-        public Agent MakeAgent(bool useRandPos = false, bool useAnimation = false)
+        public Agent MakeAgent(bool useRandPos = false, bool useAnimation = false, bool isMortal = true)
         {
             Vector3 pos = new Vector3(0, 0, 0);
 
@@ -62,17 +62,17 @@ namespace sma_ogre
                     1+WorldConfig.Singleton.GroundLength / 2);
             }
 
-            Agent agent = new Agent(mSceneMgr, mMeshName, mMeshFacedDirection, mBehaviorFactory.MakeBehavior(), pos, useAnimation);
+            Agent agent = new Agent(mSceneMgr, mMeshName, mMeshFacedDirection, mBehaviorFactory.MakeBehavior(), pos, useAnimation, isMortal);
             mAgents.Add(agent);
 
             return agent;
         }
 
-        public void MakeNumAgents(int agentNumber, bool useRandPos = false, bool useAnimation = false)
+        public void MakeNumAgents(int agentNumber, bool useRandPos = false, bool useAnimation = false, bool isMortal = true)
         {
             for (int i = 0; i < agentNumber; i++)
             {
-                MakeAgent(useRandPos, useAnimation);
+                MakeAgent(useRandPos, useAnimation, isMortal);
             }
         }
 
@@ -83,15 +83,23 @@ namespace sma_ogre
 
         public void UpdateAgentsAction(FrameEvent evt)
         {
+            List<Agent> deadAgents = new List<Agent>();
             foreach (Agent agent in mAgents)
             {
                 if (agent.IsDead)
                 {
+                    deadAgents.Add(agent);
                 }
                 else
                 {
                     agent.UpdateAction(evt);
                 }
+            }
+
+            // Remove dead agents
+            foreach (Agent agent in deadAgents)
+            {
+                mAgents.Remove(agent);
             }
         }
 

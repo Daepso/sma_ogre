@@ -34,6 +34,8 @@ namespace sma_ogre
         private float mBuilderSightRange;
         private float mWreckerSightRange;
 
+        private float mAgentsHalfLife;
+
         private ColourValue mAmbientLightOn;
         private ColourValue mAmbientLightOff;
         private bool        mAmbientLightIsOn;
@@ -169,6 +171,11 @@ namespace sma_ogre
         public float WreckerSightRange
         {
             get { return mWreckerSightRange; }
+        }
+
+        public float AgentsHalfLife
+        {
+            get { return mAgentsHalfLife; }
         }
 
         public ColourValue SwitchedLight()
@@ -331,6 +338,10 @@ namespace sma_ogre
             else if (line.Key.Equals("WreckerSightRange"))
             {
                 mWreckerSightRange = FloatParse(line.Value);
+            }
+            else if (line.Key.Equals("AgentsHalfLife"))
+            {
+                mAgentsHalfLife = FloatParse(line.Value);
             }
             else
             {
