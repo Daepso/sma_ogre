@@ -83,15 +83,23 @@ namespace sma_ogre
 
         public void UpdateAgentsAction(FrameEvent evt)
         {
+            List<Agent> deadAgents = new List<Agent>();
             foreach (Agent agent in mAgents)
             {
                 if (agent.IsDead)
                 {
+                    deadAgents.Add(agent);
                 }
                 else
                 {
                     agent.UpdateAction(evt);
                 }
+            }
+
+            // Remove dead agents
+            foreach (Agent agent in deadAgents)
+            {
+                mAgents.Remove(agent);
             }
         }
     }

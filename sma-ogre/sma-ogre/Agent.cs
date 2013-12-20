@@ -67,6 +67,7 @@ namespace sma_ogre
         {
             mAgentBehavior.Die();
             InformationLogger.Singleton.NewDeath();
+            mEntityNode.DetachAllObjects();
         }
 
         public bool IsDead
