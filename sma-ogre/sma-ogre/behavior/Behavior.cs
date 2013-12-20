@@ -75,7 +75,7 @@ namespace sma_ogre.behavior
 
         public virtual void Update(float elapsedTime, AgentAnimation animation = null)
         {
-            speed = baseSpeed * WorldTime.Singleton.SpeedFactor;
+            AdjustSpeed();
             MoveToTargetPosition(elapsedTime);
             if(isAtTargetPosition)
             {
@@ -85,6 +85,18 @@ namespace sma_ogre.behavior
             if (animation != null)
             {
                 animation.UpdatePosture(elapsedTime, speed);
+            }
+        }
+
+        public void AdjustSpeed()
+        {
+            if (WorldTime.Singleton.SpeedFactor < 1)
+            {
+                speed = baseSpeed * WorldTime.Singleton.SpeedFactor;
+            }
+            else
+            {
+                speed = baseSpeed;
             }
         }
     }

@@ -11,6 +11,8 @@ namespace sma_ogre
         private AgentFactory mRobotFactory;
         private ItemFactory  mBrickFactory;
 
+        private float frameToPlay;
+
         public static void Main()
         {
             try
@@ -37,9 +39,23 @@ namespace sma_ogre
             mRobotFactory.MakeNumAgents(WorldConfig.Singleton.InitialBadAgentsNumber, true, true);
 
             OverlayUtils.Singleton.Init(mRenderWindow);
+
+            frameToPlay = 1;
         }
 
         protected override void UpdateScene(FrameEvent evt)
+        {
+            frameToPlay = WorldTime.Singleton.SpeedFactor;
+
+            while (frameToPlay >= 2)
+            {
+                UpdateFrame(evt);
+                frameToPlay--;
+            }
+            UpdateFrame(evt);
+        }
+
+        protected void UpdateFrame(FrameEvent evt)
         {
             if (WorldTime.Singleton.Pause)
             {
