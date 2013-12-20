@@ -11,6 +11,8 @@ namespace sma_ogre
         private Behavior       mAgentBehavior;
         private AgentAnimation mAgentAnimation;
 
+        private bool mAgentIsDead;
+
         public Agent(SceneManager sceneMgr, string meshName, Vector3 meshFacedDirection, Behavior agentBehavior, Vector3 position,
             bool useAnimation = false)
         {
@@ -29,11 +31,42 @@ namespace sma_ogre
             {
                 mAgentAnimation = new AgentAnimation(mEntity);
             }
+
+            mAgentIsDead = false;
         }
 
         public void UpdateAction(FrameEvent evt)
         {
-            mAgentBehavior.Update(evt.timeSinceLastFrame, mAgentAnimation);
+            if (AgentDies(evt.timeSinceLastFrame))
+            {
+                Kill();
+                mAgentIsDead = true;
+            }
+
+            if (!mAgentIsDead)
+            {
+                mAgentBehavior.Update(evt.timeSinceLastFrame, mAgentAnimation);
+            }
+        }
+
+        private bool AgentDies(float elapsedTime)
+        {
+            return WorldConfig.Singleton.RandFloat(0, 1) < AgentDeathProbability(elapsedTime);
+        }
+
+        private float AgentDeathProbability(float elapsedTime)
+        {
+            return 1.0f / 40 * elapsedTime;
+        }
+
+        public void Kill()
+        {
+            mAgentBehavior.Die();
+        }
+
+        public bool IsDead
+        {
+            get { return mAgentIsDead; }
         }
     }
 }

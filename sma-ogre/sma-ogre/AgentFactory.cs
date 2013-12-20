@@ -85,7 +85,13 @@ namespace sma_ogre
         {
             foreach (Agent agent in mAgents)
             {
-                agent.UpdateAction(evt);
+                if (agent.IsDead)
+                {
+                }
+                else
+                {
+                    agent.UpdateAction(evt);
+                }
             }
         }
     }

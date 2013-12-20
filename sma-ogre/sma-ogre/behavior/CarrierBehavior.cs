@@ -8,7 +8,7 @@ namespace sma_ogre.behavior
         static protected float actionDistance = 20;
 
         protected ItemManager itemManager;
-        protected Item       carriedItem;
+        protected Item        carriedItem;
 
         public override void Init()
         {
@@ -79,6 +79,14 @@ namespace sma_ogre.behavior
                 targetPosition.z = closestItem.GetPositionZ();
             }
             return false;
+        }
+
+        public override void Die()
+        {
+            if (carriedItem != null)
+            {
+                DropAction(mAgentNode.Position.x, mAgentNode.Position.z);
+            }
         }
     }
 }

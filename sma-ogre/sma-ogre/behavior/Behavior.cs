@@ -99,5 +99,9 @@ namespace sma_ogre.behavior
                 speed = baseSpeed;
             }
         }
+
+        public virtual void Die()
+        {
+        }
     }
 }
