@@ -72,7 +72,7 @@ namespace sma_ogre
             helpBox.Left = 10;
             helpBox.Top = 20;
             helpBox.Width = 300;
-            helpBox.Height = 320;
+            helpBox.Height = 330;
             OverlayManager.Singleton.Create("HelpOverlay").Add2D(helpBox);
         }
 
@@ -117,6 +117,7 @@ namespace sma_ogre
         {
             OverlayManager.Singleton.GetOverlayElement("HelpBox" + "/Templates/MessageBox/Title").Caption = "Help";
             OverlayManager.Singleton.GetOverlayElement("HelpBox" + "/Templates/MessageBox/Body").Caption =
+                "Escape : exit this application\n" +
                 "h : display this help\n" +
                 "i : display informations about the world\n" +
                 "n : toggle night mode\n" +
