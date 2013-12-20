@@ -128,18 +128,20 @@ L'utilisateur peut interagir avec l'environnement avec la souris ou au
 clavier. La touche \verb!h! affiche la liste des commandes possible et la
 touche i affiche des informations à propos de l'environnement.
 Il est possible de déplacer la caméra dans la scène grâce à des touches
-clavier et d'effectuer des rotations grâce à la souris.
+clavier et d'effectuer des rotations grâce à la souris - l'appui de la touche
+\emph{shift} permet d'accélérer les translations de la caméra.
 
 \subsubsection{Saut dans le temps et téléportation}
 Pour permettre à l'utilisateur d'observer plus finement le comportement des
 agents et pour voir un comportement à l'échelle macroscopique se dégager plus
 rapidement, nous avons ajouté la possibilité de ralentir et d'accélérer le
-temps. Dans un premier temps nous nous étions contenté de multiplier la
-vitesse de base de nos agent par un facteur pour donner cette sensation
-d'évolution plus lente ou plus rapide. Nous nous sommes alors aperçu que, si
-cela fonctionnait bien lorsqu'on ralentissait la vitesse des agents, lors
-d'une augmentation de la vitesse des agents le résultat différait de ce que
-l'on attendait.
+temps - il est également possible d'arrêter le temps, c'est-à-dire de faire
+une pause de la simulation. Dans un premier temps nous nous étions contenté de
+multiplier la vitesse de base de nos agent par un facteur pour donner cette
+sensation d'évolution plus lente ou plus rapide. Nous nous sommes alors aperçu
+que, si cela fonctionnait bien lorsqu'on ralentissait la vitesse des agents,
+lors d'une augmentation de la vitesse des agents le résultat différait de ce
+que l'on attendait.
 
 \paragraph{}
 L'explication est simple, à chaque frame on calcule la nouvelle position des
@@ -172,7 +174,5 @@ résultat est obtenu.
 % -> help (key bindings)
 % -> informations (nb of each agent/death/birth, life speed, time from start)
 % -> debugging ?
-% Life speed
-% Camera movement
 % Pause
 % Ambient light
