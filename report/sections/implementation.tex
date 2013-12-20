@@ -73,25 +73,6 @@ cet endroit.
 des ogres. Au bout d'une durée relativement courte les ogres ont tous trouvé
 l'endroit comportent le plus de caisses.
 
-\paragraph{}
-Cependant les ogres étant devenus trop efficaces par rapport aux robots, nous
-avons ajouté un dernier comportement \texttt{MortalCleverBuilderBahavior} les
-rendant mortels. Leur espérance de vie est basée sur un temps de demi-vie -
-par analogie à la désintégration de corps radioactifs - au bout duquel environ
-la moitié de la population va disparaître. Cette espérance de vie est une
-propriété associée à ce nouveau comportement qui fait qu'à chaque mise à jour
-du comportement (toutes les frame) l'agent a une probabilité de mourir
-$P(death)$ valant :
-
-\[ P(death) = \lambda dt \]
-
-\[ où \left\{
-        \begin{array}{l}
-            \lambda  = \frac{\ln 2}{t_{1/2}}\\
-            t_{1/2} \quad \verb!est le temps de demi-vie!\\
-            dt \quad \verb!est le temps écoulé depuis la dernière mise à jour!
-    \end{array} \right. \]
-
 \subsubsection{Wrecker}
 \paragraph{}Au niveau du comportement de type destructeur, une seule version a
 été implémenté : \texttt{WrekerBehavior}. Celle-ci ressemble fortement au premier comportement des
@@ -115,6 +96,30 @@ Cependant, on remarque que l'efficacité de ce comportement augmente quand les
 caisses ne sont pas réparties de façon homogène sur l'ensemble du terrain. En
 effet, dans ce cas là les robots peuvent alors mettre en temps important à
 trouver un endroit où ils n'ont pas d'autres caisses en vue.
+
+\subsection{Mortalité}
+
+\paragraph{}
+Les comportement avancés des ogres étant devenus trop efficaces par rapport
+aux robots, nous avons décider de les rendre mortel en leur ajoutant une
+espérance de vie.
+Cette espérance de vie est basée sur un temps de demi-vie - par analogie à la
+désintégration de corps radioactifs - au bout duquel environ la moitié de la
+population va disparaître. Cette espérance de vie est une propriété associée à
+aux agents qui fait qu'à chaque mise à jour de la scène (toutes les frame)
+l'agent a une probabilité de mourir $P(death)$ valant :
+
+\[ P(death) = \lambda dt \]
+
+\[ où \left\{
+        \begin{array}{l}
+            \lambda  = \frac{\ln 2}{t_{1/2}}\\
+            t_{1/2} \quad \verb!est le temps de demi-vie!\\
+            dt \quad \verb!est le temps écoulé depuis la dernière mise à jour!
+    \end{array} \right. \]
+
+Il est possible de décider d'affecter cette propriété à un agent ou non. Ainsi
+nos ogres sont mortels mais pas les robots.
 
 \section{Fonctionnalités}
 
@@ -149,9 +154,19 @@ appliqué sur notre cube en utilisant la méthode "UV texture map".
 Nous avons ensuite exporté le mesh afin de le mettre dans le format
 accepté par le moteur Ogre3D.
 
+\subsubsection{Lumières}
+Nous avons ajouté trois lumières ponctuelles de couleurs différentes à notre
+scène. Ces lumières peuvent être allumées ou éteintes en appuyant sur la
+touche \verb!l!. Ces lumières sont indépendantes de la lumière ambiante.
 
-% Fog ?
-% Lights ?
+\subsubsection{Caméra}
+Par défaut la caméra donne une vue de l'ensemble de la scène, il est possible
+de la déplacer dans l'environnement global. Nous avons ajouté à cela le suivit
+d'un ogre donc le choix est aléatoire parmi l'ensemble des ogres. Lors du
+suivi d'un agent, la caméra a parfois des changements d'orientation de manière
+brutale ; cela est du au fait que la caméra est positionnée dans le repère du
+l'ogre et que ce dernier voit son orientation changer radicalement à chaque
+changement de destination.
 
 \subsection{Overlays}
 Pour faciliter la prise en main de notre projet nous avons décidé d'afficher
@@ -224,6 +239,8 @@ touche i affiche des informations à propos de l'environnement.
 Il est possible de déplacer la caméra dans la scène grâce à des touches
 clavier et d'effectuer des rotations grâce à la souris - l'appui de la touche
 \emph{shift} permet d'accélérer les translations de la caméra.
+Cette dernière peut également suivre un ogre choisi aléatoirement lors de
+l'appui sur la touche \verb!h!.
 
 \subsubsection{Saut dans le temps et téléportation}
 Pour permettre à l'utilisateur d'observer plus finement le comportement des

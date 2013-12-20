@@ -5,8 +5,8 @@ Dans ce système, deux types d'agents sont en concurrence : Ogre et Robot. Les
 ogres doivent regrouper des petites caisses en bois alors que les robots ont
 pour buts d'éparpiller les caisses.
 
-\paragraph{}La simulation est rendue par l'utilisation du moteur 3D Ogre3D.
-Ogre3D est un moteur open source distribué sous licence MIT. Il est compatible
+\paragraph{}Le rendu de la simulation est effectué grâce au moteur Ogre3D.
+C'est un moteur open source distribué sous licence MIT. Il est compatible
 avec plusieurs plateformes (Linux, Mac OSX, et Windows). Pour ce projet nous
 utilisons le wrapper \CS~Mogre. Ainsi l'enjeu est l'exploration de différentes
 techniques d'animation et de rendu 3D: par exemple utilisation de source de lumière ou 
@@ -14,15 +14,16 @@ encore chargement et animation d'un modèles 3D.
 
 \paragraph{}Nous nous sommes aussi intéressés à l'aspect comportemental. Les comportements 
 des agents que nous avons implémenté, valident deux caractéristiques : vision locale et 
-autonomie. D'une part, Un agent doit avoir une vision partielle du système qui l'en tour. 
-Il ne peut en aucun cas réfléchir sur l'ensemble du système afin de prendre ça décision. 
+autonomie. D'une part, un agent doit avoir une vision partielle de son
+environnement. 
+Il ne peut en aucun cas réfléchir sur l'ensemble du système afin de prendre sa décision. 
 D'autre part, l'agent doit prendre sa décision de manière indépendante des autres agents.
-En construisant des comportements de manière local, on s'intéresse à l'évolution globale
+En construisant des comportements de manière locale, on s'intéresse à l'évolution globale
 du système.
 
 
-\paragraph{} Dans une première partie sera détaillé l'architecture global de
-l'application et les choix de conception réalisé. Ensuite sera expliqué le travail effectué
-au niveau comportemental ainsi que les différentes fonctionnalités graphiques réalisées. Une
-dernière parties décrira l'organisation mise en place pour la réalisation du projet.
-
+\paragraph{} Dans une première partie sera détaillé l'architecture de
+l'application et les choix de conception réalisé. Ensuite sera expliqué le
+travail effectué au niveau comportemental ainsi que les différentes
+fonctionnalités graphiques réalisées. Une dernière parties décrira
+l'organisation mise en place pour la réalisation du projet.

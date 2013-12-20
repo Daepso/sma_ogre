@@ -1,16 +1,3 @@
-\section{Architecture}
-Nous sommes partis d'un projet vierge afin de comprendre l'intégralité du code
-utilisé. Au cours du projet, nous nous sommes inspirés des différents
-tutoriels.
-
-Nous avons repris l'idée de la classe \texttt{OgreApp} qui regroupe l'ensemble
-des fonctions nécessaires aux bons fonctionnements d'une application ogre
-basique. On trouve donc les fonctions pour charger les ressources, créer une
-fenêtre, une scène, un scenelistener de base.
-
-\verb![diagramme de classes]!
-
-
 \section{Design pattern}
 
 Afin d'obtenir un code modulaire et facilement extensible nous avons mis en
@@ -91,3 +78,31 @@ d'autres ogres destructeurs en utilisant les factories. Cependant, cela ne
 fait pas partie des besoins du projet et cela reste possible en créant les
 agents sans passer par la factory - bien que l'on perde alors les avantages
 décrits ci-dessus.
+
+\section{Architecture}
+Nous sommes partis d'un projet vierge afin de comprendre l'intégralité du code
+utilisé. Au cours du projet, nous nous sommes inspirés des tutoriels
+disponibles.
+
+Nous avons repris l'idée de la classe \texttt{OgreApp} qui regroupe l'ensemble
+des fonctions nécessaires aux bons fonctionnements d'une application ogre. On
+trouve donc les fonctions pour charger les ressources, créer une fenêtre ou
+encore une scène.
+
+L'architecture de notre projet est détaillée sur le diagramme de classes
+suivant. Les comportements se trouvent dans un dossier séparés et héritent
+tous de la classe \verb!Behavior!. Les classes gérant l'instanciation de ces
+comportement héritent le la classe \verb!BehaviorFactory!. Le \emph{main} de
+l'application se trouve dans la classe \verb!Program! qui hérite elle même de
+notre classe \verb!OgreApp! en redéfinissant les méthodes permettant d'avoir
+le comportement spécifique à notre programme. Les agents ainsi que leur
+instanciation sont gérés par les classes \verb!Agent! et \verb!AgentFactory!. Les
+items sont gérés par les classes \verb!Item!, \verb!ItemManager! et
+\verb!ItemFactory!. Enfin les autres classes fournissent principalement des
+outils facilitant le développement de notre projet en assurant sa modularité
+et sa flexibilité.
+
+\begin{figure}
+    \center \includegraphics[width=15cm]{resources/ClassDiagram.png}
+    \caption{Diagramme de classes du projet}
+\end{figure}
