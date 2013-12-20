@@ -12,7 +12,7 @@ méthodes pour effectuer un déplacement vers une position visée, pour choisir
 une nouvelle destination. La méthode \texttt{Update} sera appelée à chaque frame.
 
 Afin de rassembler le code en commun dans les comportements constructeurs et
-destructeurs, une classe \texttt{CarriedBehavior} a été faites. Cette classe
+destructeurs, une classe \texttt{CarrierBehavior} a été créée. Cette classe
 hérite donc de la classe \texttt{Behavior}.  Elle rassemble les mécanisme pour
 ramasser des objets et les déposer. Nos comportements constructeurs et destructeurs
 hérite de cette classe.
@@ -63,9 +63,28 @@ cet endroit.
 des ogres. Au bout d'une durée relativement courte les ogres ont tous trouvé
 l'endroit comportent le plus de caisses.
 
+\paragraph{}
+Cependant les ogres étant devenus trop efficaces par rapport aux robots, nous
+avons ajouté un dernier comportement \texttt{MortalCleverBuilderBahavior} les
+rendant mortels. Leur espérance de vie est basée sur un temps de demi-vie -
+par analogie à la désintégration de corps radioactifs - au bout duquel environ
+la moitié de la population va disparaître. Cette espérance de vie est une
+propriété associée à ce nouveau comportement qui fait qu'à chaque mise à jour
+du comportement (toutes les frame) l'agent a une probabilité de mourir
+$P(death)$ valant :
+
+\[ P(death) = \lambda dt \]
+
+\[ où \left\{
+        \begin{array}{l}
+            \lambda  = \frac{\ln 2}{t_{1/2}}\\
+            t_{1/2} \quad \verb!est le temps de demi-vie!\\
+            dt \quad \verb!est le temps écoulé depuis la dernière mise à jour!
+    \end{array} \right. \]
+
 \subsubsection{Wrecker}
 \paragraph{}Au niveau du comportement de type destructeur, une seule version a
-été implementé : \texttt{WrekerBehavior}. Celle-ci ressemble fortement au premier comportement des
+été implémenté : \texttt{WrekerBehavior}. Celle-ci ressemble fortement au premier comportement des
 ogres mais les conditions pour poser un objet sont différentes.
 
 \begin{description}
@@ -88,8 +107,21 @@ trouver un endroit où ils n'ont pas d'autres caisses en vue.
 
 \section{Fonctionnalités}
 
+Nous avons implémenté diverses fonctionnalités au cours de ce projet. Nous
+avons classé ces fonctionnalités en trois types : les techniques de rendu 3D,
+les overlays - qui permettent d'ajouter des éléments 2D en superposition sur
+la scène - et les interactions avec l'utilisateur.
 
-\subsection{Techniques de modélisation 3D mises en place}
+\subsection{Techniques de rendu 3D}
+
+\subsubsection{Mode nuit}
+Une des premières fonctionnalités que nous avons mises en place est une mode
+nuit. Dans un premier temps nous nous sommes contentés de modifier la lumière
+ambiante pour donner cette impression de jour et de nuit. Par la suite, ayant
+ajouté une distance de vision à nos agent, nous avons décidé d'impacter cette
+distance en fonction de la luminosité ambiante : lorsqu'il fait nuit, les
+agents voient moins loin.
+
 \subsubsection{SkyBox}
 Nous avons essayé plusieurs méthodes pour le ciel : SkyBox et SkyDome. Le
 skydome n'était pas adapté à notre application. Notre terrain étant une
@@ -105,6 +137,7 @@ cube. Nous avons ensuite fais une texture basique avec gimp que nous avons
 appliqué sur notre cube en utilisant la méthode "UV texture map".
 Nous avons ensuite exporté le mesh afin de le mettre dans le format
 accepté par le moteur Ogre3D.
+
 
 % Fog ?
 % Lights ?
