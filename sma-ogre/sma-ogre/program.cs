@@ -49,20 +49,20 @@ namespace sma_ogre
 
             while (frameToPlay >= 2)
             {
-                UpdateFrame(evt);
+                UpdateFrame(evt, evt.timeSinceLastFrame);
                 frameToPlay--;
             }
-            UpdateFrame(evt);
+            UpdateFrame(evt, evt.timeSinceLastFrame*frameToPlay);
         }
 
-        protected void UpdateFrame(FrameEvent evt)
+        protected void UpdateFrame(FrameEvent evt, float worldElapsedTime)
         {
             if (WorldTime.Singleton.Pause)
             {
                 mOgreFactory.UpdateAgentsAction(evt);
                 mRobotFactory.UpdateAgentsAction(evt);
 
-                WorldTime.Singleton.UpdateTime(evt.timeSinceLastFrame);
+                WorldTime.Singleton.UpdateTime(worldElapsedTime);
                 LogInformation();
             }
             OverlayUtils.Singleton.Update();
