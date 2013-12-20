@@ -119,7 +119,7 @@ namespace sma_ogre
             OverlayManager.Singleton.GetOverlayElement("HelpBox" + "/Templates/MessageBox/Body").Caption =
                 "h : display this help\n" +
                 "i : display informations about the world\n" +
-                "l : toggle ambien light\n" +
+                "l : toggle ambient light\n" +
                 "\n" +
                 "P : Pause\n" +
                 "p : increase life speed\n" +
