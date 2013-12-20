@@ -36,7 +36,7 @@ namespace sma_ogre
             mOgreFactory.MakeNumAgents(WorldConfig.Singleton.InitialGoodAgentsNumber, true);
 
             mRobotFactory = AgentFactory.RobotFactory(mSceneMgr, mBrickFactory.GetItemManager());
-            mRobotFactory.MakeNumAgents(WorldConfig.Singleton.InitialBadAgentsNumber, true, true);
+            mRobotFactory.MakeNumAgents(WorldConfig.Singleton.InitialBadAgentsNumber, true, true, false);
 
             OverlayUtils.Singleton.Init(mRenderWindow);
 

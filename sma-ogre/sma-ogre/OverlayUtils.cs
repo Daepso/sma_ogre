@@ -81,7 +81,7 @@ namespace sma_ogre
             BorderPanelOverlayElement infoBox = (BorderPanelOverlayElement)OverlayManager.Singleton.CreateOverlayElementFromTemplate(
                 "Templates/MessageBox", "BorderPanel", "InfoBox");
             infoBox.Width = 300;
-            infoBox.Height = 300;
+            infoBox.Height = 200;
             infoBox.Top = 20;
             infoBox.Left = mRenderWindow.Width - infoBox.Width - 10;
             OverlayManager.Singleton.Create("InformationOverlay").Add2D(infoBox);
@@ -141,10 +141,12 @@ namespace sma_ogre
             OverlayManager.Singleton.GetOverlayElement("InfoBox" + "/Templates/MessageBox/Body").Caption =
                 "Time: "                   + WorldTime.Singleton.GetTimeString()      + " s\n" +
                 "Life acceleration rate: " + WorldTime.Singleton.SpeedFactor          +   "\n" +
+                "\n" +
                 "Number of robots: "       + InformationLogger.Singleton.RobotsNumber +   "\n" +
                 "Number of ogres: "        + InformationLogger.Singleton.OgresNumber  +   "\n" +
-                "Birth since beginning: "  +                                       "" +   "\n" +
-                "Death since beginning: "  +                                       "" +   "\n" ;
+                "\n" +
+                "Death since beginning: "  + InformationLogger.Singleton.DeathNumber  +   "\n" +
+                "Agents Halflife time: "   + WorldConfig.Singleton.AgentsHalfLife     + " s\n" ;
         }
     }
 }

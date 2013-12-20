@@ -1,6 +1,7 @@
 ﻿using Mogre;
 using System;
 using sma_ogre.behavior;
+using sma_ogre.utils;
 
 namespace sma_ogre
 {
@@ -11,10 +12,11 @@ namespace sma_ogre
         private Behavior       mAgentBehavior;
         private AgentAnimation mAgentAnimation;
 
+        private bool mAgentIsMortal;
         private bool mAgentIsDead;
 
         public Agent(SceneManager sceneMgr, string meshName, Vector3 meshFacedDirection, Behavior agentBehavior, Vector3 position,
-            bool useAnimation = false)
+            bool useAnimation = false, bool isMortal = true)
         {
             mEntity     = sceneMgr.CreateEntity(meshName);
             mEntityNode = sceneMgr.RootSceneNode.CreateChildSceneNode();
@@ -32,18 +34,19 @@ namespace sma_ogre
                 mAgentAnimation = new AgentAnimation(mEntity);
             }
 
+            mAgentIsMortal = isMortal;
             mAgentIsDead = false;
         }
 
         public void UpdateAction(FrameEvent evt)
         {
-            if (AgentDies(evt.timeSinceLastFrame))
+            if (mAgentIsMortal && AgentDies(evt.timeSinceLastFrame))
             {
                 Kill();
                 mAgentIsDead = true;
             }
 
-            if (!mAgentIsDead)
+            if (!mAgentIsMortal || !mAgentIsDead)
             {
                 mAgentBehavior.Update(evt.timeSinceLastFrame, mAgentAnimation);
             }
@@ -56,12 +59,14 @@ namespace sma_ogre
 
         private float AgentDeathProbability(float elapsedTime)
         {
-            return 1.0f / 40 * elapsedTime;
+            float ln2 = 0.69314718f;
+            return ln2 / WorldConfig.Singleton.AgentsHalfLife * elapsedTime;
         }
 
         public void Kill()
         {
             mAgentBehavior.Die();
+            InformationLogger.Singleton.NewDeath();
         }
 
         public bool IsDead
