@@ -74,5 +74,10 @@ namespace sma_ogre
         {
             get { return mAgentIsDead; }
         }
+
+        public SceneNode GetNode()
+        {
+            return mEntityNode; 
+        }
     }
 }

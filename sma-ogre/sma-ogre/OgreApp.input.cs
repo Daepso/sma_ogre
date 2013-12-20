@@ -105,9 +105,19 @@ namespace sma_ogre
                     mCameraMan.FastMove = true;
                     mShiftKeyPressed = true;
                     break;
+                    
+                case MOIS.KeyCode.KC_F:
+                    CameraAttach();
+
+
+                    break;
             }
 
             return true;
+        }
+
+        protected virtual void CameraAttach()
+        {
         }
 
         protected bool OnKeyReleased(KeyEvent evt)
@@ -147,6 +157,7 @@ namespace sma_ogre
                     mCameraMan.FastMove = false;
                     mShiftKeyPressed = false;
                     break;
+
             }
 
             return true;

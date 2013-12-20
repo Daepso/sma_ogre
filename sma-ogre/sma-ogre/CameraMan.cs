@@ -16,9 +16,12 @@ namespace sma_ogre
         private float  translateSpeed = 1000;
         private float  rotateSpeed    = 0.15f;
 
+        private SceneNode node;
+
         public CameraMan(Camera camera)
         {
             mCamera = camera;
+            node = null;
         }
 
         public bool GoingForward
@@ -84,6 +87,26 @@ namespace sma_ogre
         {
             mCamera.Yaw(  new Degree(-x * rotateSpeed));
             mCamera.Pitch(new Degree(-y * rotateSpeed));
+        }
+
+        public void AttachToNode(SceneNode node)
+        {
+            if (node != null)
+            {
+                node.AttachObject(mCamera);
+                this.node = node;
+            }
+        }
+
+        public void DetachToNode()
+        {
+            node.DetachObject(mCamera);
+            node = null;
+        }
+
+        public bool IsAttach()
+        {
+            return node != null;
         }
     }
 }

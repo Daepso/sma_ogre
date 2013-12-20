@@ -102,5 +102,16 @@ namespace sma_ogre
                 mAgents.Remove(agent);
             }
         }
+
+        public SceneNode GetRandomNodeAgent()
+        {
+            if(mAgents.Count != 0)
+            {
+                int randId = WorldConfig.Singleton.RandInt(0,mAgents.Count-1);
+                return mAgents[randId].GetNode();
+            }
+            else
+                return null;
+        }
     }
 }
