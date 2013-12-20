@@ -73,5 +73,14 @@ namespace sma_ogre
             InformationLogger.Singleton.OgresNumber  = mOgreFactory.GetAgentsNumber();
             InformationLogger.Singleton.RobotsNumber = mRobotFactory.GetAgentsNumber();
         }
+
+        protected override void CameraAttach()
+        {
+            if (mCameraMan.IsAttach())
+                mCameraMan.DetachToNode();
+            else
+                mCameraMan.AttachToNode(mOgreFactory.GetRandomNodeAgent());
+        }
+
     }
 }
