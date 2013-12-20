@@ -71,7 +71,7 @@ namespace sma_ogre
                     break;
 
                 // World properties
-                case MOIS.KeyCode.KC_L:
+                case MOIS.KeyCode.KC_N:
                     mSceneMgr.AmbientLight = WorldConfig.Singleton.SwitchedLight();
                     break;
 

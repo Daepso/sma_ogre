@@ -28,7 +28,7 @@ namespace sma_ogre.behavior
         {
             List<Item> listItem = itemManager.GetItemInSight(mAgentNode.Position.x,
                                                         mAgentNode.Position.z,
-                                                        WorldConfig.Singleton.BuilderSightRange);
+                                                        RealSightRange(WorldConfig.Singleton.BuilderSightRange));
             float minDis = float.MaxValue;
             Item closestItem = null;
             foreach (Item i in listItem)

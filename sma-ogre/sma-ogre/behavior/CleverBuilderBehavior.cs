@@ -32,7 +32,7 @@ namespace sma_ogre.behavior
         {
             List<Item> listItem = itemManager.GetItemInSight(mAgentNode.Position.x,
                                                              mAgentNode.Position.z,
-                                                             WorldConfig.Singleton.BuilderSightRange);
+                                                             RealSightRange(WorldConfig.Singleton.BuilderSightRange));
             if (listItem.Count > ObjectInSightMaxNumber)
             {
                 ObjectInSightMaxNumber = listItem.Count;
@@ -58,8 +58,8 @@ namespace sma_ogre.behavior
             if(isAtTargetPosition)
             {
                 List<Item> listItem = itemManager.GetItemInSight(mAgentNode.Position.x,
-                                                         mAgentNode.Position.z,
-                                                         WorldConfig.Singleton.BuilderSightRange);
+                                                                 mAgentNode.Position.z,
+                                                                 RealSightRange(WorldConfig.Singleton.BuilderSightRange));
                 ObjectInSightMaxNumber = listItem.Count;
                 return true;
             }

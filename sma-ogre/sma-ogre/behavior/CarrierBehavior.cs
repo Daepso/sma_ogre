@@ -36,11 +36,23 @@ namespace sma_ogre.behavior
             carriedItem = null;
         }
 
+        protected float RealSightRange(float baseSightRange)
+        {
+            if (WorldConfig.Singleton.NightMode)
+            {
+                return baseSightRange / 10;
+            }
+            else
+            {
+                return baseSightRange;
+            }
+        }
+
         protected bool SearchObjectAction()
         {
             List<Item> listItem = itemManager.GetItemInSight(mAgentNode.Position.x,
                                                              mAgentNode.Position.z,
-                                                             WorldConfig.Singleton.BuilderSightRange);
+                                                             RealSightRange(WorldConfig.Singleton.DefaultSightRange));
             float minDis = float.MaxValue;
             Item closestItem = null;
             foreach (Item i in listItem)
